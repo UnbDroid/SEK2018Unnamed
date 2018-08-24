@@ -1,0 +1,43 @@
+//Kp, Tp and offset, have to be tuned for each robot and each application.
+
+task main() {
+
+  float lRotation = MotorRotationCount(OUT_A);
+  float rRotation = MotorRotationCount(OUT_C);
+  float error, turn, powerA, powerC, derivate;
+  /* float white = 70.0; */
+  /* float black = 32.0; */
+  float Tp = 70.0; //Target Power
+  float Kp = 5.0; //Constant for the proportional controller
+  float Ki = 1.0;
+  float Kd = 10.0;
+  float integral = 0.0;
+  float lastError = 0.0;
+  /* float offset = (lRotation + rRotation)/2.0; //Value to subtract from a raw light reading to convert to an error */
+  while (true) {
+    lRotation = MotorRotationCount(OUT_A);
+    rRotation = MotorRotationCount(OUT_C);
+    error = lRotation - rRotation;
+    integral = ((2/3)*integral) + error;
+    derivate = error - lastError;
+    turn = (Kp * error) + (Ki*integral) + (Kd*derivate);
+    powerA = Tp - turn;
+    powerC = Tp + turn;
+    OnFwd(OUT_A, powerA);
+    OnFwd(OUT_C, powerC);
+    lastError = error;
+
+
+    ClearScreen();
+    ClearLine(LCD_LINE4);
+    NumOut(0, LCD_LINE1, lRotation);
+    NumOut(0, LCD_LINE2, rRotation);
+    NumOut(0, LCD_LINE3, error);
+    NumOut(0, LCD_LINE4, integral);
+    NumOut(0, LCD_LINE5, derivate);
+    NumOut(0, LCD_LINE6, turn);
+    NumOut(0, LCD_LINE7, powerA);
+    NumOut(0, LCD_LINE8, powerC);
+
+  }
+}

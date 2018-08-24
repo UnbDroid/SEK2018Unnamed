@@ -1,0 +1,5 @@
+task main() {
+  RotateMotor(OUT_A, -70, 4500);
+  RotateMotor(OUT_AC, 70, 7000);
+  RotateMotor(OUT_A, -70, 6000);
+}
