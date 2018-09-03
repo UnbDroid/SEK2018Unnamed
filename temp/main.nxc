@@ -1,0 +1,7 @@
+#include "defines.h"
+
+task main() {
+  while(true) {
+    playTone();
+  }
+}
