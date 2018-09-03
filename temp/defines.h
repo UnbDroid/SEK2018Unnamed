@@ -28,6 +28,5 @@
 #define MIN_GREEN_COUNT 10
 #define TRUE 1
 #define FALSE 0
-#include "play.nxc"
 
-// void playTone();
+void playTone();

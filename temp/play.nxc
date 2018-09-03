@@ -1,3 +1,5 @@
+#include "defines.h"
+
 void playTone(){
   NumOut(0,LCD_LINE1,45);
 }
