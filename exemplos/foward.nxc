@@ -1,5 +1,7 @@
 //Kp, Tp and offset, have to be tuned for each robot and each application.
 
+Teste de git rulesx
+
 task main() {
 
   float lRotation = MotorRotationCount(OUT_A);
