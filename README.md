@@ -7,7 +7,7 @@
 │   ├── exemplos
 │   │   ├── pacman_bfs
 │   ├── source
-│   │   ├── includes
+│   │   ├── include
 │   │   │   ├── claw.h
 │   │   ├── lib
 │   │   │   ├── claw.nxc
