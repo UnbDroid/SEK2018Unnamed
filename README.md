@@ -18,6 +18,35 @@ A Branch **dev** é a nossa branch principal e todos os merges requests devem se
 
 ## Desenvolvendo Novas Features
 
+Novas funcionalidades devem ser desenvolvidas em branches únicas, **nenhuma feature deve ser desenvolvida na master e dev**.
+
+Então como desenvolvo novas features? Com novas branches!
+
+O intuito é que cada biblioteca seja construida em uma branch única. Por exemplo, se eu quero criar uma função de girar 90 graus, devo criá-la em uma biblioteca de movimentação, logo essa biblioteca deve ser construida em uma branch nova.
+
+O comando para criar uma nova branch é :
+
+```git
+git branch nome_da_branch
+```
+
+Para vizualisar todas as branches disponíveis:
+
+```git
+git branch
+```
+
+E para mudar seu ambiente de desenvolvimento para a branch desejada:
+```git
+git checkout nome_da_branch
+````
+
+Após ter adicionado mudanças e realizado o commit na sua branch, ao dar o push você pode se deparar com um possível erro. Este erro é porque sua branch ainda não existe no repositório remoto. Para corrigí-lo utilize o comando abaixo que realizará a ligação entre seu branch local e remoto.
+````git 
+git push --set-upstream origin nome_da_branch
+````
+
+Quando todas as mudanças respectivas à branch estiverem prontas e testadas, solicite uma aprovação de pull request no repositório do Github.
 
 ## Modularização do Repositório
 
