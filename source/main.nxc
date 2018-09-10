@@ -1,7 +1,7 @@
-#include "lib/play.nxc"
+/* #include "./lib/filesIO.nxc" */
 
 task main() {
-  while(true) {
-    playTone();
+  while(true){
+    TextOut(0,LCD_LINE1, "GO SEKMANDA!");
   }
 }

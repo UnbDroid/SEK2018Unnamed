@@ -1,0 +1,116 @@
+/*
+  Arquivo: filesIO.nxc
+  Descricao: Este arquivo contem as definicoes para criacao,
+             leitura e escrita de arquivos.
+  Autores: Renato Nobre
+  Data de Modificacao: 06/09/2018
+  Versao: 1.0
+*/
+
+
+#include "include/filesIO.h"
+
+void init_config(config &c, int id, string colorName, float value) {
+  c.id = id;
+  c.name = colorName;
+  c.value = value;
+}
+
+void shutdown(const int delay) {
+   if (handle) {
+     CloseFile(handle);
+   }
+   // Get user's attention.
+   PlayTone(TONE_C5, SEC_1);
+   // Give the user time to read screen messages.
+   Wait(delay);
+   Stop(true);
+}
+
+void rtn_code_out(const unsigned int code) {
+   TextOut(0, LCD_LINE2, "code            ");
+   TextOut(50, LCD_LINE2, FormatNum("%04x", code));
+}
+
+void openForWrite(string fileName, unsigned int fileSize) {
+  handle = 0;
+
+  // Start with the assumptions the file doesn't exist and needs to be created.
+  unsigned int rtn_code = CreateFile(fileName, fileSize, handle);
+
+  // If the file already exists, open it with the intent of adding to the data
+  // that is already there.
+  if (rtn_code == LDR_FILEEXISTS) {
+    rtn_code = OpenFileAppend(fileName, fileSize, handle);
+  }
+  // Return code handling
+  switch (rtn_code) {
+    case LDR_SUCCESS:
+       return;
+    case LDR_FILEISFULL:
+       TextOut(0, LCD_LINE1, "file is full    ");
+       break;
+    default:
+       // Unanticipated exception.
+       TextOut(0, LCD_LINE1, "write open      ");
+       rtn_code_out(rtn_code);
+       break;
+  }
+  shutdown(SEC_8);
+}
+
+void openForRead(string fileName, unsigned int fileSize) {
+  unsigned int file_size = fileSize;
+  handle = 0;
+  unsigned int rtn_code = OpenFileRead(fileName, fileSize, handle);
+  // Return code handling
+  if (rtn_code != LDR_SUCCESS) {
+     // Unanticipated exception.
+     TextOut(0, LCD_LINE1, "read open       ");
+     rtn_code_out(rtn_code);
+     shutdown(SEC_8);
+  }
+}
+
+void writeConfigOnFile(const config recd) {
+  unsigned int rtn_code = Write(handle, recd);
+
+  // Return code handling
+  if (rtn_code != LDR_SUCCESS) {
+     switch (rtn_code) {
+       case LDR_EOFEXPECTED:
+          TextOut(0, LCD_LINE1, "no more space   ");
+          break;
+       default:
+          // Unanticipated exception.
+          TextOut(0, LCD_LINE1, "write failed    ");
+          rtn_code_out(rtn_code);
+          break;
+     }
+     shutdown(SEC_8);
+  }
+}
+
+void readConfigFile(config &reacd) {
+  while (true) {
+     unsigned int rtn_code = Read(handle, reacd);
+     // rtn_code_out(rtn_code);
+     // Return code handling
+     switch (rtn_code)
+     {
+     case LDR_SUCCESS:
+        // Record has been read. Display circle described by it.
+        NumOut(0,LCD_LINE1,reacd.value);
+        Wait(SEC_2);
+        break;
+     case LDR_ENDOFFILE:
+        // No more data to read.
+        return;
+     default:
+        // Unanticipated exception.
+        TextOut(0, LCD_LINE1, "read failed     ");
+        rtn_code_out(rtn_code);
+        shutdown(SEC_8);
+     }
+  }
+}
