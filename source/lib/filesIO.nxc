@@ -3,14 +3,14 @@
   Descricao: Este arquivo contem as definicoes para criacao,
              leitura e escrita de arquivos.
   Autores: Renato Nobre
-  Data de Modificacao: 06/09/2018
+  Data de Modificacao: 13/09/2018
   Versao: 1.0
 */
 
 
 #include "include/filesIO.h"
 
-void initConfig(config &c, int id, float value) {
+void initColorConf(colorConf &c, int id, float value) {
   c.id = id;
   c.value = value;
 }
@@ -76,7 +76,7 @@ void openForRead(string fileName, unsigned int fileSize) {
   }
 }
 
-void writeConfigOnFile(const config recd) {
+void writeColorConfOnFile(const colorConf recd) {
   unsigned int rtn_code = Write(handle, recd);
 
   // Return code handling
@@ -94,7 +94,7 @@ void writeConfigOnFile(const config recd) {
   }
 }
 
-void readConfigFile(config &reacd) {
+void readColorConfFile(colorConf &reacd) {
   while (true) {
      unsigned int rtn_code = Read(handle, reacd);
      // Return code handling

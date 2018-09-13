@@ -1,3 +1,12 @@
+/*
+  Arquivo: colors.nxc
+  Descricao: Este arquivo contem as definicoes da
+    biblioteca de identificacao de cor.
+  Autores: Renato Nobre
+  Data de Modificacao: 13/09/2018
+  Versao: 1.0
+*/
+
 #include "include/colors.h"
 
 float getDefaultValue(int color){
@@ -40,35 +49,27 @@ string getColorName(int color){
 
   switch (color) {
     case ID_AMARELO:
-      /* strcpy("Amarelo", colorName); */
       colorName = "Amarelo";
       break;
     case ID_VERDE:
-      /* strcpy("Amarelo", colorName); */
       colorName = "Verde";
       break;
     case ID_AZUL:
-      /* strcpy("Amarelo", colorName); */
       colorName = "Azul";
       break;
     case ID_VERMELHO:
-      /* strcpy("Amarelo", colorName); */
       colorName = "Vermelho";
       break;
-    case ID_LARANJA:
-      /* strcpy("Amarelo", colorName); */
+    case ID_LARANJA
       colorName = "Laranja";
       break;
     case ID_ROXO:
-      /* strcpy("Amarelo", colorName); */
       colorName = "Roxo";
       break;
     case ID_PRETO:
-      /* strcpy("Amarelo", colorName); */
       colorName = "Preto";
       break;
     case ID_BRANCO:
-      /* strcpy("Amarelo", colorName); */
       colorName = "Branco";
       break;
     default:

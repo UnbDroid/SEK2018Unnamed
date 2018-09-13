@@ -3,69 +3,81 @@
   Descricao: Este arquivo contem as declaracoes para criacao,
              leitura e escrita de arquivos.
   Autores: Renato Nobre
-  Data de Modificacao: 06/09/2018
+  Data de Modificacao: 13/09/2018
   Versao: 1.0
 */
 
 byte handle = 0;
 
 
-/* Config Struct
+/* colorConf Struct
   Descricao: Estruturas contendo informacoes de calibracao
   Propriedades:
     - id: O identificador do que esta sendo calibrado
     - value: O valor do que esta sendo calibrado
 */
-struct config {
+struct colorConf {
   int id;
   float value;
 };
 
-/*
-  Descricao:
+/* Check File Existence
+  Descricao: Verifica se o arquivo existe ou nao
   Parametros:
+    - fileName: Uma string contendo o nome do arquivo
+    - fileSize: O tamanho do arquivo que estamos verificando a existencia
   Retorno:
+    - 1: Caso o arquivo exista
+    - 0: Caso o arquivo nao exista
 */
 int checkFileExistence(string fileName, unsigned int fileSize);
 
-/*
-  Descricao:
+/* Delete File
+  Descricao: Apaga um arquivo caso ele exista
   Parametros:
-  Retorno:
+    - fileName: Uma string contendo o nome do arquivo
+    - fileSize: O tamanho do arquivo que estamos apagando
 */
 void deleteFile(string fileName, unsigned int fileSize);
 
-/*
-  Descricao:
+/* Init Color Conf
+  Descricao: Cria uma struct colorConf com os parametros passados
   Parametros:
+    - c: A struct colorConf
+    - id: O identificador de uma cor
+    - value: O valor de uma cor
   Retorno:
 */
-void init_config(config &c, int id, float value);
+void initColorConf(colorConf &c, int id, float value);
 
-/*
-  Descricao:
+/* Open For Write
+  Descricao: Abre um arquivo para a leitura
   Parametros:
-  Retorno:
+  - fileName: Uma string contendo o nome do arquivo
+  - fileSize: O tamanho do arquivo
 */
 void openForWrite(string fileName, unsigned int fileSize);
 
-/*
-  Descricao:
+/* Open for Read
+  Descricao: Abre um arquivo para escrita
   Parametros:
-  Retorno:
+    - fileName: Uma string contendo o nome do arquivo
+    - fileSize: O tamanho do arquivo
 */
 void openForRead(string fileName, unsigned int fileSize);
 
-/*
-  Descricao:
+/* Write Color Config On File
+  Descricao: Escreve uma estrutura de colorConf em um
+    arquivo aberto para escrita
   Parametros:
-  Retorno:
+    - recd: A estrutura de colorConf
 */
-void writeConfigOnFile(const config recd);
+void writeColorConfOnFile(const colorConf recd);
 
-/*
-  Descricao:
+/* Read Color Config File
+  Descricao: Ler uma estrutura de colorConf em um
+    arquivo aberto para leitura
   Parametros:
-  Retorno:
+    - recd: A estrutura de colorConf
 */
-void readConfigFile(config &reacd);
+void readColorConfFile(colorConf &reacd);

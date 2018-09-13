@@ -1,3 +1,13 @@
+/*
+  Arquivo: defines.h
+  Descricao: Este arquivo contem as declaracoes base do sistema.
+    Por exemplo: mapeamento de sensores
+  Autores: Renato Nobre, Valesca Soares
+  Data de Modificacao: 13/09/2018
+  Versao: 1.0
+*/
+
+
 //Mr. Roboto
 #define MOTOR_LEFT OUT_A
 #define MOTOR_RIGHT OUT_B

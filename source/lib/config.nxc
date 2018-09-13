@@ -1,17 +1,25 @@
+/*
+  Arquivo: config.nxc
+  Descricao: Este arquivo contem as definicoes do programa de calibracao.
+  Autores: Renato Nobre
+  Data de Modificacao: 13/09/2018
+  Versao: 1.0
+*/
+
 #include "include/defines.h"
 #include "include/config.h"
 #include "lib/filesIO.nxc"
 #include "lib/colors.nxc"
 
 void saveToFile(int id, float value){
-  config color;
-  initConfig(color, id, value);
+  colorConf color;
+  initColorConf(color, id, value);
   openForWrite(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
-  writeConfigOnFile(color);
+  writeColorConfOnFile(color);
   CloseFile(handle);
 }
 
-void configUI(string colorName, float value){
+void colorConfUI(string colorName, float value){
   TextOut(0,LCD_LINE1,"====Calibrar====");
   string vString = NumToStr(value);
   TextOut(0,LCD_LINE2, StrCat("CALIBRAR ", colorName));
@@ -28,7 +36,7 @@ void configColor(int color) {
   string colorName = getColorName(color);
   while((btCenter == false) && (btRight == false)) {
     ReadSensorHTColor2Active(COLOR_LEFT, num, red, green, blue, white);
-    configUI(colorName, red);
+    colorConfUI(colorName, red);
     btCenter = ButtonPressed(BTNCENTER, false);
     btRight = ButtonPressed(BTNRIGHT, false);
   }
