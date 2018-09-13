@@ -79,5 +79,8 @@ void writeColorConfOnFile(const colorConf recd);
     arquivo aberto para leitura
   Parametros:
     - recd: A estrutura de colorConf
+    - output: O vetor de cores lido do arquivos, deve se passar um vetor vazio
+  Retorno:
+    Retorna por referencia o vetor de cores lido
 */
-void readColorConfFile(colorConf &reacd);
+void readColorConfFile(colorConf &reacd, colorConf &output[]);

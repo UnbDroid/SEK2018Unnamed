@@ -94,27 +94,18 @@ void writeColorConfOnFile(const colorConf recd) {
   }
 }
 
-void readColorConfFile(colorConf &reacd) {
-  while (true) {
-     unsigned int rtn_code = Read(handle, reacd);
-     // Return code handling
-     switch (rtn_code) {
-       case LDR_SUCCESS:
-
-          ClearScreen();
-          // Record has been read. Display circle described by it.
-          NumOut(0,LCD_LINE1,reacd.id);
-          NumOut(0,LCD_LINE3,reacd.value);
-
-          Wait(SEC_2);
-          break;
-       case LDR_ENDOFFILE:
-          // No more data to read.
-          return;
-       default:
-          // Unanticipated exception.
-          TextOut(0, LCD_LINE1, "read failed     ");
-          logError(rtn_code);
-     }
+void readColorConfFile(colorConf &reacd, colorConf &output[]) {
+  unsigned int rtn_code = Read(handle, reacd);
+  int i = 0;
+  while (rtn_code != LDR_ENDOFFILE){
+    if (rtn_code == LDR_SUCCESS) {
+      output[i] = reacd;
+    } else {
+      // Unanticipated exception.
+      TextOut(0, LCD_LINE1, "read failed     ");
+      logError(rtn_code);
+    }
+    i += 1;
+    rtn_code = Read(handle, reacd);
   }
 }
