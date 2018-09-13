@@ -2,10 +2,13 @@
 #include "lib/colors.nxc"
 #include "include/defines.h"
 
-void saveToFile(int id, string colorName, float value){
+#define CONFIG_FILE_SIZE 2048
+#define CONFIG_FILE_NAME "config.dat"
+
+void saveToFile(int id, float value){
   config color;
-  init_config(color, id, colorName, value);
-  openForWrite("config.dat", SizeOf(color));
+  init_config(color, id, value);
+  openForWrite(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
   writeConfigOnFile(color);
   CloseFile(handle);
 }
@@ -23,34 +26,29 @@ void configUI(string colorName, float value){
 void configColor(int color) {
   bool btCenter = false;
   bool btRight = false;
+  byte num, red, green, blue, white;
   string colorName = getColorName(color);
   while((btCenter == false) && (btRight == false)) {
-    float value = SensorRaw(COLOR_LEFT);
-    configUI(colorName, value);
+    ReadSensorHTColor2Active(COLOR_LEFT, num, red, green, blue, white);
+    configUI(colorName, red);
     btCenter = ButtonPressed(BTNCENTER, false);
     btRight = ButtonPressed(BTNRIGHT, false);
   }
 
   until(!ButtonPressed(BTNCENTER, true) && !ButtonPressed(BTNRIGHT, true));
 
-  /* SetButtonState(BTNCENTER, BTNSTATE_NONE); */
-  /* SetButtonState(BTNRIGHT, BTNSTATE_NONE); */
+
+  if (btCenter == true) {
+    saveToFile(color, red);
+  } else {
+    saveToFile(color, getDefaultValue(color));
+  }
 
   ClearScreen();
 }
 
-  /* if (btCenter == true){ */
-
-    /* saveToFile(color, colorName, ) */
-  /* } else { */
-
-  /* } */
-
-
 task main() {
-    SetButtonPressCount(BTNCENTER, 0);
-    SetButtonPressCount(BTNRIGHT, 0);
-    SetSensor(COLOR_LEFT, SENSOR_LOWSPEED);
+    SetSensorLowspeed(COLOR_LEFT);
     SetHTColor2Mode(COLOR_LEFT, HT_CMD_COLOR2_ACTIVE);
     configColor(ID_AMARELO);
     configColor(ID_VERDE);
@@ -60,13 +58,5 @@ task main() {
     configColor(ID_ROXO);
     configColor(ID_PRETO);
     configColor(ID_BRANCO);
-  /* config c;
-  openForWrite("config.dat", 4*SizeOf(c));
-  NumOut(0,LCD_LINE1,SizeOf(c));
-  Wait(5000);
-  writeConfigOnFile(c);
-  CloseFile(handle);
-  openForRead("config.dat", 4*SizeOf(c));
-  readConfigFile(c);
-  shutdown(SEC_8); */
+
 }

@@ -10,21 +10,10 @@
 
 #include "include/filesIO.h"
 
-void init_config(config &c, int id, string colorName, float value) {
+void init_config(config &c, int id, float value) {
   c.id = id;
-  c.name = colorName;
+  /* c.name = colorName; */
   c.value = value;
-}
-
-void shutdown(const int delay) {
-   if (handle) {
-     CloseFile(handle);
-   }
-   // Get user's attention.
-   PlayTone(TONE_C5, SEC_1);
-   // Give the user time to read screen messages.
-   Wait(delay);
-   Stop(true);
 }
 
 void rtn_code_out(const unsigned int code) {
@@ -56,7 +45,6 @@ void openForWrite(string fileName, unsigned int fileSize) {
        rtn_code_out(rtn_code);
        break;
   }
-  shutdown(SEC_8);
 }
 
 void openForRead(string fileName, unsigned int fileSize) {
@@ -68,7 +56,6 @@ void openForRead(string fileName, unsigned int fileSize) {
      // Unanticipated exception.
      TextOut(0, LCD_LINE1, "read open       ");
      rtn_code_out(rtn_code);
-     shutdown(SEC_8);
   }
 }
 
@@ -87,30 +74,30 @@ void writeConfigOnFile(const config recd) {
           rtn_code_out(rtn_code);
           break;
      }
-     shutdown(SEC_8);
   }
 }
 
 void readConfigFile(config &reacd) {
   while (true) {
      unsigned int rtn_code = Read(handle, reacd);
-     // rtn_code_out(rtn_code);
      // Return code handling
-     switch (rtn_code)
-     {
-     case LDR_SUCCESS:
-        // Record has been read. Display circle described by it.
-        NumOut(0,LCD_LINE1,reacd.value);
-        Wait(SEC_2);
-        break;
-     case LDR_ENDOFFILE:
-        // No more data to read.
-        return;
-     default:
-        // Unanticipated exception.
-        TextOut(0, LCD_LINE1, "read failed     ");
-        rtn_code_out(rtn_code);
-        shutdown(SEC_8);
+     switch (rtn_code) {
+       case LDR_SUCCESS:
+
+          ClearScreen();
+          // Record has been read. Display circle described by it.
+          NumOut(0,LCD_LINE1,reacd.id);
+          NumOut(0,LCD_LINE3,reacd.value);
+
+          Wait(SEC_2);
+          break;
+       case LDR_ENDOFFILE:
+          // No more data to read.
+          return;
+       default:
+          // Unanticipated exception.
+          TextOut(0, LCD_LINE1, "read failed     ");
+          rtn_code_out(rtn_code);
      }
   }
 }

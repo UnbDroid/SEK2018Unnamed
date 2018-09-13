@@ -18,7 +18,6 @@ byte handle = 0;
 */
 struct config {
   int id;
-  string name;
   float value;
 };
 
@@ -34,7 +33,7 @@ void shutdown(const int delay);
   Parametros:
   Retorno:
 */
-void init_config(config &c, int id, string colorName,float value);
+void init_config(config &c, int id, float value);
 
 /*
   Descricao:

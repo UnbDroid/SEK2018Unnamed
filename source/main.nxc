@@ -1,7 +1,13 @@
-/* #include "./lib/filesIO.nxc" */
+#include "./lib/filesIO.nxc"
 
 task main() {
   while(true){
-    TextOut(0,LCD_LINE1, "GO SEKMANDA!");
+    config c;
+    openForRead("config.dat", 2048);
+
+    readConfigFile(c);
+    /* NumOut(0,LCD_LINE1,c.id);
+    TextOut(0,LCD_LINE2,c.name);
+    NumOut(0,LCD_LINE3,c.value); */
   }
 }
