@@ -26,7 +26,14 @@ struct config {
   Parametros:
   Retorno:
 */
-void shutdown(const int delay);
+int checkFileExistence(string fileName, unsigned int fileSize);
+
+/*
+  Descricao:
+  Parametros:
+  Retorno:
+*/
+void deleteFile(string fileName, unsigned int fileSize);
 
 /*
   Descricao:

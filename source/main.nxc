@@ -1,13 +1,8 @@
 #include "./lib/filesIO.nxc"
+#include "./include/config.h"
 
 task main() {
-  while(true){
     config c;
-    openForRead("config.dat", 2048);
-
+    openForRead(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
     readConfigFile(c);
-    /* NumOut(0,LCD_LINE1,c.id);
-    TextOut(0,LCD_LINE2,c.name);
-    NumOut(0,LCD_LINE3,c.value); */
-  }
 }

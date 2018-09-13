@@ -10,15 +10,32 @@
 
 #include "include/filesIO.h"
 
-void init_config(config &c, int id, float value) {
+void initConfig(config &c, int id, float value) {
   c.id = id;
-  /* c.name = colorName; */
   c.value = value;
 }
 
-void rtn_code_out(const unsigned int code) {
+void logError(const unsigned int code) {
    TextOut(0, LCD_LINE2, "code            ");
    TextOut(50, LCD_LINE2, FormatNum("%04x", code));
+}
+
+int checkFileExistence(string fileName, unsigned int fileSize) {
+  unsigned int rtn_code = CreateFile(fileName, fileSize, handle);
+  CloseFile(handle);
+  if (rtn_code == LDR_FILEEXISTS) {
+    return 1;
+  } else {
+    return 0;
+  }
+
+
+}
+
+void deleteFile(string fileName, unsigned int fileSize) {
+  if (checkFileExistence(fileName, fileSize) == 1) {
+    unsigned int rtn_code = DeleteFile(fileName);
+  }
 }
 
 void openForWrite(string fileName, unsigned int fileSize) {
@@ -42,7 +59,7 @@ void openForWrite(string fileName, unsigned int fileSize) {
     default:
        // Unanticipated exception.
        TextOut(0, LCD_LINE1, "write open      ");
-       rtn_code_out(rtn_code);
+       logError(rtn_code);
        break;
   }
 }
@@ -55,7 +72,7 @@ void openForRead(string fileName, unsigned int fileSize) {
   if (rtn_code != LDR_SUCCESS) {
      // Unanticipated exception.
      TextOut(0, LCD_LINE1, "read open       ");
-     rtn_code_out(rtn_code);
+     logError(rtn_code);
   }
 }
 
@@ -71,7 +88,7 @@ void writeConfigOnFile(const config recd) {
        default:
           // Unanticipated exception.
           TextOut(0, LCD_LINE1, "write failed    ");
-          rtn_code_out(rtn_code);
+          logError(rtn_code);
           break;
      }
   }
@@ -97,7 +114,7 @@ void readConfigFile(config &reacd) {
        default:
           // Unanticipated exception.
           TextOut(0, LCD_LINE1, "read failed     ");
-          rtn_code_out(rtn_code);
+          logError(rtn_code);
      }
   }
 }

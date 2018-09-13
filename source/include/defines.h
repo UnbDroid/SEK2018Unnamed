@@ -1,4 +1,3 @@
-
 //Mr. Roboto
 #define MOTOR_LEFT OUT_A
 #define MOTOR_RIGHT OUT_B
