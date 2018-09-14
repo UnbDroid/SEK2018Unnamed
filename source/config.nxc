@@ -1,0 +1,26 @@
+/*
+  Arquivo: config.nxc
+  Descricao: Este programa é responsavel por gerar um arquivo de calibracao
+    a ser lido pelo programa principal.
+  Autores: Renato Nobre
+  Data de Modificacao: 13/09/2018
+  Versao: 1.0
+*/
+
+
+#include "./lib/config.nxc"
+
+task main() {
+    CloseFile(handle);
+    SetSensorLowspeed(COLOR_LEFT);
+    SetHTColor2Mode(COLOR_LEFT, HT_CMD_COLOR2_ACTIVE);
+    deleteFile(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
+    configColor(ID_AMARELO);
+    configColor(ID_VERDE);
+    configColor(ID_AZUL);
+    configColor(ID_VERMELHO);
+    configColor(ID_LARANJA);
+    configColor(ID_ROXO);
+    configColor(ID_PRETO);
+    configColor(ID_BRANCO);
+}

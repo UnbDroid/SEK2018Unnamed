@@ -1,0 +1,54 @@
+/*
+  Arquivo: config.nxc
+  Descricao: Este arquivo contem as definicoes do programa de calibracao.
+  Autores: Renato Nobre
+  Data de Modificacao: 13/09/2018
+  Versao: 1.0
+*/
+
+#include "include/defines.h"
+#include "include/config.h"
+#include "lib/filesIO.nxc"
+#include "lib/colors.nxc"
+
+void saveToFile(int id, float value){
+  colorConf color;
+  initColorConf(color, id, value);
+  openForWrite(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
+  writeColorConfOnFile(color);
+  CloseFile(handle);
+}
+
+void colorConfUI(string colorName, float value){
+  TextOut(0,LCD_LINE1,"====Calibrar====");
+  string vString = NumToStr(value);
+  TextOut(0,LCD_LINE2, StrCat("CALIBRAR ", colorName));
+  TextOut(0,LCD_LINE4, StrCat("Valor: ", vString));
+  TextOut(0,LCD_LINE5,"BTN CENTRO PARA");
+  TextOut(0,LCD_LINE6,"ACC O VALOR");
+  TextOut(0,LCD_LINE8,"BTN DIR USAR DEF");
+}
+
+void configColor(int color) {
+  bool btCenter = false;
+  bool btRight = false;
+  byte num, red, green, blue, white;
+  string colorName = getColorName(color);
+  while((btCenter == false) && (btRight == false)) {
+    ReadSensorHTColor2Active(COLOR_LEFT, num, red, green, blue, white);
+    colorConfUI(colorName, red);
+    btCenter = ButtonPressed(BTNCENTER, false);
+    btRight = ButtonPressed(BTNRIGHT, false);
+  }
+
+  until(!ButtonPressed(BTNCENTER, true) && !ButtonPressed(BTNRIGHT, true));
+
+
+  if (btCenter == true) {
+    saveToFile(color, red);
+  } else {
+    saveToFile(color, getDefaultValue(color));
+  }
+
+  ClearScreen();
+}
