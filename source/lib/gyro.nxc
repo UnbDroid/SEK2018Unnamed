@@ -1,0 +1,40 @@
+#include "include/defines.h"
+#include "include/gyro.h"
+
+
+
+void turnGyro(){
+  SetSensorHTGyro(GIRO);
+  float angle = 0, gyro = 0;
+  unsigned long time, prev_time;
+  time = CurrentTick();
+
+  while(angle <= 90){
+    prev_time = time;
+    time = CurrentTick();
+    gyro = SensorHTGyro(GIRO);
+    angle += gyro * (time - prev_time)/1000.0;
+  }
+
+  /*if(lado == direita){
+    Off(MOTOR_BOTH);
+    OnFwd(MOTOR_LEFT, 70);
+    OnFwd(MOTOR_RIGHT,-70);
+    while(angle <= 90){
+      prev_time = time;
+      time = CurrentTick();
+      gyro = SensorHTGyro(GIRO);
+      angle += gyro * (time - prev_time)/1000.0;
+    }
+  }else if(lado == esquerda){
+    Off(MOTOR_BOTH);
+    OnFwd(MOTOR_RIGHT,70);
+    OnFwd(MOTOR_LEFT,-70);
+    while(angle >= -90){
+      prev_time = time;
+      time = CurrentTick();
+      gyro = SensorHTGyro(GIRO);
+      angle += gyro * (time - prev_time)/1000.0;
+    }*/
+  /* } */
+}

@@ -11,6 +11,7 @@
 //Mr. Roboto
 #define MOTOR_LEFT OUT_A
 #define MOTOR_RIGHT OUT_B
+#define MOTOR_BOTH OUT_AB
 #define GARRA OUT_C
 #define COLOR_RIGHT IN_1
 #define COLOR_LEFT IN_2
