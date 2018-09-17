@@ -24,12 +24,9 @@ void leArquivo(){
   }
 }
 
-
 task main() {
-
-      turn90();
-      RotateMotor(MOTOR_BOTH, 70, 100);
-
-
-
+  OnFwd(PORTA, 0);
+  OnFwd(TRAVA, 0);
+  SetSensorHTGyro(GIRO);
+  start turn180;
 }

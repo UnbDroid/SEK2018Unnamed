@@ -2,16 +2,52 @@
 #include "include/move.h"
 #include "lib/gyro.nxc"
 
-void turn90(){
-  Off(MOTOR_BOTH);
-  OnFwd(MOTOR_LEFT, 70);
-  OnFwd(MOTOR_RIGHT,-70);
-  turnGyro();
-  Off(MOTOR_BOTH);
+void turn90(int lado){
+  if (lado == DIREITA){
+    Off(MOTOR_BOTH);
+    OnFwd(MOTOR_LEFT, 70);
+    OnFwd(MOTOR_RIGHT,-70);
+    right90Gyro();
+    Off(MOTOR_BOTH);
+  } else {
+    Off(MOTOR_BOTH);
+    OnFwd(MOTOR_LEFT, -70);
+    OnFwd(MOTOR_RIGHT,70);
+    left90Gyro();
+    Off(MOTOR_BOTH);
+  }
 }
 
-void goFoward() {
+task turn180(){
+  Precedes(right180Gyro, turnPID);
+}
 
+task turnPID(){
+  ResetRotationCount(MOTOR_BOTH);
+  float lRotation = MotorRotationCount(MOTOR_LEFT);
+  float rRotation = MotorRotationCount(MOTOR_RIGHT);
+  float error, turn, pwrLeft, pwrRight, derivate;
+  float integral = 0.0;
+  float lastError = 0.0;
+
+  while(true){
+    lRotation = MotorRotationCount(MOTOR_LEFT);
+    rRotation = MotorRotationCount(MOTOR_RIGHT);
+    error = abs(lRotation) - abs(rRotation);
+    integral = ((2/3)*integral) + error;
+    derivate = error - lastError;
+    turn = (KP * error) + (KI*integral) + (KD*derivate);
+    pwrLeft = TP - turn;
+    pwrRight = TP + turn;
+    OnFwd(MOTOR_LEFT, pwrLeft);
+    OnRev(MOTOR_RIGHT, pwrRight);
+    lastError = error;
+  }
+}
+
+
+void goFoward() {
+  ResetRotationCount(MOTOR_BOTH);
   float lRotation = MotorRotationCount(MOTOR_LEFT);
   float rRotation = MotorRotationCount(MOTOR_RIGHT);
   float error, turn, pwrLeft, pwrRight, derivate;
