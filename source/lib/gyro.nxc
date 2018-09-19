@@ -1,8 +1,13 @@
 #include "include/defines.h"
 #include "include/gyro.h"
+#ifndef INCPID
+  #include "lib/pid.nxc"
+  #define INCPID
+#endif
 
 
-void right90Gyro(){
+task right90Gyro(){
+  SetSensorHTGyro(GIRO);
   float angle = 0, gyro = 0;
   unsigned long time, prev_time;
   time = CurrentTick();
@@ -13,9 +18,12 @@ void right90Gyro(){
     gyro = SensorHTGyro(GIRO);
     angle += gyro * (time - prev_time)/1000.0;
   }
+  stop turnRightPID;
+  Off(MOTOR_BOTH);
 }
 
-void left90Gyro(){
+task left90Gyro(){
+  SetSensorHTGyro(GIRO);
   float angle = 0, gyro = 0;
   unsigned long time, prev_time;
   time = CurrentTick();
@@ -26,9 +34,12 @@ void left90Gyro(){
     gyro = SensorHTGyro(GIRO);
     angle += gyro * (time - prev_time)/1000.0;
   }
+  stop turnLeftPID;
+  Off(MOTOR_BOTH);
 }
 
 task right180Gyro(){
+  SetSensorHTGyro(GIRO);
   float angle = 0, gyro = 0;
   unsigned long time, prev_time;
   time = CurrentTick();
@@ -39,6 +50,22 @@ task right180Gyro(){
     gyro = SensorHTGyro(GIRO);
     angle += gyro * (time - prev_time)/1000.0;
   }
-  stop turnPID;
+  stop turnRightPID;
+  Off(MOTOR_BOTH);
+}
+
+task left180Gyro(){
+  SetSensorHTGyro(GIRO);
+  float angle = 0, gyro = 0;
+  unsigned long time, prev_time;
+  time = CurrentTick();
+
+  while(angle >= -180){
+    prev_time = time;
+    time = CurrentTick();
+    gyro = SensorHTGyro(GIRO);
+    angle += gyro * (time - prev_time)/1000.0;
+  }
+  stop turnLeftPID;
   Off(MOTOR_BOTH);
 }

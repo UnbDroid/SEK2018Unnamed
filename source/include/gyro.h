@@ -1,3 +1,4 @@
+task left180Gyro();
 task right180Gyro();
-void left90Gyro();
-void right90Gyro();
+task left90Gyro();
+task right90Gyro();

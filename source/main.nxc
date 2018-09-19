@@ -27,6 +27,5 @@ void leArquivo(){
 task main() {
   OnFwd(PORTA, 0);
   OnFwd(TRAVA, 0);
-  SetSensorHTGyro(GIRO);
-  start turn180;
+  start turnRight90;
 }

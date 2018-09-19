@@ -1,0 +1,72 @@
+#include "include/defines.h"
+#include "include/pid.h"
+
+task turnRightPID(){
+  ResetRotationCount(MOTOR_BOTH);
+  float lRotation = MotorRotationCount(MOTOR_LEFT);
+  float rRotation = MotorRotationCount(MOTOR_RIGHT);
+  float error, turn, pwrLeft, pwrRight, derivate;
+  float integral = 0.0;
+  float lastError = 0.0;
+
+  while(true){
+    lRotation = MotorRotationCount(MOTOR_LEFT);
+    rRotation = MotorRotationCount(MOTOR_RIGHT);
+    error = abs(lRotation) - abs(rRotation);
+    integral = ((2/3)*integral) + error;
+    derivate = error - lastError;
+    turn = (KP * error) + (KI*integral) + (KD*derivate);
+    pwrLeft = TP - turn;
+    pwrRight = TP + turn;
+    OnFwd(MOTOR_LEFT, pwrLeft);
+    OnRev(MOTOR_RIGHT, pwrRight);
+    lastError = error;
+  }
+}
+
+task turnLeftPID(){
+  ResetRotationCount(MOTOR_BOTH);
+  float lRotation = MotorRotationCount(MOTOR_LEFT);
+  float rRotation = MotorRotationCount(MOTOR_RIGHT);
+  float error, turn, pwrLeft, pwrRight, derivate;
+  float integral = 0.0;
+  float lastError = 0.0;
+
+  while(true){
+    lRotation = MotorRotationCount(MOTOR_LEFT);
+    rRotation = MotorRotationCount(MOTOR_RIGHT);
+    error = abs(lRotation) - abs(rRotation);
+    integral = ((2/3)*integral) + error;
+    derivate = error - lastError;
+    turn = (KP * error) + (KI*integral) + (KD*derivate);
+    pwrLeft = TP - turn;
+    pwrRight = TP + turn;
+
+    OnRev(MOTOR_LEFT, pwrLeft);
+    OnFwd(MOTOR_RIGHT, pwrRight);
+    lastError = error;
+  }
+}
+
+
+void fowardPID() {
+  ResetRotationCount(MOTOR_BOTH);
+  float lRotation = MotorRotationCount(MOTOR_LEFT);
+  float rRotation = MotorRotationCount(MOTOR_RIGHT);
+  float error, turn, pwrLeft, pwrRight, derivate;
+  float integral = 0.0;
+  float lastError = 0.0;
+  while (true) {
+    lRotation = MotorRotationCount(MOTOR_LEFT);
+    rRotation = MotorRotationCount(MOTOR_RIGHT);
+    error = lRotation - rRotation;
+    integral = ((2/3)*integral) + error;
+    derivate = error - lastError;
+    turn = (KP * error) + (KI*integral) + (KD*derivate);
+    pwrLeft = TP - turn;
+    pwrRight = TP + turn;
+    OnFwd(MOTOR_LEFT, pwrLeft);
+    OnFwd(MOTOR_RIGHT, pwrRight);
+    lastError = error;
+  }
+}

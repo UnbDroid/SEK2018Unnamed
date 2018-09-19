@@ -1,83 +1,23 @@
 #include "include/defines.h"
 #include "include/move.h"
 #include "lib/gyro.nxc"
+#ifndef INCPID
+  #include "lib/pid.nxc"
+  #define INCPID
+#endif
 
-void turn90(int lado){
-  if (lado == DIREITA){
-    Off(MOTOR_BOTH);
-    OnFwd(MOTOR_LEFT, 70);
-    OnFwd(MOTOR_RIGHT,-70);
-    right90Gyro();
-    Off(MOTOR_BOTH);
-  } else {
-    Off(MOTOR_BOTH);
-    OnFwd(MOTOR_LEFT, -70);
-    OnFwd(MOTOR_RIGHT,70);
-    left90Gyro();
-    Off(MOTOR_BOTH);
-  }
+task turnLeft90(){
+  Precedes(left90Gyro, turnLeftPID);
 }
 
-task turn180(){
-  Precedes(right180Gyro, turnPID);
+task turnRight90(){
+  Precedes(right90Gyro, turnRightPID);
 }
 
-task turnPID(){
-  ResetRotationCount(MOTOR_BOTH);
-  float lRotation = MotorRotationCount(MOTOR_LEFT);
-  float rRotation = MotorRotationCount(MOTOR_RIGHT);
-  float error, turn, pwrLeft, pwrRight, derivate;
-  float integral = 0.0;
-  float lastError = 0.0;
-
-  while(true){
-    lRotation = MotorRotationCount(MOTOR_LEFT);
-    rRotation = MotorRotationCount(MOTOR_RIGHT);
-    error = abs(lRotation) - abs(rRotation);
-    integral = ((2/3)*integral) + error;
-    derivate = error - lastError;
-    turn = (KP * error) + (KI*integral) + (KD*derivate);
-    pwrLeft = TP - turn;
-    pwrRight = TP + turn;
-    OnFwd(MOTOR_LEFT, pwrLeft);
-    OnRev(MOTOR_RIGHT, pwrRight);
-    lastError = error;
-  }
+task turnLeft180(){
+  Precedes(left180Gyro, turnLeftPID);
 }
 
-
-void goFoward() {
-  ResetRotationCount(MOTOR_BOTH);
-  float lRotation = MotorRotationCount(MOTOR_LEFT);
-  float rRotation = MotorRotationCount(MOTOR_RIGHT);
-  float error, turn, pwrLeft, pwrRight, derivate;
-  float integral = 0.0;
-  float lastError = 0.0;
-  /* float offset = (lRotation + rRotation)/2.0; //Value to subtract from a raw light reading to convert to an error */
-  while (true) {
-    lRotation = MotorRotationCount(MOTOR_LEFT);
-    rRotation = MotorRotationCount(MOTOR_RIGHT);
-    error = lRotation - rRotation;
-    integral = ((2/3)*integral) + error;
-    derivate = error - lastError;
-    turn = (KP * error) + (KI*integral) + (KD*derivate);
-    pwrLeft = TP - turn;
-    pwrRight = TP + turn;
-    OnFwd(MOTOR_LEFT, pwrLeft);
-    OnFwd(MOTOR_RIGHT, pwrRight);
-    lastError = error;
-
-
-    ClearScreen();
-    ClearLine(LCD_LINE4);
-    NumOut(0, LCD_LINE1, lRotation);
-    NumOut(0, LCD_LINE2, rRotation);
-    NumOut(0, LCD_LINE3, error);
-    NumOut(0, LCD_LINE4, integral);
-    NumOut(0, LCD_LINE5, derivate);
-    NumOut(0, LCD_LINE6, turn);
-    NumOut(0, LCD_LINE7, pwrLeft);
-    NumOut(0, LCD_LINE8, pwrRight);
-
-  }
+task turnRight180(){
+  Precedes(right180Gyro, turnRightPID);
 }
