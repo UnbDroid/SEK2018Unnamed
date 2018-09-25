@@ -6,7 +6,7 @@
   Data de Modificacao: 13/09/2018
   Versao: 1.0
 */
-
+/*  Teste */
 #include "include/colors.h"
 
 float getDefaultValue(int color){
@@ -60,7 +60,7 @@ string getColorName(int color){
     case ID_VERMELHO:
       colorName = "Vermelho";
       break;
-    case ID_LARANJA
+    case ID_LARANJA:
       colorName = "Laranja";
       break;
     case ID_ROXO:

@@ -17,7 +17,7 @@ void initColorConf(colorConf &c, int id, float value) {
 
 void logError(const unsigned int code) {
    TextOut(0, LCD_LINE2, "code            ");
-   TextOut(50, LCD_LINE2, FormatNum("%04x", code));
+   /* TextOut(50, LCD_LINE2, FormatNum("%04x", code));  */
 }
 
 int checkFileExistence(string fileName, unsigned int fileSize) {
