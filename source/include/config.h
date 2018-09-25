@@ -15,7 +15,7 @@
     - id: Identificador da cor
     - value: Valor da cor
 */
-void saveToFile(int id, float value);
+void saveToFile(int id, float red, float green, float blue, float white);
 
 /* Color Config UI
   Descricao: Mostra a interface de interacao para escolher a cor
@@ -24,7 +24,7 @@ void saveToFile(int id, float value);
     - colorName: O nome da cor sendo calibrada
     - value: O valor em que o sensor esta lendo
 */
-void colorConfUI(string colorName, float value);
+void colorConfUI(string colorName, float red, float green, float blue, float white);
 
 /* Config Color
   Descricao: Configura um processo de salvamento de cor

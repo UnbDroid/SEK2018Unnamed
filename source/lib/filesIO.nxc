@@ -10,9 +10,12 @@
 
 #include "include/filesIO.h"
 
-void initColorConf(colorConf &c, int id, float value) {
+void initColorConf(colorConf &c, int id, float red, float green, float blue, float white) {
   c.id = id;
-  c.value = value;
+  c.red = red;
+  c.green = green;
+  c.blue = blue;
+  c.white = white;
 }
 
 void logError(const unsigned int code) {

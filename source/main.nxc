@@ -19,7 +19,10 @@ void leArquivo(){
   readColorConfFile(c, colors);
   for(int i = 0; i < 8; i++){
       NumOut(0,LCD_LINE1,colors[i].id);
-      NumOut(0,LCD_LINE2,colors[i].value);
+      NumOut(0,LCD_LINE2,colors[i].red);
+      NumOut(0,LCD_LINE3,colors[i].green);
+      NumOut(0,LCD_LINE4,colors[i].blue);
+      NumOut(0,LCD_LINE5,colors[i].white);
       Wait(1000);
   }
 }

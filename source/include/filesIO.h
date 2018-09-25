@@ -18,7 +18,10 @@ byte handle = 0;
 */
 struct colorConf {
   int id;
-  float value;
+  float red;
+  float green;
+  float blue;
+  float white;
 };
 
 /* Check File Existence
@@ -48,7 +51,7 @@ void deleteFile(string fileName, unsigned int fileSize);
     - value: O valor de uma cor
   Retorno:
 */
-void initColorConf(colorConf &c, int id, float value);
+void initColorConf(colorConf &c, int id, float red, float green, float blue, float white);
 
 /* Open For Write
   Descricao: Abre um arquivo para a leitura
