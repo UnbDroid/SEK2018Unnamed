@@ -7,19 +7,25 @@
   Versao: 1.0
 */
 
-#include "./lib/filesIO.nxc"
 #include "./include/config.h"
+#include "./lib/filesIO.nxc"
+#include "./lib/move.nxc"
+
+void leArquivo(){
+  colorConf c;
+  colorConf ret;
+  colorConf colors[8];
+  openForRead(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
+  readColorConfFile(c, colors);
+  for(int i = 0; i < 8; i++){
+      NumOut(0,LCD_LINE1,colors[i].id);
+      NumOut(0,LCD_LINE2,colors[i].value);
+      Wait(1000);
+  }
+}
 
 task main() {
-    colorConf c;
-    colorConf ret;
-    colorConf colors[8];
-    openForRead(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
-    readColorConfFile(c, colors);
-    for(int i = 0; i < 8; i++){
-        NumOut(0,LCD_LINE1,colors[i].id);
-        NumOut(0,LCD_LINE2,colors[i].value);
-        Wait(1000);
-    }
-
+  OnFwd(PORTA, 0);
+  OnFwd(TRAVA, 0);
+  start turnRight90;
 }
