@@ -37,11 +37,13 @@ void colorConfUI(string colorName, float red, float green, float blue, float whi
 void configColor(int color) {
   bool btCenter = false;
   bool btRight = false;
-  byte num, red, green, blue, white;
   string colorName = getColorName(color);
+  byte num=0, red=0, green=0, blue=0, white=0;
   while((btCenter == false) && (btRight == false)) {
-    ReadSensorHTColor2Active(COLOR_LEFT, num, red, green, blue, white);
+    ReadSensorHTColor2Active(COLOR_RIGHT, num, red, green, blue, white);
     colorConfUI(colorName, red, green, blue, white);
+    Wait(500);
+    ClearScreen();
     btCenter = ButtonPressed(BTNCENTER, false);
     btRight = ButtonPressed(BTNRIGHT, false);
   }

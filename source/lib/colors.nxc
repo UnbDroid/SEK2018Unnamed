@@ -9,7 +9,7 @@
 /*  Teste */
 #include "include/colors.h"
 
-float getDefaultValue(int color){
+/* float getDefaultValue(int color){
   float defValue;
   switch (color) {
     case ID_AMARELO:
@@ -42,7 +42,7 @@ float getDefaultValue(int color){
   }
 
   return defValue;
-}
+} */
 
 string getColorName(int color){
   string colorName;
