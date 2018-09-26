@@ -23,12 +23,14 @@ void leArquivo(){
       NumOut(0,LCD_LINE3,colors[i].green);
       NumOut(0,LCD_LINE4,colors[i].blue);
       NumOut(0,LCD_LINE5,colors[i].white);
-      Wait(1000);
+      Wait(3000);
+      ClearScreen();
   }
 }
 
 task main() {
-  OnFwd(PORTA, 0);
-  OnFwd(TRAVA, 0);
-  start turnRight90;
+  /* OnFwd(PORTA, 0); */
+  /* OnFwd(TRAVA, 0); */
+  /* start turnRight90; */
+  leArquivo();
 }
