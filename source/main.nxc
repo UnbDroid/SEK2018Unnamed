@@ -9,6 +9,7 @@
 
 #include "./include/config.h"
 #include "./lib/filesIO.nxc"
+#include "./lib/colors.nxc"
 #include "./lib/move.nxc"
 
 void leArquivo(){
@@ -29,8 +30,15 @@ void leArquivo(){
 }
 
 task main() {
-  /* OnFwd(PORTA, 0); */
-  /* OnFwd(TRAVA, 0); */
-  /* start turnRight90; */
-  leArquivo();
+  while (true) {
+
+    int value1 = leftSensorColorRead();
+    int value2 = rightSensorColorRead();
+    string colorName = getColorName(value1);
+    string colorName2 = getColorName(value2);
+    TextOut(0,LCD_LINE1,colorName);
+    TextOut(0,LCD_LINE2,colorName2);
+    Wait(1000);
+    ClearScreen();
+  }
 }

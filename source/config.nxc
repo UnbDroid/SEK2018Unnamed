@@ -19,8 +19,6 @@ task main() {
     configColor(ID_VERDE);
     configColor(ID_AZUL);
     configColor(ID_VERMELHO);
-    configColor(ID_LARANJA);
-    configColor(ID_ROXO);
     configColor(ID_PRETO);
     configColor(ID_BRANCO);
 }

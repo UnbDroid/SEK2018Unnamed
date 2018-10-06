@@ -7,6 +7,7 @@
   Versao: 1.0
 */
 /*  Teste */
+#include "include/defines.h"
 #include "include/colors.h"
 
 /* float getDefaultValue(int color){
@@ -49,33 +50,200 @@ string getColorName(int color){
 
   switch (color) {
     case ID_AMARELO:
-      colorName = "Amarelo";
+      colorName = "AMARELO";
       break;
     case ID_VERDE:
-      colorName = "Verde";
+      colorName = "VERDE";
       break;
     case ID_AZUL:
-      colorName = "Azul";
+      colorName = "AZUL";
       break;
     case ID_VERMELHO:
-      colorName = "Vermelho";
-      break;
-    case ID_LARANJA:
-      colorName = "Laranja";
-      break;
-    case ID_ROXO:
-      colorName = "Roxo";
+      colorName = "VERMELHO";
       break;
     case ID_PRETO:
-      colorName = "Preto";
+      colorName = "PRETO";
       break;
     case ID_BRANCO:
-      colorName = "Branco";
+      colorName = "BRANCO";
+      break;
+    case ID_QUEDA:
+      colorName = "QUEDA";
       break;
     default:
-      colorName = "Error";
+      colorName = "ERRO IDENT";
       break;
   }
 
   return colorName;
+}
+
+int intervalValue(int value) {
+    int regionIndex;
+    regionIndex = ceil(value/INTERVAL_SIZE)-1;
+    return regionIndex;
+}
+
+int intervalError(int value, int sum){
+  if (sum == SUB) {
+    return ceil((value-MEAN_ERROR)/INTERVAL_SIZE)-1;
+  } else {
+    return ceil((value+MEAN_ERROR)/INTERVAL_SIZE)-1;
+  }
+}
+
+void calculateInterval(int r, int g, int b, int w) {
+  int intervalR, intervalG, intervalB, intervalW;
+  int intervalRPlus, intervalGPlus, intervalBPlus, intervalWPlus;
+  int intervalRMinor, intervalGMinor, intervalBMinor, intervalWMinor;
+
+  intervalR = intervalValue(r);
+  intervalG = intervalValue(g);
+  intervalB = intervalValue(b);
+  intervalW = intervalValue(w);
+
+  intervalRPlus = intervalError(r, SUM);
+  intervalGPlus = intervalError(g, SUM);
+  intervalBPlus = intervalError(b, SUM);
+  intervalWPlus = intervalError(w, SUM);
+
+  intervalRMinor = intervalError(r, SUB);
+  intervalGMinor = intervalError(g, SUB);
+  intervalBMinor = intervalError(b, SUB);
+  intervalWMinor = intervalError(w, SUB);
+
+  colorsMat[0][0] = intervalR;
+  colorsMat[0][1] = intervalRPlus;
+  colorsMat[0][2] = intervalRMinor;
+  colorsMat[1][0] = intervalG;
+  colorsMat[1][1] = intervalGPlus;
+  colorsMat[1][2] = intervalGMinor;
+  colorsMat[2][0] = intervalB;
+  colorsMat[2][1] = intervalBPlus;
+  colorsMat[2][2] = intervalBMinor;
+  colorsMat[3][0] = intervalW;
+  colorsMat[3][1] = intervalWPlus;
+  colorsMat[3][2] = intervalWMinor;
+
+  /* NumOut(0,LCD_LINE1,colorsMat[0][0]);
+  NumOut(0,LCD_LINE2,colorsMat[1][0]);
+  NumOut(0,LCD_LINE3,colorsMat[2][0]);
+  NumOut(0,LCD_LINE4,colorsMat[3][0]);
+
+  Wait(2000);
+  ClearScreen(); */
+}
+
+int evalInterval(int value[], int expectedInterval) {
+
+  if ((value[0] == expectedInterval)||(value[1] == expectedInterval)||(value[2] == expectedInterval)) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+int isItColor(int intervalR, int intervalG, int intervalB, int intervalW) {
+
+  int r[3];
+  r[0] = colorsMat[0][0];
+  r[1] = colorsMat[0][1];
+  r[2] = colorsMat[0][2];
+  int g[3];
+  g[0] = colorsMat[1][0];
+  g[1] = colorsMat[1][1];
+  g[2] = colorsMat[1][2];
+  int b[3];
+  b[0] = colorsMat[2][0];
+  b[1] = colorsMat[2][1];
+  b[2] = colorsMat[2][2];
+  int w[3];
+  w[0] = colorsMat[3][0];
+  w[1] = colorsMat[3][1];
+  w[2] = colorsMat[3][2];
+
+  if ((evalInterval(r, intervalR) == 1) &&
+     (evalInterval(g, intervalG) == 1) &&
+     (evalInterval(b, intervalB) == 1) &&
+     (evalInterval(w, intervalW) == 1)) {
+       return 1;
+  } else {
+    return 0;
+  }
+}
+
+int leftBasicRules(int r, int g, int b, int w){
+  int color;
+
+  calculateInterval(r, g, b, w);
+
+  //AMARELO
+  if (isItColor(15, 15, 2, 15) == 1) {
+    color = ID_AMARELO;
+  //VERDE
+  } else if (isItColor(0, 1, 0, 3) == 1) {
+    color = ID_VERDE;
+  //AZUL
+  } else if (isItColor(1, 2, 2, 7) == 1) {
+    color = ID_AZUL;
+  //VERMELHO
+  } else if (isItColor(9, 2, 0, 8) == 1) {
+    color = ID_VERMELHO;
+  //PRETO
+  } else if (isItColor(0, 1, 0, 3) == 1) {
+    color = ID_PRETO;
+  //BRANCO
+  } else if (isItColor(16, 16, 16, 16) == 1) {
+    color = ID_BRANCO;
+  //QUEDA
+  } else {
+    color = ID_QUEDA;
+  }
+
+  return color;
+}
+
+int rightBasicRules(int r, int g, int b, int w){
+
+  int color;
+
+  calculateInterval(r, g, b, w);
+
+  if (isItColor(15, 15, 4, 15) == 1) {
+    color = ID_AMARELO;
+  } else if (isItColor(0, 2, 1, 5) == 1) {
+    color = ID_VERDE;
+  } else if (isItColor(3, 4, 5, 12) == 1) {
+    color = ID_AZUL;
+  } else if (isItColor(12, 3, 1, 12) == 1) {
+    color = ID_VERMELHO;
+  } else if (isItColor(2, 2, 2, 6) == 1) {
+    color = ID_PRETO;
+  } else if (isItColor(16, 16, 16, 16) == 1) {
+    color = ID_BRANCO;
+  } else {
+    color = ID_QUEDA;
+  }
+
+  return color;
+}
+
+int leftSensorColorRead(){
+  int value;
+  byte r = 0, g = 0, b=0, w=0, num=0;
+  SetSensorLowspeed(COLOR_LEFT);
+  SetHTColor2Mode(COLOR_LEFT, HT_CMD_COLOR2_ACTIVE);
+  ReadSensorHTColor2Active(COLOR_LEFT, num, r, g, b, w);
+  value = leftBasicRules(r, g, b, w);
+  return value;
+}
+
+int rightSensorColorRead(){
+  int value;
+  byte r = 0, g = 0, b=0, w=0, num=0;
+  SetSensorLowspeed(COLOR_RIGHT);
+  SetHTColor2Mode(COLOR_RIGHT, HT_CMD_COLOR2_ACTIVE);
+  ReadSensorHTColor2Active(COLOR_RIGHT, num, r, g, b, w);
+  value = rightBasicRules(r, g, b, w);
+  return value;
 }

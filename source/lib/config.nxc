@@ -30,8 +30,6 @@ void colorConfUI(string colorName, float red, float green, float blue, float whi
   TextOut(0,LCD_LINE5,"BTN CENTRO PARA");
   TextOut(0,LCD_LINE6,"ACC O VALOR");
   TextOut(0,LCD_LINE8,"BTN DIR USAR DEF");
-  Wait(100);
-  ClearScreen();
 }
 
 void configColor(int color) {
