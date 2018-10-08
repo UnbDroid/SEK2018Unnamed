@@ -51,8 +51,6 @@ void leArquivo(){
   }
 }
 
-
-
 task main() {
   ColorConf c;
   ColorConf defColors[7];

@@ -97,10 +97,13 @@ int intervalValue(int value);
 int intervalError(int value, int sum);
 void calculateInterval(int r, int g, int b, int w);
 int evalInterval(int value[], int expectedInterval);
+int howManyColor(int intervalR, int intervalG, int intervalB, int intervalW);
 int isItColor(int intervalR, int intervalG, int intervalB, int intervalW);
 
 int leftBasicRules(int r, int g, int b, int w, ColorConf &output[]);
 int rightBasicRules(int r, int g, int b, int w, ColorConf &output[]);
+
+int evalIntervalAmount(int value[], int expectedInterval);
 
 // int leftSensorColorRead(ColorConf &defColors[]);
 // int rightSensorColorRead(ColorConf &defColors[]);
