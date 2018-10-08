@@ -51,6 +51,8 @@ void leArquivo(){
   }
 }
 
+
+
 task main() {
   ColorConf c;
   ColorConf defColors[7];
@@ -62,8 +64,10 @@ task main() {
     string colorName = getColorName(value1);
     string colorName2 = getColorName(value2);
     TextOut(0,LCD_LINE1,colorName);
+    Wait(500);
+    ClearScreen();
     TextOut(0,LCD_LINE2,colorName2);
-    Wait(1000);
+    Wait(500);
     ClearScreen();
   }
 }

@@ -18,8 +18,7 @@
     - value: O valor do que esta sendo calibrado
 */
 
-#ifndef COLOR_STRUCT
-#define COLOR_STRUCT
+
 typedef struct {
   int id;
   int leftRed;
@@ -39,7 +38,6 @@ typedef struct {
   int rightBInterval;
   int rightWInterval;
 }ColorConf;
-#endif
 
 const int amareloRight[] = {255,244,42,255};
 const int verdeRight[] = {19, 40, 30, 73};

@@ -170,12 +170,31 @@ int isItColor(int intervalR, int intervalG, int intervalB, int intervalW) {
   }
 }
 
-int leftBasicRules(int r, int g, int b, int w, ColorConf &defColors[]){
+ /* int leftBasicRules(int r, int g, int b, int w, ColorConf &defColors[]){
+  int color;
+
+
+
+  return color;
+} */
+/*
+int rightBasicRules(int r, int g, int b, int w, ColorConf &defColors[]){
+
   int color;
 
   calculateInterval(r, g, b, w);
+}  */
 
-  /* //AMARELO
+int leftSensorColorRead(ColorConf &defColors[]){
+  int color;
+  byte r = 0, g = 0, b=0, w=0, num=0;
+  SetSensorLowspeed(COLOR_LEFT);
+  SetHTColor2Mode(COLOR_LEFT, HT_CMD_COLOR2_ACTIVE);
+  ReadSensorHTColor2Active(COLOR_LEFT, num, r, g, b, w);
+
+  calculateInterval(r, g, b, w);
+
+  //AMARELO
   if (isItColor(defColors[0].leftRInterval,
                 defColors[0].leftGInterval,
                 defColors[0].leftBInterval,
@@ -217,21 +236,21 @@ int leftBasicRules(int r, int g, int b, int w, ColorConf &defColors[]){
                 defColors[6].leftBInterval,
                 defColors[6].leftWInterval) == 1) {
     color = ID_QUEDA;
-  } */
+  }
 
   return color;
 }
 
-int rightBasicRules(int r, int g, int b, int w, ColorConf &defColors[]){
-
-  int color, color2;
+int rightSensorColorRead(ColorConf &defColors[]){
+  int color;
+  byte r = 0, g = 0, b=0, w=0, num=0;
+  SetSensorLowspeed(COLOR_RIGHT);
+  SetHTColor2Mode(COLOR_RIGHT, HT_CMD_COLOR2_ACTIVE);
+  ReadSensorHTColor2Active(COLOR_RIGHT, num, r, g, b, w);
 
   calculateInterval(r, g, b, w);
 
-  color2 = defColors[0].rightRInterval;
-
-
-  /* //AMARELO
+  //AMARELO
   if (isItColor(defColors[0].rightRInterval,
                 defColors[0].rightGInterval,
                 defColors[0].rightBInterval,
@@ -273,27 +292,7 @@ int rightBasicRules(int r, int g, int b, int w, ColorConf &defColors[]){
                 defColors[6].rightBInterval,
                 defColors[6].rightWInterval) == 1) {
     color = ID_QUEDA;
-  } */
+  }
 
   return color;
-}
-
-int leftSensorColorRead(ColorConf &defColors[]){
-  int value;
-  byte r = 0, g = 0, b=0, w=0, num=0;
-  SetSensorLowspeed(COLOR_LEFT);
-  SetHTColor2Mode(COLOR_LEFT, HT_CMD_COLOR2_ACTIVE);
-  ReadSensorHTColor2Active(COLOR_LEFT, num, r, g, b, w);
-  value = leftBasicRules(r, g, b, w, defColors);
-  return value;
-}
-
-int rightSensorColorRead(ColorConf &defColors[]){
-  int value;
-  byte r = 0, g = 0, b=0, w=0, num=0;
-  SetSensorLowspeed(COLOR_RIGHT);
-  SetHTColor2Mode(COLOR_RIGHT, HT_CMD_COLOR2_ACTIVE);
-  ReadSensorHTColor2Active(COLOR_RIGHT, num, r, g, b, w);
-  value = rightBasicRules(r, g, b, w, defColors);
-  return value;
 }
