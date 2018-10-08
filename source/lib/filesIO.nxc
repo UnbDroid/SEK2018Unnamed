@@ -6,16 +6,27 @@
   Data de Modificacao: 13/09/2018
   Versao: 1.0
 */
-
-
 #include "include/filesIO.h"
 
-void initColorConf(colorConf &c, int id, float red, float green, float blue, float white) {
+
+void initColorConf(ColorConf &c, int id, int lRed, int lGreen, int lBlue, int lWhite, int rRed, int rGreen, int rBlue, int rWhite) {
   c.id = id;
-  c.red = red;
-  c.green = green;
-  c.blue = blue;
-  c.white = white;
+  c.leftRed = lRed;
+  c.leftGreen = lGreen;
+  c.leftBlue = lBlue;
+  c.leftWhite =lWhite;
+  c.rightRed = rRed;
+  c.rightGreen = rGreen;
+  c.rightBlue = rBlue;
+  c.rightWhite = rWhite;
+  c.leftRInterval = intervalValue(lRed);
+  c.leftGInterval = intervalValue(lGreen);
+  c.leftBInterval = intervalValue(lBlue);
+  c.leftWInterval = intervalValue(lWhite);
+  c.rightRInterval = intervalValue(rRed);
+  c.rightGInterval = intervalValue(rGreen);
+  c.rightBInterval = intervalValue(rBlue);
+  c.rightWInterval = intervalValue(rWhite);
 }
 
 void logError(const unsigned int code) {
@@ -31,8 +42,6 @@ int checkFileExistence(string fileName, unsigned int fileSize) {
   } else {
     return 0;
   }
-
-
 }
 
 void deleteFile(string fileName, unsigned int fileSize) {
@@ -79,7 +88,7 @@ void openForRead(string fileName, unsigned int fileSize) {
   }
 }
 
-void writeColorConfOnFile(const colorConf recd) {
+void writeColorConfOnFile(const ColorConf recd) {
   unsigned int rtn_code = Write(handle, recd);
 
   // Return code handling
@@ -97,7 +106,7 @@ void writeColorConfOnFile(const colorConf recd) {
   }
 }
 
-void readColorConfFile(colorConf &reacd, colorConf &output[]) {
+void readColorConfFile(ColorConf &reacd, ColorConf &output[]) {
   unsigned int rtn_code = Read(handle, reacd);
   int i = 0;
   while (rtn_code != LDR_ENDOFFILE){

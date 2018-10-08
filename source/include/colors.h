@@ -6,6 +6,40 @@
   Data de Modificacao: 13/09/2018
   Versao: 1.0
 */
+#ifndef COLORS_HEADER
+#define COLORS_HEADER
+
+#include "include/defines.h"
+
+/* ColorConf Struct
+  Descricao: Estruturas contendo informacoes de calibracao
+  Propriedades:
+    - id: O identificador do que esta sendo calibrado
+    - value: O valor do que esta sendo calibrado
+*/
+
+#ifndef COLOR_STRUCT
+#define COLOR_STRUCT
+typedef struct {
+  int id;
+  int leftRed;
+  int leftGreen;
+  int leftBlue;
+  int leftWhite;
+  int rightRed;
+  int rightGreen;
+  int rightBlue;
+  int rightWhite;
+  int leftRInterval;
+  int leftGInterval;
+  int leftBInterval;
+  int leftWInterval;
+  int rightRInterval;
+  int rightGInterval;
+  int rightBInterval;
+  int rightWInterval;
+}ColorConf;
+#endif
 
 const int amareloRight[] = {255,244,42,255};
 const int verdeRight[] = {19, 40, 30, 73};
@@ -30,7 +64,7 @@ int colorsMat[][] = {{0,0,0},
                     {0,0,0},
                     {0,0,0}};
 
-#define INTERVAL_SIZE 15
+#define INTERVAL_SIZE 15.0
 
 #define MEAN_ERROR 8
 
@@ -67,12 +101,10 @@ void calculateInterval(int r, int g, int b, int w);
 int evalInterval(int value[], int expectedInterval);
 int isItColor(int intervalR, int intervalG, int intervalB, int intervalW);
 
-int leftBasicRules(int r, int g, int b, int w);
-int rightBasicRules(int r, int g, int b, int w);
+int leftBasicRules(int r, int g, int b, int w, ColorConf &output[]);
+int rightBasicRules(int r, int g, int b, int w, ColorConf &output[]);
 
-int leftSensorColorRead();
-int rightSensorColorRead();
+// int leftSensorColorRead(ColorConf &defColors[]);
+// int rightSensorColorRead(ColorConf &defColors[]);
 
-
-// void leftSensorBasicRules();
-// void rightSensorBasicRules();
+#endif /* COLORS_HEADER */

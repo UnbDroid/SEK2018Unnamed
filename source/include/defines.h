@@ -7,6 +7,8 @@
   Versao: 1.0
 */
 
+#ifndef DEFINES_HEADER
+#define DEFINES_HEADER
 
 //Mr. Roboto
 #define MOTOR_LEFT OUT_A
@@ -26,3 +28,7 @@
 #define SIDE_ULTRA_RIGHT IN_4
 
 //Constantes
+#define TRUE 1
+#define FALSE 0
+
+#endif

@@ -5,21 +5,17 @@
   Data de Modificacao: 13/09/2018
   Versao: 1.0
 */
-
-#include "include/defines.h"
 #include "include/config.h"
-#include "lib/filesIO.nxc"
-#include "lib/colors.nxc"
 
-void saveToFile(int id, float red, float green, float blue, float white){
-  colorConf color;
-  initColorConf(color, id, red, green, blue, white);
+void saveToFile(int id, float lRed, float lGreen, float lBlue, float lWhite, float rRed, float rGreen, float rBlue, float rWhite){
+  ColorConf color;
+  initColorConf(color, id, lRed, lGreen, lBlue, lWhite, rRed, rGreen, rBlue, rWhite);
   openForWrite(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
   writeColorConfOnFile(color);
   CloseFile(handle);
 }
 
-void colorConfUI(string colorName, float red, float green, float blue, float white){
+void ColorConfUI(string colorName, float red, float green, float blue, float white){
   string rString = NumToStr(red);
   string grString = NumToStr(green);
   string bString = NumToStr(blue);
@@ -36,10 +32,12 @@ void configColor(int color) {
   bool btCenter = false;
   bool btRight = false;
   string colorName = getColorName(color);
-  byte num=0, red=0, green=0, blue=0, white=0;
+  byte rNum=0, rRed=0, rGreen=0, rBlue=0, rWhite=0;
+  byte lNum=0, lRed=0, lGreen=0, lBlue=0, lWhite=0;
   while((btCenter == false) && (btRight == false)) {
-    ReadSensorHTColor2Active(COLOR_RIGHT, num, red, green, blue, white);
-    colorConfUI(colorName, red, green, blue, white);
+    ReadSensorHTColor2Active(COLOR_RIGHT, rNum, rRed, rGreen, rBlue, rWhite);
+    ReadSensorHTColor2Active(COLOR_LEFT, lNum, lRed, lGreen, lBlue, lWhite);
+    ColorConfUI(colorName, lRed, lGreen, lBlue, lWhite);
     Wait(500);
     ClearScreen();
     btCenter = ButtonPressed(BTNCENTER, false);
@@ -50,7 +48,7 @@ void configColor(int color) {
 
 
   if (btCenter == true) {
-    saveToFile(color, red, green, blue, white);
+    saveToFile(color, lRed, lGreen, lBlue, lWhite, rRed, rGreen, rBlue, rWhite);
   } else {
     /* saveToFile(color, getDefaultValue(color)); */
   }

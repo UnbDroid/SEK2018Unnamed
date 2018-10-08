@@ -6,6 +6,21 @@
   Versao: 1.0
 */
 
+#ifndef CONFIG_HEADER
+#define CONFIG_HEADER
+
+#include "include/defines.h"
+
+#ifndef INCFILESIO
+  #include "lib/filesIO.nxc"
+  #define INCFILESIO
+#endif
+
+#ifndef INCCOL
+  #include "lib/colors.nxc"
+  #define INCCOL
+#endif
+
 #define CONFIG_FILE_SIZE 2048
 #define CONFIG_FILE_NAME "config.dat"
 
@@ -15,7 +30,7 @@
     - id: Identificador da cor
     - value: Valor da cor
 */
-void saveToFile(int id, float red, float green, float blue, float white);
+void saveToFile(int id, float lRed, float lGreen, float lBlue, float lWhite, float rRed, float rGreen, float rBlue, float rWhite);
 
 /* Color Config UI
   Descricao: Mostra a interface de interacao para escolher a cor
@@ -24,7 +39,7 @@ void saveToFile(int id, float red, float green, float blue, float white);
     - colorName: O nome da cor sendo calibrada
     - value: O valor em que o sensor esta lendo
 */
-void colorConfUI(string colorName, float red, float green, float blue, float white);
+void ColorConfUI(string colorName, float red, float green, float blue, float white);
 
 /* Config Color
   Descricao: Configura um processo de salvamento de cor
@@ -32,3 +47,5 @@ void colorConfUI(string colorName, float red, float green, float blue, float whi
     - color: O identificador da cor a ser configurada
 */
 void configColor(int color);
+
+#endif

@@ -1,10 +1,4 @@
-#include "include/defines.h"
 #include "include/move.h"
-#include "lib/gyro.nxc"
-#ifndef INCPID
-  #include "lib/pid.nxc"
-  #define INCPID
-#endif
 
 task turnLeft90(){
   Precedes(left90Gyro, turnLeftPID);
