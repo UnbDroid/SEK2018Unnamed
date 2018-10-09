@@ -1,4 +1,11 @@
-
+/*
+  Arquivo: pid.nxc
+  Descricao: Este arquivo contem as definicoes da
+    biblioteca de realizar movimentacoes utilizando controle de PID.
+  Autores: Renato Nobre
+  Data de Modificacao: 08/10/2018
+  Versao: 1.0
+*/
 #include "include/pid.h"
 
 task turnRightPID(){
@@ -47,7 +54,6 @@ task turnLeftPID(){
     lastError = error;
   }
 }
-
 
 void fowardPID() {
   ResetRotationCount(MOTOR_BOTH);

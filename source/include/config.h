@@ -21,8 +21,11 @@
   #define INCCOL
 #endif
 
+//
 #define CONFIG_FILE_SIZE 2048
+//
 #define CONFIG_FILE_NAME "config.dat"
+
 
 /* Save To File
   Descricao: Salva uma configuracao de cor em um arquivo

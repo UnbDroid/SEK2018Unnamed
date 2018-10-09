@@ -6,42 +6,10 @@
   Data de Modificacao: 13/09/2018
   Versao: 1.0
 */
+
+
 #include "include/colors.h"
 
-/* float getDefaultValue(int color){
-  float defValue;
-  switch (color) {
-    case ID_AMARELO:
-      defValue = AMARELO;
-      break;
-    case ID_VERDE:
-      defValue = VERDE;
-      break;
-    case ID_AZUL:
-      defValue = AZUL;
-      break;
-    case ID_VERMELHO:
-      defValue = VERMELHO;
-      break;
-    case ID_LARANJA:
-      defValue = LARANJA;
-      break;
-    case ID_ROXO:
-      defValue = ROXO;
-      break;
-    case ID_PRETO:
-      defValue = PRETO;
-      break;
-    case ID_BRANCO:
-      defValue = BRANCO;
-      break;
-    default:
-      defValue = 0;
-      break;
-  }
-
-  return defValue;
-} */
 
 string getColorName(int color){
   string colorName;
@@ -146,7 +114,6 @@ int evalInterval(int value[], int expectedInterval) {
   }
 }
 
-
 int howManyColor(int intervalR, int intervalG, int intervalB, int intervalW) {
   int total;
   int r[3];
@@ -166,11 +133,10 @@ int howManyColor(int intervalR, int intervalG, int intervalB, int intervalW) {
   w[1] = colorsMat[3][1];
   w[2] = colorsMat[3][2];
 
-  total = evalIntervalAmount(r, intervalR) +     evalIntervalAmount(g, intervalG) + evalIntervalAmount(b, intervalB) + evalIntervalAmount(w, intervalW);
+  total = evalIntervalAmount(r, intervalR) + evalIntervalAmount(g, intervalG) + evalIntervalAmount(b, intervalB) + evalIntervalAmount(w, intervalW);
 
   return total;
 }
-
 
 int isItColor(int intervalR, int intervalG, int intervalB, int intervalW) {
 
@@ -200,21 +166,6 @@ int isItColor(int intervalR, int intervalG, int intervalB, int intervalW) {
     return 0;
   }
 }
-
- /* int leftBasicRules(int r, int g, int b, int w, ColorConf &defColors[]){
-  int color;
-
-
-
-  return color;
-} */
-/*
-int rightBasicRules(int r, int g, int b, int w, ColorConf &defColors[]){
-
-  int color;
-
-  calculateInterval(r, g, b, w);
-}  */
 
 int leftSensorColorRead(ColorConf &defColors[]){
   int color;

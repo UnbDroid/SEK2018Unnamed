@@ -1,3 +1,12 @@
+/*
+  Arquivo: move.nxc
+  Descricao: Este arquivo contem as definicoes da
+    biblioteca de realizar movimentacoes.
+  Autores: Renato Nobre
+  Data de Modificacao: 08/10/2018
+  Versao: 1.0
+*/
+
 #include "include/move.h"
 
 task turnLeft90(){

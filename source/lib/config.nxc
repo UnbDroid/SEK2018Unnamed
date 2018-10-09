@@ -5,6 +5,7 @@
   Data de Modificacao: 13/09/2018
   Versao: 1.0
 */
+
 #include "include/config.h"
 
 void saveToFile(int id, float lRed, float lGreen, float lBlue, float lWhite, float rRed, float rGreen, float rBlue, float rWhite){
