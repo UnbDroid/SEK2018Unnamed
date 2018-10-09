@@ -3,9 +3,12 @@
   Descricao: Este programa eh o que deve ser executado no cerebro mestre,
     e realiza o percurso do desafio da SEK-2018.
   Autores: Renato Nobre, Valesca Soares
-  Data de Modificacao: 13/09/2018
-  Versao: 1.0
+  Data de Modificacao: 09/10/2018
+  AVISO: ESTE ARQUIVO NAO ESTA PRONTO, FUNCOES DEVEM SER MODULARIZADAS
+  Versao: 0.3
 */
+
+/* ====== INICIO DAS IMPORTACOES DO ARQUIVO MAIN ====== */
 
 #include "lib/move.nxc"
 #include "include/config.h"
@@ -20,6 +23,9 @@
   #define INCCOL
 #endif
 
+/* ====== INICIO DAS FUNCOES DO ARQUIVO MAIN ====== */
+
+/* Essa funcao tem que sair daqui */
 void leArquivo(){
   ColorConf c;
   ColorConf colors[8];
@@ -51,6 +57,10 @@ void leArquivo(){
   }
 }
 
+/*
+  Essa main e temporaria, para testar o codigo de cor,
+  o codigo dela deve ser passado para uma funcao especifica
+*/
 task main() {
   ColorConf c;
   ColorConf defColors[7];

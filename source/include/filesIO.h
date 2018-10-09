@@ -3,19 +3,25 @@
   Descricao: Este arquivo contem as declaracoes para criacao,
              leitura e escrita de arquivos.
   Autores: Renato Nobre
-  Data de Modificacao: 13/09/2018
-  Versao: 1.0
+  Data de Modificacao: 09/10/2018
+  Versao: 1.1
 */
 
 #ifndef FILESIO_HEADER
 #define FILESIO_HEADER
+
+/* ====== INICIO DAS INCLUSOES DA BIBLIOTECA DE FILESIO ====== */
 
 #ifndef INCCOL
   #include "lib/colors.nxc"
   #define INCCOL
 #endif
 
+/* ====== INICIO DAS VARIAVEIS GLOBAIS DA BIBLIOTECA DE FILESIO ====== */
+
 byte handle = 0;
+
+/* ====== INICIO DAS FUNCOES DA BIBLIOTECA DE FILESIO ====== */
 
 /* Check File Existence
   Descricao: Verifica se o arquivo existe ou nao
@@ -41,8 +47,15 @@ void deleteFile(string fileName, unsigned int fileSize);
   Parametros:
     - c: A struct ColorConf
     - id: O identificador de uma cor
-    - value: O valor de uma cor
-  Retorno:
+    - lRed: Cor de vermelho sendo lida pelo sensor esquerdo
+    - lGreen: Cor de verde sendo lida pelo sensor esquerdo
+    - lBlue: Cor de azul sendo lida pelo sensor esquerdo
+    - lWhite: Cor de branco sendo lida pelo sensor esquerdo
+    - rRed: Cor de vermelho sendo lida pelo sensor direito
+    - rGreen: Cor de verde sendo lida pelo sensor direito
+    - rBlue: Cor de azul sendo lida pelo sensor direito
+    - rWhite: Cor de branco sendo lida pelo sensor direito
+  Retorno: Retorna por referencia a struct criada
 */
 void initColorConf(ColorConf &c, int id, int lRed, int lGreen, int lBlue, int lWhite, int rRed, int rGreen, int rBlue, int rWhite);
 
