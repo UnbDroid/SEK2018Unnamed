@@ -1,3 +1,11 @@
+/*
+  Arquivo: pid.h
+  Descricao: Este arquivo contem as declaracoes de funcoes de movimentacao pid.
+  Autores: Renato Nobre, Gabriel Gonçalves
+  Data de Modificacao: 09/10/2018
+  Versao: 1.1
+*/
+
 #ifndef PID_HEADER
 #define PID_HEADER
 
