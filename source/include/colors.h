@@ -7,8 +7,6 @@
   Versao: 1.0
 */
 
-/* ====== INICIO DAS DIRETIVAS DE PREPROCESSAMENTO DA BIBLIOTECA DE CORES ====== */
-
 #ifndef COLORS_HEADER
 #define COLORS_HEADER
 
