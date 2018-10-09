@@ -4,7 +4,7 @@
     de identificacao de cores.
   Autores: Renato Nobre
   Data de Modificacao: 09/10/2018
-  Versao: 1.0
+  Versao: 1.1
 */
 
 #ifndef COLORS_HEADER

@@ -3,7 +3,7 @@
   Descricao: Este arquivo contem as declaracoes o programa de calibracao.
   Autores: Renato Nobre
   Data de Modificacao: 09/10/2018
-  Versao: 1.0
+  Versao: 2.0
 */
 
 #ifndef CONFIG_HEADER
