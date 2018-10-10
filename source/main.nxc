@@ -3,29 +3,79 @@
   Descricao: Este programa eh o que deve ser executado no cerebro mestre,
     e realiza o percurso do desafio da SEK-2018.
   Autores: Renato Nobre, Valesca Soares
-  Data de Modificacao: 13/09/2018
-  Versao: 1.0
+  Data de Modificacao: 09/10/2018
+  AVISO: ESTE ARQUIVO NAO ESTA PRONTO, FUNCOES DEVEM SER MODULARIZADAS
+  Versao: 0.3
 */
 
-#include "./include/config.h"
-#include "./lib/filesIO.nxc"
-#include "./lib/move.nxc"
+/* ====== INICIO DAS IMPORTACOES DO ARQUIVO MAIN ====== */
 
+#include "lib/move.nxc"
+#include "include/config.h"
+
+#ifndef INCFILESIO
+  #include "lib/filesIO.nxc"
+  #define INCFILESIO
+#endif
+
+#ifndef INCCOL
+  #include "lib/colors.nxc"
+  #define INCCOL
+#endif
+
+/* ====== INICIO DAS FUNCOES DO ARQUIVO MAIN ====== */
+
+/* Essa funcao tem que sair daqui */
 void leArquivo(){
-  colorConf c;
-  colorConf ret;
-  colorConf colors[8];
+  ColorConf c;
+  ColorConf colors[8];
+  readColorConfFile(c, colors);
   openForRead(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
   readColorConfFile(c, colors);
-  for(int i = 0; i < 8; i++){
+  for(int i = 0; i < 7; i++){
       NumOut(0,LCD_LINE1,colors[i].id);
-      NumOut(0,LCD_LINE2,colors[i].value);
-      Wait(1000);
+      NumOut(0,LCD_LINE2,colors[i].leftRed);
+      NumOut(20,LCD_LINE2,colors[i].leftGreen);
+      NumOut(40,LCD_LINE2,colors[i].leftBlue);
+      NumOut(60,LCD_LINE2,colors[i].leftWhite);
+      NumOut(0,LCD_LINE3,colors[i].rightRed);
+      NumOut(20,LCD_LINE3,colors[i].rightGreen);
+      NumOut(40,LCD_LINE3,colors[i].rightBlue);
+      NumOut(60,LCD_LINE3,colors[i].rightWhite);
+
+      NumOut(0,LCD_LINE5,colors[i].leftRInterval);
+      NumOut(20,LCD_LINE5,colors[i].leftGInterval);
+      NumOut(40,LCD_LINE5,colors[i].leftBInterval);
+      NumOut(60,LCD_LINE5,colors[i].leftWInterval);
+
+      NumOut(0,LCD_LINE6,colors[i].rightRInterval);
+      NumOut(20,LCD_LINE6,colors[i].rightGInterval);
+      NumOut(40,LCD_LINE6,colors[i].rightBInterval);
+      NumOut(60,LCD_LINE6,colors[i].rightWInterval);
+      Wait(3000);
+      ClearScreen();
   }
 }
 
+/*
+  Essa main e temporaria, para testar o codigo de cor,
+  o codigo dela deve ser passado para uma funcao especifica
+*/
 task main() {
-  OnFwd(PORTA, 0);
-  OnFwd(TRAVA, 0);
-  start turnRight90;
+  ColorConf c;
+  ColorConf defColors[7];
+  openForRead(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
+  readColorConfFile(c, defColors);
+  while (true) {
+    int value1 = leftSensorColorRead(defColors);
+    int value2 = rightSensorColorRead(defColors);
+    string colorName = getColorName(value1);
+    string colorName2 = getColorName(value2);
+    TextOut(0,LCD_LINE1,colorName);
+    Wait(500);
+    ClearScreen();
+    TextOut(0,LCD_LINE2,colorName2);
+    Wait(500);
+    ClearScreen();
+  }
 }

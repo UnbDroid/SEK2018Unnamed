@@ -1,10 +1,13 @@
-#include "include/defines.h"
-#include "include/gyro.h"
-#ifndef INCPID
-  #include "lib/pid.nxc"
-  #define INCPID
-#endif
+/*
+  Arquivo: gyro.nxc
+  Descricao: Este arquivo contem as definicoes da
+    biblioteca de utilizacao de giroscopio.
+  Autores: Renato Nobre
+  Data de Modificacao: 08/10/2018
+  Versao: 1.0
+*/
 
+#include "include/gyro.h"
 
 task right90Gyro(){
   SetSensorHTGyro(GIRO);

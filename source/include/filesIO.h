@@ -3,23 +3,25 @@
   Descricao: Este arquivo contem as declaracoes para criacao,
              leitura e escrita de arquivos.
   Autores: Renato Nobre
-  Data de Modificacao: 13/09/2018
-  Versao: 1.0
+  Data de Modificacao: 09/10/2018
+  Versao: 1.1
 */
+
+#ifndef FILESIO_HEADER
+#define FILESIO_HEADER
+
+/* ====== INICIO DAS INCLUSOES DA BIBLIOTECA DE FILESIO ====== */
+
+#ifndef INCCOL
+  #include "lib/colors.nxc"
+  #define INCCOL
+#endif
+
+/* ====== INICIO DAS VARIAVEIS GLOBAIS DA BIBLIOTECA DE FILESIO ====== */
 
 byte handle = 0;
 
-
-/* colorConf Struct
-  Descricao: Estruturas contendo informacoes de calibracao
-  Propriedades:
-    - id: O identificador do que esta sendo calibrado
-    - value: O valor do que esta sendo calibrado
-*/
-struct colorConf {
-  int id;
-  float value;
-};
+/* ====== INICIO DAS FUNCOES DA BIBLIOTECA DE FILESIO ====== */
 
 /* Check File Existence
   Descricao: Verifica se o arquivo existe ou nao
@@ -41,14 +43,21 @@ int checkFileExistence(string fileName, unsigned int fileSize);
 void deleteFile(string fileName, unsigned int fileSize);
 
 /* Init Color Conf
-  Descricao: Cria uma struct colorConf com os parametros passados
+  Descricao: Cria uma struct ColorConf com os parametros passados
   Parametros:
-    - c: A struct colorConf
+    - c: A struct ColorConf
     - id: O identificador de uma cor
-    - value: O valor de uma cor
-  Retorno:
+    - lRed: Cor de vermelho sendo lida pelo sensor esquerdo
+    - lGreen: Cor de verde sendo lida pelo sensor esquerdo
+    - lBlue: Cor de azul sendo lida pelo sensor esquerdo
+    - lWhite: Cor de branco sendo lida pelo sensor esquerdo
+    - rRed: Cor de vermelho sendo lida pelo sensor direito
+    - rGreen: Cor de verde sendo lida pelo sensor direito
+    - rBlue: Cor de azul sendo lida pelo sensor direito
+    - rWhite: Cor de branco sendo lida pelo sensor direito
+  Retorno: Retorna por referencia a struct criada
 */
-void initColorConf(colorConf &c, int id, float value);
+void initColorConf(ColorConf &c, int id, int lRed, int lGreen, int lBlue, int lWhite, int rRed, int rGreen, int rBlue, int rWhite);
 
 /* Open For Write
   Descricao: Abre um arquivo para a leitura
@@ -67,20 +76,23 @@ void openForWrite(string fileName, unsigned int fileSize);
 void openForRead(string fileName, unsigned int fileSize);
 
 /* Write Color Config On File
-  Descricao: Escreve uma estrutura de colorConf em um
+  Descricao: Escreve uma estrutura de ColorConf em um
     arquivo aberto para escrita
   Parametros:
-    - recd: A estrutura de colorConf
+    - recd: A estrutura de ColorConf
 */
-void writeColorConfOnFile(const colorConf recd);
+void writeColorConfOnFile(const ColorConf recd);
 
 /* Read Color Config File
-  Descricao: Ler uma estrutura de colorConf em um
+  Descricao: Ler uma estrutura de ColorConf em um
     arquivo aberto para leitura
   Parametros:
-    - recd: A estrutura de colorConf
+    - recd: A estrutura de ColorConf
     - output: O vetor de cores lido do arquivos, deve se passar um vetor vazio
   Retorno:
     Retorna por referencia o vetor de cores lido
 */
-void readColorConfFile(colorConf &reacd, colorConf &output[]);
+void readColorConfFile(ColorConf &reacd, ColorConf &output[]);
+
+
+#endif

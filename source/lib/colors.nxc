@@ -7,75 +7,304 @@
   Versao: 1.0
 */
 
+
 #include "include/colors.h"
 
-float getDefaultValue(int color){
-  float defValue;
-  switch (color) {
-    case ID_AMARELO:
-      defValue = AMARELO;
-      break;
-    case ID_VERDE:
-      defValue = VERDE;
-      break;
-    case ID_AZUL:
-      defValue = AZUL;
-      break;
-    case ID_VERMELHO:
-      defValue = VERMELHO;
-      break;
-    case ID_LARANJA:
-      defValue = LARANJA;
-      break;
-    case ID_ROXO:
-      defValue = ROXO;
-      break;
-    case ID_PRETO:
-      defValue = PRETO;
-      break;
-    case ID_BRANCO:
-      defValue = BRANCO;
-      break;
-    default:
-      defValue = 0;
-      break;
-  }
-
-  return defValue;
-}
 
 string getColorName(int color){
   string colorName;
 
   switch (color) {
     case ID_AMARELO:
-      colorName = "Amarelo";
+      colorName = "AMARELO";
       break;
     case ID_VERDE:
-      colorName = "Verde";
+      colorName = "VERDE";
       break;
     case ID_AZUL:
-      colorName = "Azul";
+      colorName = "AZUL";
       break;
     case ID_VERMELHO:
-      colorName = "Vermelho";
-      break;
-    case ID_LARANJA:
-      colorName = "Laranja";
-      break;
-    case ID_ROXO:
-      colorName = "Roxo";
+      colorName = "VERMELHO";
       break;
     case ID_PRETO:
-      colorName = "Preto";
+      colorName = "PRETO";
       break;
     case ID_BRANCO:
-      colorName = "Branco";
+      colorName = "BRANCO";
+      break;
+    case ID_QUEDA:
+      colorName = "QUEDA";
       break;
     default:
-      colorName = "Error";
+      colorName = "ERRO IDENT";
       break;
   }
 
   return colorName;
+}
+
+int intervalValue(int value) {
+    int regionIndex = 0;
+    regionIndex = (value/INTERVAL_SIZE);
+    return regionIndex;
+}
+
+int intervalError(int value, int sum){
+  if (sum == SUB) {
+    return (value-MEAN_ERROR)/INTERVAL_SIZE;
+  } else {
+    return (value+MEAN_ERROR)/INTERVAL_SIZE;
+  }
+}
+
+void calculateInterval(int r, int g, int b, int w) {
+  int intervalR, intervalG, intervalB, intervalW;
+  int intervalRPlus, intervalGPlus, intervalBPlus, intervalWPlus;
+  int intervalRMinor, intervalGMinor, intervalBMinor, intervalWMinor;
+
+  intervalR = intervalValue(r);
+  intervalG = intervalValue(g);
+  intervalB = intervalValue(b);
+  intervalW = intervalValue(w);
+
+  intervalRPlus = intervalError(r, SUM);
+  intervalGPlus = intervalError(g, SUM);
+  intervalBPlus = intervalError(b, SUM);
+  intervalWPlus = intervalError(w, SUM);
+
+  intervalRMinor = intervalError(r, SUB);
+  intervalGMinor = intervalError(g, SUB);
+  intervalBMinor = intervalError(b, SUB);
+  intervalWMinor = intervalError(w, SUB);
+
+  colorsMat[0][0] = intervalR;
+  colorsMat[0][1] = intervalRPlus;
+  colorsMat[0][2] = intervalRMinor;
+  colorsMat[1][0] = intervalG;
+  colorsMat[1][1] = intervalGPlus;
+  colorsMat[1][2] = intervalGMinor;
+  colorsMat[2][0] = intervalB;
+  colorsMat[2][1] = intervalBPlus;
+  colorsMat[2][2] = intervalBMinor;
+  colorsMat[3][0] = intervalW;
+  colorsMat[3][1] = intervalWPlus;
+  colorsMat[3][2] = intervalWMinor;
+}
+
+int evalIntervalAmount(int value[], int expectedInterval) {
+  int amount = 0;
+  if (value[0] == expectedInterval){
+    amount += 1;
+  }
+  if (value[1] == expectedInterval){
+    amount += 1;
+  }
+  if (value[2] == expectedInterval){
+    amount += 1;
+  }
+  return amount;
+}
+
+int evalInterval(int value[], int expectedInterval) {
+  if ((value[0] == expectedInterval)||(value[1] == expectedInterval)||(value[2] == expectedInterval)) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+int howManyColor(int intervalR, int intervalG, int intervalB, int intervalW) {
+  int total;
+  int r[3];
+  r[0] = colorsMat[0][0];
+  r[1] = colorsMat[0][1];
+  r[2] = colorsMat[0][2];
+  int g[3];
+  g[0] = colorsMat[1][0];
+  g[1] = colorsMat[1][1];
+  g[2] = colorsMat[1][2];
+  int b[3];
+  b[0] = colorsMat[2][0];
+  b[1] = colorsMat[2][1];
+  b[2] = colorsMat[2][2];
+  int w[3];
+  w[0] = colorsMat[3][0];
+  w[1] = colorsMat[3][1];
+  w[2] = colorsMat[3][2];
+
+  total = evalIntervalAmount(r, intervalR) + evalIntervalAmount(g, intervalG) + evalIntervalAmount(b, intervalB) + evalIntervalAmount(w, intervalW);
+
+  return total;
+}
+
+int isItColor(int intervalR, int intervalG, int intervalB, int intervalW) {
+
+  int r[3];
+  r[0] = colorsMat[0][0];
+  r[1] = colorsMat[0][1];
+  r[2] = colorsMat[0][2];
+  int g[3];
+  g[0] = colorsMat[1][0];
+  g[1] = colorsMat[1][1];
+  g[2] = colorsMat[1][2];
+  int b[3];
+  b[0] = colorsMat[2][0];
+  b[1] = colorsMat[2][1];
+  b[2] = colorsMat[2][2];
+  int w[3];
+  w[0] = colorsMat[3][0];
+  w[1] = colorsMat[3][1];
+  w[2] = colorsMat[3][2];
+
+  if ((evalInterval(r, intervalR) == 1) &&
+     (evalInterval(g, intervalG) == 1) &&
+     (evalInterval(b, intervalB) == 1) &&
+     (evalInterval(w, intervalW) == 1)) {
+       return 1;
+  } else {
+    return 0;
+  }
+}
+
+int leftSensorColorRead(ColorConf &defColors[]){
+  int color;
+  byte r = 0, g = 0, b=0, w=0, num=0;
+  SetSensorLowspeed(COLOR_LEFT);
+  SetHTColor2Mode(COLOR_LEFT, HT_CMD_COLOR2_ACTIVE);
+  ReadSensorHTColor2Active(COLOR_LEFT, num, r, g, b, w);
+
+  calculateInterval(r, g, b, w);
+
+  //AMARELO
+  if (isItColor(defColors[0].leftRInterval,
+                defColors[0].leftGInterval,
+                defColors[0].leftBInterval,
+                defColors[0].leftWInterval) == 1) {
+    color = ID_AMARELO;
+  //VERDE
+  } else if (isItColor(defColors[1].leftRInterval,
+                defColors[1].leftGInterval,
+                defColors[1].leftBInterval,
+                defColors[1].leftWInterval) == 1) {
+    color = ID_VERDE;
+  //AZUL
+  } else if (isItColor(defColors[2].leftRInterval,
+                defColors[2].leftGInterval,
+                defColors[2].leftBInterval,
+                defColors[2].leftWInterval) == 1) {
+    color = ID_AZUL;
+  //VERMELHO
+  } else if (isItColor(defColors[3].leftRInterval,
+                defColors[3].leftGInterval,
+                defColors[3].leftBInterval,
+                defColors[3].leftWInterval) == 1) {
+    color = ID_VERMELHO;
+  //PRETO
+  } else if (isItColor(defColors[4].leftRInterval,
+                defColors[4].leftGInterval,
+                defColors[4].leftBInterval,
+                defColors[4].leftWInterval) == 1) {
+    color = ID_PRETO;
+  //BRANCO
+  } else if (isItColor(defColors[5].leftRInterval,
+                defColors[5].leftGInterval,
+                defColors[5].leftBInterval,
+                defColors[5].leftWInterval) == 1) {
+    color = ID_BRANCO;
+  //QUEDA
+  } else if (isItColor(defColors[6].leftRInterval,
+                defColors[6].leftGInterval,
+                defColors[6].leftBInterval,
+                defColors[6].leftWInterval) == 1) {
+    color = ID_QUEDA;
+  }
+
+  if ((color == ID_VERDE)||(color == ID_PRETO)){
+    if (howManyColor(defColors[1].leftRInterval,
+                     defColors[1].leftGInterval,
+                     defColors[1].leftBInterval,
+                     defColors[1].leftWInterval) >
+        howManyColor(defColors[4].leftRInterval,
+                     defColors[4].leftGInterval,
+                     defColors[4].leftBInterval,
+                     defColors[4].leftWInterval)){
+                       color = ID_VERDE;
+    } else {
+      color = ID_PRETO;
+    }
+  }
+
+  return color;
+}
+
+int rightSensorColorRead(ColorConf &defColors[]){
+  int color;
+  byte r = 0, g = 0, b=0, w=0, num=0;
+  SetSensorLowspeed(COLOR_RIGHT);
+  SetHTColor2Mode(COLOR_RIGHT, HT_CMD_COLOR2_ACTIVE);
+  ReadSensorHTColor2Active(COLOR_RIGHT, num, r, g, b, w);
+
+  calculateInterval(r, g, b, w);
+
+  //AMARELO
+  if (isItColor(defColors[0].rightRInterval,
+                defColors[0].rightGInterval,
+                defColors[0].rightBInterval,
+                defColors[0].rightWInterval) == 1) {
+    color = ID_AMARELO;
+  //VERDE
+  } else if (isItColor(defColors[1].rightRInterval,
+                defColors[1].rightGInterval,
+                defColors[1].rightBInterval,
+                defColors[1].rightWInterval) == 1) {
+    color = ID_VERDE;
+  //AZUL
+  } else if (isItColor(defColors[2].rightRInterval,
+                defColors[2].rightGInterval,
+                defColors[2].rightBInterval,
+                defColors[2].rightWInterval) == 1) {
+    color = ID_AZUL;
+  //VERMELHO
+  } else if (isItColor(defColors[3].rightRInterval,
+                defColors[3].rightGInterval,
+                defColors[3].rightBInterval,
+                defColors[3].rightWInterval) == 1) {
+    color = ID_VERMELHO;
+  //PRETO
+  } else if (isItColor(defColors[4].rightRInterval,
+                defColors[4].rightGInterval,
+                defColors[4].rightBInterval,
+                defColors[4].rightWInterval) == 1) {
+    color = ID_PRETO;
+  //BRANCO
+  } else if (isItColor(defColors[5].rightRInterval,
+                defColors[5].rightGInterval,
+                defColors[5].rightBInterval,
+                defColors[5].rightWInterval) == 1) {
+    color = ID_BRANCO;
+  //QUEDA
+  } else if (isItColor(defColors[6].rightRInterval,
+                defColors[6].rightGInterval,
+                defColors[6].rightBInterval,
+                defColors[6].rightWInterval) == 1) {
+    color = ID_QUEDA;
+  }
+
+  if ((color == ID_VERDE)||(color == ID_PRETO)){
+    if (howManyColor(defColors[1].rightRInterval,
+                     defColors[1].rightGInterval,
+                     defColors[1].rightBInterval,
+                     defColors[1].rightWInterval) >
+        howManyColor(defColors[4].rightRInterval,
+                     defColors[4].rightGInterval,
+                     defColors[4].rightBInterval,
+                     defColors[4].rightWInterval)){
+                       color = ID_VERDE;
+    } else {
+      color = ID_PRETO;
+    }
+  }
+
+  return color;
 }
