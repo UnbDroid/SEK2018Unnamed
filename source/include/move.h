@@ -25,24 +25,24 @@
     Descricao: Trecho de codigo definido como uma TASK para ser usada
       paralelamente pelo processador. Vira o robo 90 para a esquerda em seu proprio eixo.
 */
-task turnLeft90();
+// task turnLeft90();
 
 /*  Turn Right 90
     Descricao: Trecho de codigo definido como uma TASK para ser usada
       paralelamente pelo processador. Vira o robo 90 para a direita em seu proprio eixo.
 */
-task turnRight90();
+// task turnRight90();
 
 /*  Turn Left 180
     Descricao: Trecho de codigo definido como uma TASK para ser usada
       paralelamente pelo processador. Vira o robo 180 para a esquerda em seu proprio eixo.
 */
-task turnLeft180();
+// task turnLeft180();
 
 /*  Turn Right 180
     Descricao: Trecho de codigo definido como uma TASK para ser usada
       paralelamente pelo processador. Vira o robo 180 para a direita em seu proprio eixo.
 */
-task turnRight180();
+// task turnRight180();
 
 #endif

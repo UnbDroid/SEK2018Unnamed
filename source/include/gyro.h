@@ -24,14 +24,14 @@
       paralelamente pelo processador. Configura o giroscopio para virar
       parar a locomocao quando 180 graus a esquerda forem computados
 */
-task left180Gyro();
+// task left180Gyro();
 
 /* Right 180 Gyro
     Descricao: Trecho de codigo definido como uma TASK para ser usada
       paralelamente pelo processador. Configura o giroscopio para virar
       parar a locomocao quando 180 graus a direita forem computados
 */
-task right180Gyro();
+// task right180Gyro();
 
 /* Left 90 Gyro
     Descricao: Trecho de codigo definido como uma TASK para ser usada
@@ -39,13 +39,13 @@ task right180Gyro();
       parar a locomocao quando 90 graus a esquerda forem computados
 
 */
-task left90Gyro();
+// task left90Gyro();
 
 /*  Right 90 Gyro
     Descricao: Trecho de codigo definido como uma TASK para ser usada
       paralelamente pelo processador. Configura o giroscopio para virar
       parar a locomocao quando 90 graus a direita forem computados
 */
-task right90Gyro();
+// task right90Gyro();
 
 #endif

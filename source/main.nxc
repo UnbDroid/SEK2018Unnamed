@@ -9,6 +9,123 @@
 
 #include "lib/main.nxc"
 
+void route(ColorConf &defColors[]);
+void leaveIntersec(ColorConf &defColors[], int idCor);
+void makeTurn(ColorConf &defColors[], int idCor);
+void make180(ColorConf &defColors[], int idCor);
+
+void recenter(ColorConf &defColors[]){
+  if ((leftSensorColorRead(defColors) == ID_QUEDA) &&
+      (rightSensorColorRead(defColors) != ID_BRANCO)) {
+    Off(MOTOR_BOTH);
+  } else if (leftSensorColorRead(defColors) == ID_QUEDA) {
+    while (leftSensorColorRead(defColors) != ID_BRANCO) {
+      OnRev(MOTOR_RIGHT, 40);
+    }
+  } else if (rightSensorColorRead(defColors) == ID_QUEDA){
+    while (rightSensorColorRead(defColors) != ID_BRANCO) {
+      OnRev(MOTOR_LEFT, 40);
+    }
+  }
+}
+
+int avoidFall(ColorConf &defColors[]){
+  if ((leftSensorColorRead(defColors) == ID_QUEDA) ||
+      (rightSensorColorRead(defColors) == ID_QUEDA)){
+    Off(MOTOR_BOTH);
+    recenter(defColors);
+    Off(MOTOR_BOTH);
+    return TRUE;
+  }
+  return FALSE;
+}
+
+void adjustPosition(ColorConf &defColors[], int idColor) {
+  if (leftSensorColorRead(defColors) == idColor){
+    Off(MOTOR_BOTH);
+    while(rightSensorColorRead(defColors) != idColor) {
+      OnFwd(MOTOR_RIGHT, 40);
+    }
+  } else if (rightSensorColorRead(defColors) == idColor){
+    Off(MOTOR_BOTH);
+    while(leftSensorColorRead(defColors) != idColor) {
+      OnFwd(MOTOR_LEFT, 40);
+    }
+  }
+  Off(MOTOR_BOTH);
+}
+
+int trackPosControll(ColorConf &defColors[], int idColor) {
+  int leftColor, rightColor;
+  leftColor = leftSensorColorRead(defColors);
+  rightColor = rightSensorColorRead(defColors);
+  if (avoidFall(defColors) == FALSE){
+    if (leftColor != idColor){
+      adjustPosition(defColors, leftColor);
+    } else if (rightColor != idColor) {
+      adjustPosition(defColors, rightColor);
+    }
+    return leftColor;
+  } else {
+    return ID_QUEDA;
+  }
+}
+
+void moveUntilNotColor(ColorConf &defColors[], int idCor) {
+  int leftColor, rightColor;
+  leftColor = leftSensorColorRead(defColors);
+  rightColor = rightSensorColorRead(defColors);
+  start fowardPID;
+  while ((leftColor == idCor) &&
+       (rightColor == idCor)) {
+   leftColor = leftSensorColorRead(defColors);
+   rightColor = rightSensorColorRead(defColors);
+  }
+  stop fowardPID;
+  Off(MOTOR_BOTH);
+}
+
+void centerOnIntersec() {
+  fowardCmPID(19);
+}
+
+void route(ColorConf &defColors[]) {
+  int color;
+  moveUntilNotColor(defColors, ID_BRANCO);
+  color = trackPosControll(defColors, ID_BRANCO);
+  if (color == ID_PRETO) {
+      make180(defColors, color);
+  } else if ((color != ID_QUEDA)||(color != ID_BRANCO)) {
+      makeTurn(defColors, color);
+  }
+}
+
+void leaveIntersec(ColorConf &defColors[], int idCor) {
+  moveUntilNotColor(defColors, idCor);
+  trackPosControll(defColors, idCor);
+  route(defColors);
+}
+
+void make180(ColorConf &defColors[], int idCor){
+  turnRightPID(180);
+  leaveIntersec(defColors, idCor);
+}
+
+void makeTurn(ColorConf &defColors[], int idCor) {
+  centerOnIntersec();
+  turnRightPID(90);
+  leaveIntersec(defColors, idCor);
+}
+
 task main() {
-  testeCor();
+  ColorConf c;
+  ColorConf defColors[7];
+  openForRead(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
+  readColorConfFile(c, defColors);
+  /* while (true) {
+    testeCor();
+  } */
+  while(true){
+    route(defColors);
+  }
 }

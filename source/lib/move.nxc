@@ -7,7 +7,7 @@
   Versao: 1.0
 */
 
-#include "include/move.h"
+/* #include "include/move.h"
 
 task turnLeft90(){
   Precedes(left90Gyro, turnLeftPID);
@@ -23,4 +23,4 @@ task turnLeft180(){
 
 task turnRight180(){
   Precedes(right180Gyro, turnRightPID);
-}
+} */

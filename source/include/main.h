@@ -7,7 +7,7 @@
 #include "include/defines.h"
 #include "include/config.h"
 
-#include "lib/move.nxc"
+#include "lib/pid.nxc"
 
 #ifndef INCFILESIO
   #include "lib/filesIO.nxc"

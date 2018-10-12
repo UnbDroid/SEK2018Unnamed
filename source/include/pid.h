@@ -24,6 +24,7 @@
 //Constante de derivacao
 #define KD 10.0
 
+#define CM_TO_ROTATIONS 32.2580645
 /* ====== INICIO DAS FUNCOES DA BIBLIOTECA DE PID ====== */
 
 /*  Turn Left PID
@@ -31,19 +32,21 @@
       paralelamente pelo processador. Vira o robo para a esquerda em seu proprio eixo.
       Não deve ser executada sozinha pois nao havera criterio de parada
 */
-task turnLeftPID();
+void turnLeftPID(int turnAngle);
 
 /*  Turn Right PID
     Descricao: Trecho de codigo definido como uma TASK para ser usada
       paralelamente pelo processador. Vira o robo para a direita em seu proprio eixo.
       Não deve ser executada sozinha pois nao havera criterio de parada
 */
-task turnRightPID();
+void turnRightPID(int turnAngle);
 
 /* Foward PID
     Descricao: Manda o robo ir para a frente.
     AVISO: ESSA FUNCAO NAO ESTA PRONTA
 */
-void fowardPID();
+task fowardPID();
+
+void fowardCmPID(int cm);
 
 #endif
