@@ -1,0 +1,26 @@
+//MASTER
+#define BT_CONN 1
+#define OUTBOX 5
+
+sub BTCheck(int conn){
+ if (!BluetoothStatus(conn)==NO_ERR){
+ TextOut(5,LCD_LINE2,"Error");
+ Wait(1000);
+ Stop(true);
+ }
+}
+
+task main(){
+ BTCheck(BT_CONN);
+
+ string in, out, iStr;
+ BTCheck(BT_CONN); //check slave connection
+ while(true){
+
+ TextOut(10,LCD_LINE1,"Mandado");
+ SendRemoteString(BT_CONN,OUTBOX,"Mandei");
+ Wait(100);
+ }
+
+
+}
