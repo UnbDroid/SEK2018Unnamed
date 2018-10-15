@@ -43,10 +43,12 @@ void turnRightPID(int turnAngle);
 
 /* Foward PID
     Descricao: Manda o robo ir para a frente.
-    AVISO: ESSA FUNCAO NAO ESTA PRONTA
 */
 task fowardPID();
 
+/* Foward CM PID
+    Descricao: Manda o robo ir para a frente em alguns cm
+*/
 void fowardCmPID(int cm);
 
 #endif
