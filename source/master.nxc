@@ -5,44 +5,105 @@
 #define INBOX2 2
 #define INBOX3 3
 #define INBOX4 4
+#define d_boneco 35
+
 #include "include/defines.h"
 
+/* Função que checa a conexão bluetooth entre os cérebros */
+
 sub BTCheck(int conn){
- if (!BluetoothStatus(conn)==NO_ERR){
- TextOut(5,LCD_LINE2,"Error");
- Wait(1000);
- Stop(true);
- }
+  if (!BluetoothStatus(conn)==NO_ERR){
+  TextOut(5,LCD_LINE2,"Bluetooth não conectado.");
+  Wait(1000);
+  Stop(true);
+  }
 }
+
+/* Função para alinhar o boneco com a garra, recebe os valores recebidos pelo escravo */
+
+/* void alinhar_boneco (int direita, int esquerda) {
+
+} */
+
+/* Função que desce a garra que ja vai estar aberta, vai pra frente, pega o boneco e armazena no robô
+   Garra termina aberta.
+ */
+
+/* void capturar() {
+  RotateMotor(OUT_A, -70, 5);
+  fowardCm(6);
+  RotateMotor(OUT_A, 70, 9000);
+  RotateMotor(OUT_A, -70, 4500);
+  (função para dar ré)
+
+} */
 
 task main(){
 
- string in, out, i;
- int ufront_esq, ufront_dir, uside_esq, uside_dir;;
- BTCheck(BT_CONN); //check slave connection
+  string in, out, i;
+  int ufront_esq, ufront_dir, uside_esq, uside_dir;
+  BTCheck(BT_CONN); // checa a conexão com o escravo
 
-TextOut(10,LCD_LINE5,"Fdir:");
-TextOut(10,LCD_LINE3,"Fesq:");
-TextOut(50,LCD_LINE5,"Sdir:");
-TextOut(50,LCD_LINE3,"Sesq:");
+  TextOut(10,LCD_LINE5,"Fdir:");
+  TextOut(10,LCD_LINE3,"Fesq:");
+  TextOut(50,LCD_LINE5,"Sdir:");
+  TextOut(50,LCD_LINE3,"Sesq:");
 
- while(true){
+  while(true){
  /* TextOut(10,LCD_LINE1,"Mandado");
  SendRemoteString(BT_CONN,OUTBOX,"Mandei"); */
 
-if(ReceiveRemoteNumber(INBOX1, true,ufront_esq) == NO_ERR){
-  NumOut(10,LCD_LINE4,ufront_esq); }
-if(ReceiveRemoteNumber(INBOX2, true,ufront_dir) == NO_ERR) {
-  NumOut(10,LCD_LINE6,ufront_dir);}
-  Wait(100);
-if(ReceiveRemoteNumber(INBOX3, true,uside_dir) == NO_ERR) {
-  NumOut(50,LCD_LINE4,uside_dir);}
-if(ReceiveRemoteNumber(INBOX4, true,uside_esq) == NO_ERR) {
-  NumOut(50,LCD_LINE6,uside_esq);}
+/* Se a mensagem mandada pelo escravo não tiver erro, ele recebe a mensagem
+ e printa o valor recebido na tela */
 
-  Wait(500);
-  ClearLine(LCD_LINE4);
-  ClearLine(LCD_LINE6);
+      if(ReceiveRemoteNumber(INBOX1, true,ufront_esq) == NO_ERR){
+        NumOut(10,LCD_LINE4,ufront_esq);
+      }
+      if(ReceiveRemoteNumber(INBOX2, true,ufront_dir) == NO_ERR) {
+        NumOut(10,LCD_LINE6,ufront_dir);
+      }
+      Wait(100); // Sem esse wait ele só recebe os 2 primeiros valores
+      if(ReceiveRemoteNumber(INBOX3, true,uside_dir) == NO_ERR) {
+        NumOut(50,LCD_LINE4,uside_dir);
+      }
+      if(ReceiveRemoteNumber(INBOX4, true,uside_esq) == NO_ERR) {
+        NumOut(50,LCD_LINE6,uside_esq);
+      }
+      Wait(500);
+      ClearLine(LCD_LINE4);
+      ClearLine(LCD_LINE6);
+
+      /* Se os sensores laterais receberem um valor menor que
+      a const "d_boneco"(distância máxima que o boneco pode ficar de acordo com o edital),
+      ele vira 90 graus na direção do boneco, captura-o, armazena e volta pra pista. */
+
+       /* if (uside_esq < d_boneco) {
+        turnLeft90();
+         alinhar_boneco (ufront_esq, ufront_dir);
+        capturar();
+        turnRight90();
+      } */
+
+      /* if(uside_dir < d_boneco) {
+        turnRight90();
+        alinhar_boneco (ufront_esq, ufront_dir);
+        capturar();
+        turnLeft90();
+      }  */
+
+      /* Colocar alguma condição para que ele pare caso tenha virado em um local errado (veja queda com os dois sensores),
+      dando ré, virando para o lado oposto e voltando a percorrer a pista. */
+
+      /* Fazer função para alinhar a garra com o boneco e fazer a garra descer,
+      lembrando que na plataforma costuma ter dois bonecos
+      alinhar_boneco (ufront_esq, ufront_dir); */
+
+      /* Após alinhar, o robo vai um pouco pra frente e
+      fecha a garra para armazenar o boneco e dar ré
+      capturar();
+      */
+
+      /* Virar 90 na direção oposta que virou antes e volta para o percorrimento */
 
 
 

@@ -8,61 +8,64 @@
 
 #include "include/defines.h"
 
+/* Função que checa a conexão bluetooth entre os cérebros */
 sub BTCheck(int conn){
  if (!BluetoothStatus(conn)==NO_ERR){
- TextOut(5,LCD_LINE2,"Error");
+ TextOut(5,LCD_LINE2,"Bluetooth não conectado.");
  Wait(1000);
  Stop(true);
  }
 }
+
 task main(){
  string in, out1, out2, out3;
  int ufront_esq, ufront_dir, uside_esq, uside_dir;
- BTCheck(0);
+ BTCheck(0); //checa a conexão com o mestre
 
-TextOut(10,LCD_LINE6,"Fdir:");
-TextOut(10,LCD_LINE4,"Fesq:");
-TextOut(50,LCD_LINE6,"Sdir:");
-TextOut(50,LCD_LINE4,"Sesq:");
+ TextOut(10,LCD_LINE6,"Fdir:");
+ TextOut(10,LCD_LINE4,"Fesq:");
+ TextOut(50,LCD_LINE6,"Sdir:");
+ TextOut(50,LCD_LINE4,"Sesq:");
 
  while(true){
 
- SetSensorLowspeed(FRONT_ULTRA_LEFT);
- SetSensorLowspeed(FRONT_ULTRA_RIGHT);
- SetSensorLowspeed(SIDE_ULTRA_LEFT);
- SetSensorLowspeed(SIDE_ULTRA_RIGHT);
+   /* Setando o sensor ultrassônico */
+   SetSensorLowspeed(FRONT_ULTRA_LEFT);
+   SetSensorLowspeed(FRONT_ULTRA_RIGHT);
+   SetSensorLowspeed(SIDE_ULTRA_LEFT);
+   SetSensorLowspeed(SIDE_ULTRA_RIGHT);
 
-  ufront_esq = SensorUS(FRONT_ULTRA_LEFT);
-  ufront_dir = SensorUS(FRONT_ULTRA_RIGHT);
-  uside_esq = SensorUS(SIDE_ULTRA_RIGHT);
-  uside_dir = SensorUS(SIDE_ULTRA_RIGHT);
-
-  if(ufront_esq < 30 || ufront_dir < 30 || uside_esq < 30 || uside_dir < 30){
-    SendResponseNumber(OUTBOX1,ufront_esq);
-    SendResponseNumber(OUTBOX2,ufront_dir);
-    SendResponseNumber(OUTBOX3,uside_esq);
-    SendResponseNumber(OUTBOX4,uside_dir);
-    Wait(100);
-  }
+   ufront_esq = SensorUS(FRONT_ULTRA_LEFT);
+   ufront_dir = SensorUS(FRONT_ULTRA_RIGHT);
+   uside_esq = SensorUS(SIDE_ULTRA_LEFT);
+   uside_dir = SensorUS(SIDE_ULTRA_RIGHT);
 
 
-NumOut(10,LCD_LINE5,ufront_esq);
-NumOut(10,LCD_LINE7,ufront_dir);
-NumOut(50,LCD_LINE5,uside_esq);
-NumOut(50,LCD_LINE7,uside_dir);
+   /* Printando o número mandado na tela */
+   NumOut(10,LCD_LINE5,ufront_esq);
+   NumOut(10,LCD_LINE7,ufront_dir);
+   NumOut(50,LCD_LINE5,uside_esq);
+   NumOut(50,LCD_LINE7,uside_dir);
 
-Wait(500);
-ClearLine(LCD_LINE2);
-ClearLine(LCD_LINE5);
-ClearLine(LCD_LINE7);
+   Wait(500);
+   ClearLine(LCD_LINE5);
+   ClearLine(LCD_LINE7);
 
- if(in == "Mandei"){
+   /* Manda os valores lidos nos ultrassons pro mestre */
+
+     SendResponseNumber(OUTBOX1,ufront_esq);
+     SendResponseNumber(OUTBOX2,ufront_dir);
+     SendResponseNumber(OUTBOX3,uside_esq);
+     SendResponseNumber(OUTBOX4,uside_dir);
+     Wait(100);
+
+ /* if(in == "Mandei"){
 
              RotateMotor(OUT_A, -70, 500);
              Off(OUT_A);
              RotateMotor(OUT_A, 70, 500);
              Off(OUT_A);
-              }
+  } */
  }
 
 }
