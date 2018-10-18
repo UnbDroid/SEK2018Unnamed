@@ -9,15 +9,23 @@
 
 #include "lib/main.nxc"
 
+void configSensor(){
+  SetSensorLowspeed(COLOR_LEFT);
+  SetHTColor2Mode(COLOR_LEFT, HT_CMD_COLOR2_ACTIVE);
+  SetSensorLowspeed(COLOR_RIGHT);
+  SetHTColor2Mode(COLOR_RIGHT, HT_CMD_COLOR2_ACTIVE);
+}
+
 task main() {
   ColorConf c;
   ColorConf defColors[7];
   openForRead(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
   readColorConfFile(c, defColors);
-  /* while (true) {
-    testeCor();
-  } */
-  while(true){
-    route(defColors);
+  configSensor();
+  /* turn(DIREITA, 90); */
+  /* OnFwd(MOTOR_BOTH, 70);
+  Wait(1000); */
+  /* start fowardPID; */
+  startRoute(defColors);
   }
 }

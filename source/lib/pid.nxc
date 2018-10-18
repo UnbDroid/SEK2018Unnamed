@@ -10,7 +10,7 @@
 
 task fowardPID() {
   ResetRotationCount(MOTOR_BOTH);
-  Wait(20);
+  Wait(10);
   float lRotation = MotorRotationCount(MOTOR_LEFT);
   float rRotation = MotorRotationCount(MOTOR_RIGHT);
   float error, turn, pwrLeft, pwrRight, derivate;
@@ -34,7 +34,7 @@ task fowardPID() {
 void turnLeftPID(int turnAngle) {
   SetSensorHTGyro(GIRO);
   ResetRotationCount(MOTOR_BOTH);
-  Wait(20);
+  Wait(10);
   float angle = 0, gyro = 0;
   unsigned long time = CurrentTick();
   unsigned long prev_time;
@@ -69,7 +69,7 @@ void turnLeftPID(int turnAngle) {
 void turnRightPID(int turnAngle){
   SetSensorHTGyro(GIRO);
   ResetRotationCount(MOTOR_BOTH);
-  Wait(20);
+  Wait(10);
   float angle = 0, gyro = 0;
   unsigned long time, prev_time;
   time = CurrentTick();
@@ -103,7 +103,7 @@ void turnRightPID(int turnAngle){
 
 void fowardCmPID(int cm) {
   ResetRotationCount(MOTOR_BOTH);
-  Wait(20);
+  Wait(10);
   float lRotation = MotorRotationCount(MOTOR_LEFT);
   NumOut(0,LCD_LINE1,lRotation);
   float rRotation = MotorRotationCount(MOTOR_RIGHT);

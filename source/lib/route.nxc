@@ -7,9 +7,27 @@
 */
 #include "include/route.h"
 
+typedef struct {
+  int front;
+  int left;
+  int right;
+}Directions;
+
+int currentColor;
+int lastColor = -1;
+int turnCount = 0;
+
+Directions dir;
+
+void init_dir(Directions &dir){
+  dir.front = -1;
+  dir.left = -1;
+  dir.right = -1;
+}
+
 void recenter(ColorConf &defColors[]){
   if ((leftSensorColorRead(defColors) == ID_QUEDA) &&
-      (rightSensorColorRead(defColors) != ID_BRANCO)) {
+      (rightSensorColorRead(defColors) == ID_QUEDA)) {
     Off(MOTOR_BOTH);
   } else if (leftSensorColorRead(defColors) == ID_QUEDA) {
     while (leftSensorColorRead(defColors) != ID_BRANCO) {
@@ -34,13 +52,12 @@ int avoidFall(ColorConf &defColors[]){
 }
 
 void adjustPosition(ColorConf &defColors[], int idColor) {
+  Off(MOTOR_BOTH);
   if (leftSensorColorRead(defColors) == idColor){
-    Off(MOTOR_BOTH);
     while(rightSensorColorRead(defColors) != idColor) {
       OnFwd(MOTOR_RIGHT, 40);
     }
   } else if (rightSensorColorRead(defColors) == idColor){
-    Off(MOTOR_BOTH);
     while(leftSensorColorRead(defColors) != idColor) {
       OnFwd(MOTOR_LEFT, 40);
     }
@@ -68,13 +85,13 @@ void moveUntilNotColor(ColorConf &defColors[], int idCor) {
   int leftColor, rightColor;
   leftColor = leftSensorColorRead(defColors);
   rightColor = rightSensorColorRead(defColors);
-  start foward;
+  start fowardPID;
   while ((leftColor == idCor) &&
        (rightColor == idCor)) {
    leftColor = leftSensorColorRead(defColors);
    rightColor = rightSensorColorRead(defColors);
   }
-  stop foward;
+  stop fowardPID;
   Off(MOTOR_BOTH);
 }
 
@@ -82,13 +99,39 @@ void centerOnIntersec() {
   fowardCm(19);
 }
 
+void evaluateDirection(int color) {
+  currentColor = color;
+  if ((currentColor != ID_PRETO)&&(lastColor != -1)) {
+    if ((turnCount == 1)&&(dir.right == -1)){
+      PlayTone(500, 500);
+        dir.right = lastColor;
+    } else if ((turnCount == 2)&&(dir.front == -1)){
+        PlayTone(500, 500);
+        dir.front = lastColor;
+    } else if ((turnCount == 3)&&(dir.left == -1)) {
+        PlayTone(500, 500);
+        dir.left = lastColor;
+    }
+  }
+  lastColor = currentColor;
+}
+
+void startRoute(ColorConf &defColors[]) {
+  init_dir(dir);
+  while(true){
+    route(defColors);
+  }
+}
+
 void route(ColorConf &defColors[]) {
   int color;
   moveUntilNotColor(defColors, ID_BRANCO);
   color = trackPosControll(defColors, ID_BRANCO);
+  evaluateDirection(color);
   if (color == ID_PRETO) {
       make180(defColors, color);
-  } else if ((color != ID_QUEDA)||(color != ID_BRANCO)) {
+  }
+  else if ((color != ID_QUEDA)||(color != ID_BRANCO)) {
       makeTurn(defColors, color);
   }
 }
@@ -106,6 +149,26 @@ void make180(ColorConf &defColors[], int idCor){
 
 void makeTurn(ColorConf &defColors[], int idCor) {
   centerOnIntersec();
-  turn(DIREITA, 90);
-  leaveIntersec(defColors, idCor);
+  if (idCor == dir.left) {
+    turn(ESQUERDA, ANGLE90);
+    leaveIntersec(defColors, idCor);
+  } else if (idCor == dir.right) {
+      turn(DIREITA, ANGLE90);
+      leaveIntersec(defColors, idCor);
+  } else if (idCor == dir.front) {
+    leaveIntersec(defColors, idCor);
+  } else {
+    if (dir.right != -1) {
+      if (dir.front != -1) {
+        turn(ESQUERDA, ANGLE90);
+        turnCount = 3;
+      } else {
+        turnCount = 2;
+      }
+    } else {
+      turn(DIREITA, ANGLE90);
+      turnCount = 1;
+    }
+    leaveIntersec(defColors, idCor);
+  }
 }
