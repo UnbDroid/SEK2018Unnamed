@@ -7,7 +7,8 @@
 #define INBOX4 4
 #define d_boneco 35
 
-#include "include/defines.h"
+
+  #include "lib/move.nxc"
 
 /* Função que checa a conexão bluetooth entre os cérebros */
 
@@ -41,7 +42,7 @@ sub BTCheck(int conn){
 task main(){
 
   string in, out, i;
-  int ufront_esq, ufront_dir, uside_esq, uside_dir;
+  int ufront_esq = 255, ufront_dir = 255, uside_esq, uside_dir;
   BTCheck(BT_CONN); // checa a conexão com o escravo
 
   TextOut(10,LCD_LINE5,"Fdir:");
@@ -49,46 +50,63 @@ task main(){
   TextOut(50,LCD_LINE5,"Sdir:");
   TextOut(50,LCD_LINE3,"Sesq:");
 
-  while(true){
+while (uside_esq > d_boneco) {
+
+      start fowardPID;
+
+  /* if(ReceiveRemoteNumber(INBOX1, true,ufront_esq) == NO_ERR){
+    NumOut(10,LCD_LINE4,ufront_esq);
+  }
+  if(ReceiveRemoteNumber(INBOX2, true,ufront_dir) == NO_ERR) {
+    NumOut(10,LCD_LINE6,ufront_dir);
+  }
+  Wait(100); // Sem esse wait ele só recebe os 2 primeiros valores */
+  if(ReceiveRemoteNumber(INBOX3, true,uside_dir) == NO_ERR) {
+    NumOut(50,LCD_LINE4,uside_dir);
+  }
+  if(ReceiveRemoteNumber(INBOX4, true,uside_esq) == NO_ERR) {
+    NumOut(50,LCD_LINE6,uside_esq);
+  }
+  Wait(500);
+  ClearLine(LCD_LINE4);
+  ClearLine(LCD_LINE6);
+
+
+
  /* TextOut(10,LCD_LINE1,"Mandado");
  SendRemoteString(BT_CONN,OUTBOX,"Mandei"); */
 
 /* Se a mensagem mandada pelo escravo não tiver erro, ele recebe a mensagem
  e printa o valor recebido na tela */
 
-      if(ReceiveRemoteNumber(INBOX1, true,ufront_esq) == NO_ERR){
-        NumOut(10,LCD_LINE4,ufront_esq);
-      }
-      if(ReceiveRemoteNumber(INBOX2, true,ufront_dir) == NO_ERR) {
-        NumOut(10,LCD_LINE6,ufront_dir);
-      }
-      Wait(100); // Sem esse wait ele só recebe os 2 primeiros valores
-      if(ReceiveRemoteNumber(INBOX3, true,uside_dir) == NO_ERR) {
-        NumOut(50,LCD_LINE4,uside_dir);
-      }
-      if(ReceiveRemoteNumber(INBOX4, true,uside_esq) == NO_ERR) {
-        NumOut(50,LCD_LINE6,uside_esq);
-      }
-      Wait(500);
-      ClearLine(LCD_LINE4);
-      ClearLine(LCD_LINE6);
 
       /* Se os sensores laterais receberem um valor menor que
       a const "d_boneco"(distância máxima que o boneco pode ficar de acordo com o edital),
       ele vira 90 graus na direção do boneco, captura-o, armazena e volta pra pista. */
 
-       /* if (uside_esq < d_boneco) {
-        turnLeft90();
-         alinhar_boneco (ufront_esq, ufront_dir);
+
+
+
+        if (uside_esq < d_boneco) {
+        ClearScreen();
+        stop fowardPID;
+        turn(ESQUERDA, 90);
+
+      }
+
+
+         /* alinhar_boneco (ufront_esq, ufront_dir);
         capturar();
-        turnRight90();
+        turn(DIREITA, 90);
       } */
 
+
+
       /* if(uside_dir < d_boneco) {
-        turnRight90();
+        turn(DIREITA, 90);
         alinhar_boneco (ufront_esq, ufront_dir);
         capturar();
-        turnLeft90();
+        turn(ESQUERDA, 90);
       }  */
 
       /* Colocar alguma condição para que ele pare caso tenha virado em um local errado (veja queda com os dois sensores),
@@ -107,7 +125,7 @@ task main(){
 
 
 
- }
 
+}
 
 }
