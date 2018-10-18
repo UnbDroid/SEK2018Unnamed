@@ -101,7 +101,7 @@ typedef struct {
   int rightGInterval;
   int rightBInterval;
   int rightWInterval;
-}ColorConf;
+} ColorConf;
 
 /* ====== INICIO DAS FUNCOES DA BIBLIOTECA DE CORES ====== */
 

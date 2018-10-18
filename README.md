@@ -1,6 +1,6 @@
 # SEKMANDA 2018
 
-Este repositório contém os códigos da equipe SEKMANDA, e tem como objetivo ser usada na competição da SEK na LARC 2018. O código foi desenvolvido para o Kit Lego Mindstorm NXT e utiliza como base a linguagem de programação NXC. 
+Este repositório contém os códigos da equipe SEKMANDA, e tem como objetivo ser usada na competição da SEK na LARC 2018. O código foi desenvolvido para o Kit Lego Mindstorm NXT e utiliza como base a linguagem de programação NXC.
 
 ## Git Flow do Repositório
 
@@ -42,7 +42,7 @@ git checkout nome_da_branch
 ````
 
 Após ter adicionado mudanças e realizado o commit na sua branch, ao dar o push você pode se deparar com um possível erro. Este erro é porque sua branch ainda não existe no repositório remoto. Para corrigí-lo utilize o comando abaixo que realizará a ligação entre seu branch local e remoto.
-````git 
+````git
 git push --set-upstream origin nome_da_branch
 ````
 

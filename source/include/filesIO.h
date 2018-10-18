@@ -60,7 +60,7 @@ void deleteFile(string fileName, unsigned int fileSize);
 void initColorConf(ColorConf &c, int id, int lRed, int lGreen, int lBlue, int lWhite, int rRed, int rGreen, int rBlue, int rWhite);
 
 /* Open For Write
-  Descricao: Abre um arquivo para a leitura
+  Descricao: Abre um arquivo para a escrita
   Parametros:
   - fileName: Uma string contendo o nome do arquivo
   - fileSize: O tamanho do arquivo
@@ -68,7 +68,7 @@ void initColorConf(ColorConf &c, int id, int lRed, int lGreen, int lBlue, int lW
 void openForWrite(string fileName, unsigned int fileSize);
 
 /* Open for Read
-  Descricao: Abre um arquivo para escrita
+  Descricao: Abre um arquivo para leitura
   Parametros:
     - fileName: Uma string contendo o nome do arquivo
     - fileSize: O tamanho do arquivo

@@ -13,36 +13,36 @@
 /* ====== INICIO DAS IMPORTACOES DA BIBLIOTECA DE MOVIMENTACAO ====== */
 
 #include "include/defines.h"
-#include "lib/gyro.nxc"
 #ifndef INCPID
   #include "lib/pid.nxc"
   #define INCPID
 #endif
 
+/* ====== INICIO DAS DEFINICOES DA BIBLIOTECA DE ROTA ====== */
+
+#define ESQUERDA 0
+#define DIREITA 1
+
 /* ====== INICIO DAS FUNCOES DA BIBLIOTECA DE MOVIMENTACAO ====== */
 
-/* Turn Left 90
-    Descricao: Trecho de codigo definido como uma TASK para ser usada
-      paralelamente pelo processador. Vira o robo 90 para a esquerda em seu proprio eixo.
+/*  Foward
+    Descricao: Move para frente, necessita um comando `stop foward` para para-la
 */
-task turnLeft90();
+task foward();
 
-/*  Turn Right 90
-    Descricao: Trecho de codigo definido como uma TASK para ser usada
-      paralelamente pelo processador. Vira o robo 90 para a direita em seu proprio eixo.
+/*  Turn
+    Descricao: Move em uma certa direcao, uma certa quantidade de graus
+    Parametros:
+      - direcao: Direcao desejada ESQUEDA ou DIREITA
+      - graus: Quantidade de graus, 0 a 360
 */
-task turnRight90();
+void turn(int direcao, int graus);
 
-/*  Turn Left 180
-    Descricao: Trecho de codigo definido como uma TASK para ser usada
-      paralelamente pelo processador. Vira o robo 180 para a esquerda em seu proprio eixo.
+/*  Foward Cm
+    Descricao: Move para frente uma certa quantidade de centimetros
+    Parametros:
+      - cm: Quantidade de centimetros
 */
-task turnLeft180();
-
-/*  Turn Right 180
-    Descricao: Trecho de codigo definido como uma TASK para ser usada
-      paralelamente pelo processador. Vira o robo 180 para a direita em seu proprio eixo.
-*/
-task turnRight180();
+void fowardCm(int cm);
 
 #endif
