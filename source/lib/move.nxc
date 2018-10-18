@@ -7,20 +7,20 @@
   Versao: 1.0
 */
 
-#include "include/move.h"
+ #include "include/move.h"
 
-task turnLeft90(){
-  Precedes(left90Gyro, turnLeftPID);
+void turn(int direcao, int graus){
+  if (direcao == ESQUERDA) {
+    turnLeftPID(graus);
+  } else if (direcao == DIREITA) {
+    turnRightPID(graus);
+  }
 }
 
-task turnRight90(){
-  Precedes(right90Gyro, turnRightPID);
+task foward(){
+  start fowardPID;
 }
 
-task turnLeft180(){
-  Precedes(left180Gyro, turnLeftPID);
-}
-
-task turnRight180(){
-  Precedes(right180Gyro, turnRightPID);
+void fowardCm(int cm){
+  fowardCmPID(cm);
 }

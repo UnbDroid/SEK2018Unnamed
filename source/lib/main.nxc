@@ -1,0 +1,51 @@
+#include "include/main.h"
+
+void testeArquivo(){
+  ColorConf c;
+  ColorConf colors[8];
+  readColorConfFile(c, colors);
+  openForRead(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
+  readColorConfFile(c, colors);
+  for(int i = 0; i < 7; i++){
+      NumOut(0,LCD_LINE1,colors[i].id);
+      NumOut(0,LCD_LINE2,colors[i].leftRed);
+      NumOut(20,LCD_LINE2,colors[i].leftGreen);
+      NumOut(40,LCD_LINE2,colors[i].leftBlue);
+      NumOut(60,LCD_LINE2,colors[i].leftWhite);
+      NumOut(0,LCD_LINE3,colors[i].rightRed);
+      NumOut(20,LCD_LINE3,colors[i].rightGreen);
+      NumOut(40,LCD_LINE3,colors[i].rightBlue);
+      NumOut(60,LCD_LINE3,colors[i].rightWhite);
+
+      NumOut(0,LCD_LINE5,colors[i].leftRInterval);
+      NumOut(20,LCD_LINE5,colors[i].leftGInterval);
+      NumOut(40,LCD_LINE5,colors[i].leftBInterval);
+      NumOut(60,LCD_LINE5,colors[i].leftWInterval);
+
+      NumOut(0,LCD_LINE6,colors[i].rightRInterval);
+      NumOut(20,LCD_LINE6,colors[i].rightGInterval);
+      NumOut(40,LCD_LINE6,colors[i].rightBInterval);
+      NumOut(60,LCD_LINE6,colors[i].rightWInterval);
+      Wait(3000);
+      ClearScreen();
+  }
+}
+
+void testeCor(){
+  ColorConf c;
+  ColorConf defColors[7];
+  openForRead(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
+  readColorConfFile(c, defColors);
+  while (true) {
+    int value1 = leftSensorColorRead(defColors);
+    int value2 = rightSensorColorRead(defColors);
+    string colorName = getColorName(value1);
+    string colorName2 = getColorName(value2);
+    TextOut(0,LCD_LINE1,colorName);
+    Wait(500);
+    ClearScreen();
+    TextOut(0,LCD_LINE2,colorName2);
+    Wait(500);
+    ClearScreen();
+  }
+}

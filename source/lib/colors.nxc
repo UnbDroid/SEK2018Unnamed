@@ -170,8 +170,6 @@ int isItColor(int intervalR, int intervalG, int intervalB, int intervalW) {
 int leftSensorColorRead(ColorConf &defColors[]){
   int color;
   byte r = 0, g = 0, b=0, w=0, num=0;
-  SetSensorLowspeed(COLOR_LEFT);
-  SetHTColor2Mode(COLOR_LEFT, HT_CMD_COLOR2_ACTIVE);
   ReadSensorHTColor2Active(COLOR_LEFT, num, r, g, b, w);
 
   calculateInterval(r, g, b, w);
@@ -241,8 +239,6 @@ int leftSensorColorRead(ColorConf &defColors[]){
 int rightSensorColorRead(ColorConf &defColors[]){
   int color;
   byte r = 0, g = 0, b=0, w=0, num=0;
-  SetSensorLowspeed(COLOR_RIGHT);
-  SetHTColor2Mode(COLOR_RIGHT, HT_CMD_COLOR2_ACTIVE);
   ReadSensorHTColor2Active(COLOR_RIGHT, num, r, g, b, w);
 
   calculateInterval(r, g, b, w);
