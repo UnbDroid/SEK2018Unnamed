@@ -11,12 +11,12 @@
 #include "lib/config.nxc"
 
 task main() {
-    /* CloseFile(handle); */
+    CloseFile(handle);
     SetSensorLowspeed(COLOR_RIGHT);
     SetHTColor2Mode(COLOR_RIGHT, HT_CMD_COLOR2_ACTIVE);
     SetSensorLowspeed(COLOR_LEFT);
     SetHTColor2Mode(COLOR_LEFT, HT_CMD_COLOR2_ACTIVE);
-    /* deleteFile(CONFIG_FILE_NAME, CONFIG_FILE_SIZE); */
+    deleteFile(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
     configColor(ID_AMARELO);
     configColor(ID_VERDE);
     configColor(ID_AZUL);

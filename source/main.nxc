@@ -26,6 +26,7 @@ task main() {
   /* OnFwd(MOTOR_BOTH, 70);
   Wait(1000); */
   /* start fowardPID; */
-  startRoute(defColors);
+  testeCor();
+  /* startRoute(defColors); */
   }
 }

@@ -118,8 +118,8 @@ void evaluateDirection(int color) {
 
 void startRoute(ColorConf &defColors[]) {
   init_dir(dir);
-  while(true){
-    route(defColors);
+  while(true) {
+      route(defColors);
   }
 }
 

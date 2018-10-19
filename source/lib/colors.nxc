@@ -168,7 +168,7 @@ int isItColor(int intervalR, int intervalG, int intervalB, int intervalW) {
 }
 
 int leftSensorColorRead(ColorConf &defColors[]){
-  int color;
+  int color = -1;
   byte r = 0, g = 0, b=0, w=0, num=0;
   ReadSensorHTColor2Active(COLOR_LEFT, num, r, g, b, w);
 
@@ -237,7 +237,7 @@ int leftSensorColorRead(ColorConf &defColors[]){
 }
 
 int rightSensorColorRead(ColorConf &defColors[]){
-  int color;
+  int color = -1;
   byte r = 0, g = 0, b=0, w=0, num=0;
   ReadSensorHTColor2Active(COLOR_RIGHT, num, r, g, b, w);
 
@@ -296,7 +296,7 @@ int rightSensorColorRead(ColorConf &defColors[]){
                      defColors[4].rightGInterval,
                      defColors[4].rightBInterval,
                      defColors[4].rightWInterval)){
-                       color = ID_VERDE;
+      color = ID_VERDE;
     } else {
       color = ID_PRETO;
     }
