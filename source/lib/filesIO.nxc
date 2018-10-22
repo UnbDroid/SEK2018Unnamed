@@ -15,7 +15,7 @@ void initColorConf(ColorConf &c, int id, int lRed, int lGreen, int lBlue, int lW
   c.leftRed = lRed;
   c.leftGreen = lGreen;
   c.leftBlue = lBlue;
-  c.leftWhite =lWhite;
+  c.leftWhite = lWhite;
   c.rightRed = rRed;
   c.rightGreen = rGreen;
   c.rightBlue = rBlue;
@@ -78,7 +78,6 @@ void openForWrite(string fileName, unsigned int fileSize) {
 }
 
 void openForRead(string fileName, unsigned int fileSize) {
-  unsigned int file_size = fileSize;
   handle = 0;
   unsigned int rtn_code = OpenFileRead(fileName, fileSize, handle);
   // Return code handling
@@ -91,7 +90,6 @@ void openForRead(string fileName, unsigned int fileSize) {
 
 void writeColorConfOnFile(const ColorConf recd) {
   unsigned int rtn_code = Write(handle, recd);
-
   // Return code handling
   if (rtn_code != LDR_SUCCESS) {
      switch (rtn_code) {
@@ -103,7 +101,7 @@ void writeColorConfOnFile(const ColorConf recd) {
           TextOut(0, LCD_LINE1, "write failed    ");
           logError(rtn_code);
           break;
-     }
+      }
   }
 }
 

@@ -24,4 +24,5 @@ task main() {
     configColor(ID_PRETO);
     configColor(ID_BRANCO);
     configColor(ID_QUEDA);
+    CloseFile(handle);
 }

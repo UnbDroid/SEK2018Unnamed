@@ -84,23 +84,23 @@ int colorsMat[][] = {{0,0,0},
     - rightWInterval: Intervalo onde o azul esta no sensor direito
 */
 typedef struct {
-  int id;
-  int leftRed;
-  int leftGreen;
-  int leftBlue;
-  int leftWhite;
-  int rightRed;
-  int rightGreen;
-  int rightBlue;
-  int rightWhite;
-  int leftRInterval;
-  int leftGInterval;
-  int leftBInterval;
-  int leftWInterval;
-  int rightRInterval;
-  int rightGInterval;
-  int rightBInterval;
-  int rightWInterval;
+  byte id;
+  byte leftRed;
+  byte leftGreen;
+  byte leftBlue;
+  byte leftWhite;
+  byte rightRed;
+  byte rightGreen;
+  byte rightBlue;
+  byte rightWhite;
+  byte leftRInterval;
+  byte leftGInterval;
+  byte leftBInterval;
+  byte leftWInterval;
+  byte rightRInterval;
+  byte rightGInterval;
+  byte rightBInterval;
+  byte rightWInterval;
 } ColorConf;
 
 /* ====== INICIO DAS FUNCOES DA BIBLIOTECA DE CORES ====== */

@@ -3,7 +3,7 @@
 void testeArquivo(){
   ColorConf c;
   ColorConf colors[8];
-  readColorConfFile(c, colors);
+  /* readColorConfFile(c, colors); */
   openForRead(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
   readColorConfFile(c, colors);
   for(int i = 0; i < 7; i++){
@@ -26,7 +26,7 @@ void testeArquivo(){
       NumOut(20,LCD_LINE6,colors[i].rightGInterval);
       NumOut(40,LCD_LINE6,colors[i].rightBInterval);
       NumOut(60,LCD_LINE6,colors[i].rightWInterval);
-      Wait(3000);
+      Wait(500);
       ClearScreen();
   }
 }

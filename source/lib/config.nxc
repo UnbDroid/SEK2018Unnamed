@@ -39,7 +39,7 @@ void configColor(int color) {
     ReadSensorHTColor2Active(COLOR_RIGHT, rNum, rRed, rGreen, rBlue, rWhite);
     ReadSensorHTColor2Active(COLOR_LEFT, lNum, lRed, lGreen, lBlue, lWhite);
     ColorConfUI(colorName, lRed, lGreen, lBlue, lWhite);
-    Wait(500);
+    Wait(200);
     ClearScreen();
     btCenter = ButtonPressed(BTNCENTER, false);
     btRight = ButtonPressed(BTNRIGHT, false);
