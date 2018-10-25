@@ -41,8 +41,6 @@ int colorsMat[][] = {{0,0,0},
 #define INTERVAL_SIZE 15.0
 // Valor do erro que uma cor pode ter para estar no intervalo
 #define MEAN_ERROR 8
-// Id do Amarelo
-#define ID_AMARELO 0
 // Id do Verde
 #define ID_VERDE 1
 // Id do Azul
@@ -55,6 +53,8 @@ int colorsMat[][] = {{0,0,0},
 #define ID_BRANCO 5
 // Id da Queda
 #define ID_QUEDA 6
+// Id do Amarelo
+#define ID_AMARELO 7
 // Identificador da situacao de Soma
 #define SUM 1
 // Identificador da situacao de Subtracao

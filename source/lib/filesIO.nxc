@@ -9,7 +9,6 @@
 
 #include "include/filesIO.h"
 
-
 void initColorConf(ColorConf &c, int id, int lRed, int lGreen, int lBlue, int lWhite, int rRed, int rGreen, int rBlue, int rWhite) {
   c.id = id;
   c.leftRed = lRed;
@@ -53,9 +52,9 @@ void deleteFile(string fileName, unsigned int fileSize) {
 
 void openForWrite(string fileName, unsigned int fileSize) {
   handle = 0;
-
   // Start with the assumptions the file doesn't exist and needs to be created.
   unsigned int rtn_code = CreateFile(fileName, fileSize, handle);
+
 
   // If the file already exists, open it with the intent of adding to the data
   // that is already there.
@@ -79,7 +78,8 @@ void openForWrite(string fileName, unsigned int fileSize) {
 
 void openForRead(string fileName, unsigned int fileSize) {
   handle = 0;
-  unsigned int rtn_code = OpenFileRead(fileName, fileSize, handle);
+  unsigned int rtn_code = OpenFileRead("config.dat", fileSize, handle);
+
   // Return code handling
   if (rtn_code != LDR_SUCCESS) {
      // Unanticipated exception.
@@ -105,10 +105,15 @@ void writeColorConfOnFile(const ColorConf recd) {
   }
 }
 
+void closeFile(){
+  CloseFile(handle);
+}
+
 void readColorConfFile(ColorConf &reacd, ColorConf &output[]) {
   unsigned int rtn_code = Read(handle, reacd);
   int i = 0;
   while (rtn_code != LDR_ENDOFFILE){
+
     if (rtn_code == LDR_SUCCESS) {
       output[i] = reacd;
     } else {
