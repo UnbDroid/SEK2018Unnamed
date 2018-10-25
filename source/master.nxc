@@ -1,4 +1,26 @@
 //MASTER
+
+/* Algumas coisas sobre comunicação
+Para o mestre:
+1 - Para o mestre enviar strings para o escravo utiliza-se a função SendRemoteString(byte conn, byte queue, string str);
+byte conn: checa a comunicação, utiliza-se BT_CONN
+byte queue: caixa onde a mensagem vai ser armazenada para envio (pode-se colocar de 0 a 9), eu defini uma constante OUTBOX
+string str: a string que deseja enviar, pode-se colocar uma variável ou a mensagem diretamente entre parênteses
+2 - Para o mestre enviar números para o escravo utiliza-se a função SendRemoteNumber(byte conn, byte queue, long val);
+byte conn: checa a comunicação, utiliza-se BT_CONN
+byte queue: caixa onde a mensagem vai ser armazenada para envio (pode-se colocar de 0 a 9), eu defini uma constante OUTBOX
+long val: o número que deseja enviar, pode-se colocar uma variável ou o número direto
+3 - Para o mestre receber números do escravo, utiliza-se a função ReceiveRemoteNumber(byte queue, bool clear, long &val);
+byte queue: caixa de entrada onde a mensagem vai ser recebida (deve ser o mesmo número da caixa que foi mandada)
+bool clear: true or false , caso seja true a cada mensagem nova que ele receber ele apaga a anterior, se for false ele guarda somente a primeira mensagem que receber
+long &val: variável onde ele vai guardar o número recebido
+4 - Para o mestre receber strings do escravo, utiliza-se a função ReceiveRemoteString(byte queue, bool clear, string &str);
+byte queue: caixa de entrada onde a mensagem vai ser recebida (deve ser o mesmo número da caixa que foi mandada)
+bool clear: true or false , caso seja true a cada mensagem nova que ele receber ele apaga a anterior, se for false ele guarda somente a primeira mensagem que receber
+string &str: variavel onde ele vai guardar a string recebida
+5 - Ao receber uma mensagem é necessário utilizar: if((função de receber) == NO_ERR); que checa só recebe mensagens sem erro
+*/
+
 #define BT_CONN 1
 #define OUTBOX 5
 #define INBOX1 1
@@ -8,13 +30,14 @@
 #define d_boneco 35
 
 
+
   #include "lib/move.nxc"
 
 /* Função que checa a conexão bluetooth entre os cérebros */
 
 sub BTCheck(int conn){
   if (!BluetoothStatus(conn)==NO_ERR){
-  TextOut(5,LCD_LINE2,"Bluetooth não conectado.");
+  TextOut(5,LCD_LINE2,"Sem conexão.");
   Wait(1000);
   Stop(true);
   }
@@ -42,17 +65,20 @@ sub BTCheck(int conn){
 task main(){
 
   string in, out, i;
-  int ufront_esq = 255, ufront_dir = 255, uside_esq, uside_dir;
+  int ufront_esq, ufront_dir, uside_esq, uside_dir;
   BTCheck(BT_CONN); // checa a conexão com o escravo
 
-  TextOut(10,LCD_LINE5,"Fdir:");
-  TextOut(10,LCD_LINE3,"Fesq:");
+  TextOut(10,LCD_LINE5,"Recebido:");
+  /* TextOut(10,LCD_LINE3,"Fesq:");
   TextOut(50,LCD_LINE5,"Sdir:");
-  TextOut(50,LCD_LINE3,"Sesq:");
+  TextOut(50,LCD_LINE3,"Sesq:"); */
 
-while (uside_esq > d_boneco) {
+  start fowardPID;
 
-      start fowardPID;
+while (true) {
+
+  /* Se a mensagem mandada pelo escravo não tiver erro, ele recebe a mensagem
+   e printa o valor recebido na tela */
 
   /* if(ReceiveRemoteNumber(INBOX1, true,ufront_esq) == NO_ERR){
     NumOut(10,LCD_LINE4,ufront_esq);
@@ -61,53 +87,29 @@ while (uside_esq > d_boneco) {
     NumOut(10,LCD_LINE6,ufront_dir);
   }
   Wait(100); // Sem esse wait ele só recebe os 2 primeiros valores */
-  if(ReceiveRemoteNumber(INBOX3, true,uside_dir) == NO_ERR) {
+  /* if(ReceiveRemoteNumber(INBOX3, true,uside_dir) == NO_ERR) {
     NumOut(50,LCD_LINE4,uside_dir);
-  }
-  if(ReceiveRemoteNumber(INBOX4, true,uside_esq) == NO_ERR) {
-    NumOut(50,LCD_LINE6,uside_esq);
-  }
+  } */
+
+  /* Se os sensores laterais receberem um valor menor que
+  a const "d_boneco"(distância máxima que o boneco pode ficar - em torno de 22cm),
+  ele vira 90 graus na direção do boneco, captura-o, armazena e volta pra pista. */
+
+
+  if(ReceiveRemoteString(INBOX4, true, out) == NO_ERR); //mensagem recebida do escravo
+
+  TextOut(0,LCD_LINE1,out); //ver o que o mestre recebeu
+
+    if(out == "Vira") {
+      RemotePlayTone(BT_CONN, 500, 100);
+      stop fowardPID;
+      Off(MOTOR_BOTH);
+      turn(ESQUERDA, 90);
+     }
+
+
   Wait(500);
-  ClearLine(LCD_LINE4);
-  ClearLine(LCD_LINE6);
 
-
-
- /* TextOut(10,LCD_LINE1,"Mandado");
- SendRemoteString(BT_CONN,OUTBOX,"Mandei"); */
-
-/* Se a mensagem mandada pelo escravo não tiver erro, ele recebe a mensagem
- e printa o valor recebido na tela */
-
-
-      /* Se os sensores laterais receberem um valor menor que
-      a const "d_boneco"(distância máxima que o boneco pode ficar de acordo com o edital),
-      ele vira 90 graus na direção do boneco, captura-o, armazena e volta pra pista. */
-
-
-
-
-        if (uside_esq < d_boneco) {
-        ClearScreen();
-        stop fowardPID;
-        turn(ESQUERDA, 90);
-
-      }
-
-
-         /* alinhar_boneco (ufront_esq, ufront_dir);
-        capturar();
-        turn(DIREITA, 90);
-      } */
-
-
-
-      /* if(uside_dir < d_boneco) {
-        turn(DIREITA, 90);
-        alinhar_boneco (ufront_esq, ufront_dir);
-        capturar();
-        turn(ESQUERDA, 90);
-      }  */
 
       /* Colocar alguma condição para que ele pare caso tenha virado em um local errado (veja queda com os dois sensores),
       dando ré, virando para o lado oposto e voltando a percorrer a pista. */
