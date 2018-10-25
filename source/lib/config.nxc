@@ -8,12 +8,12 @@
 
 #include "include/config.h"
 
-void saveToFile(int id, float lRed, float lGreen, float lBlue, float lWhite, float rRed, float rGreen, float rBlue, float rWhite){
+void saveToFile(int id, int lRed, int lGreen, int lBlue, int lWhite, int rRed, int rGreen, int rBlue, int rWhite){
   ColorConf color;
   initColorConf(color, id, lRed, lGreen, lBlue, lWhite, rRed, rGreen, rBlue, rWhite);
   openForWrite(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
   writeColorConfOnFile(color);
-  CloseFile(handle);
+  closeFile();
 }
 
 void ColorConfUI(string colorName, float red, float green, float blue, float white){
@@ -38,8 +38,8 @@ void configColor(int color) {
   while((btCenter == false) && (btRight == false)) {
     ReadSensorHTColor2Active(COLOR_RIGHT, rNum, rRed, rGreen, rBlue, rWhite);
     ReadSensorHTColor2Active(COLOR_LEFT, lNum, lRed, lGreen, lBlue, lWhite);
-    ColorConfUI(colorName, lRed, lGreen, lBlue, lWhite);
-    Wait(500);
+    ColorConfUI(colorName, rRed, rGreen, rBlue, rWhite);
+    Wait(200);
     ClearScreen();
     btCenter = ButtonPressed(BTNCENTER, false);
     btRight = ButtonPressed(BTNRIGHT, false);

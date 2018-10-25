@@ -94,5 +94,6 @@ void writeColorConfOnFile(const ColorConf recd);
 */
 void readColorConfFile(ColorConf &reacd, ColorConf &output[]);
 
+void closeFile();
 
 #endif

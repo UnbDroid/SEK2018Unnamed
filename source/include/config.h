@@ -29,7 +29,7 @@
 /* ====== INICIO DAS DEFINICOES DA BIBLIOTECA DE CONFIGURACAO ====== */
 
 // TAMANO DO ARQUIVO
-#define CONFIG_FILE_SIZE 2048
+#define CONFIG_FILE_SIZE 476
 // NOME DO ARQUIVO
 #define CONFIG_FILE_NAME "config.dat"
 
@@ -49,7 +49,7 @@
     - rBlue: Cor de azul sendo lida pelo sensor direito
     - rWhite: Cor de branco sendo lida pelo sensor direito
 */
-void saveToFile(int id, float lRed, float lGreen, float lBlue, float lWhite, float rRed, float rGreen, float rBlue, float rWhite);
+void saveToFile(int id, int lRed, int lGreen, int lBlue, int lWhite, int rRed, int rGreen, int rBlue, int rWhite);
 
 /* Color Config UI
   Descricao: Mostra a interface de interacao para escolher a cor

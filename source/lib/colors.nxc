@@ -168,65 +168,59 @@ int isItColor(int intervalR, int intervalG, int intervalB, int intervalW) {
 }
 
 int leftSensorColorRead(ColorConf &defColors[]){
-  int color;
+  int color = -1;
   byte r = 0, g = 0, b=0, w=0, num=0;
   ReadSensorHTColor2Active(COLOR_LEFT, num, r, g, b, w);
 
   calculateInterval(r, g, b, w);
 
-  //AMARELO
   if (isItColor(defColors[0].leftRInterval,
                 defColors[0].leftGInterval,
                 defColors[0].leftBInterval,
                 defColors[0].leftWInterval) == 1) {
-    color = ID_AMARELO;
-  //VERDE
+    color = ID_VERDE;
   } else if (isItColor(defColors[1].leftRInterval,
                 defColors[1].leftGInterval,
                 defColors[1].leftBInterval,
                 defColors[1].leftWInterval) == 1) {
-    color = ID_VERDE;
-  //AZUL
+    color = ID_AZUL;
   } else if (isItColor(defColors[2].leftRInterval,
                 defColors[2].leftGInterval,
                 defColors[2].leftBInterval,
                 defColors[2].leftWInterval) == 1) {
-    color = ID_AZUL;
-  //VERMELHO
+    color = ID_VERMELHO;
   } else if (isItColor(defColors[3].leftRInterval,
                 defColors[3].leftGInterval,
                 defColors[3].leftBInterval,
                 defColors[3].leftWInterval) == 1) {
-    color = ID_VERMELHO;
-  //PRETO
+    color = ID_PRETO;
   } else if (isItColor(defColors[4].leftRInterval,
                 defColors[4].leftGInterval,
                 defColors[4].leftBInterval,
                 defColors[4].leftWInterval) == 1) {
-    color = ID_PRETO;
-  //BRANCO
+    color = ID_BRANCO;
   } else if (isItColor(defColors[5].leftRInterval,
                 defColors[5].leftGInterval,
                 defColors[5].leftBInterval,
                 defColors[5].leftWInterval) == 1) {
-    color = ID_BRANCO;
-  //QUEDA
+    color = ID_QUEDA;
   } else if (isItColor(defColors[6].leftRInterval,
                 defColors[6].leftGInterval,
                 defColors[6].leftBInterval,
                 defColors[6].leftWInterval) == 1) {
-    color = ID_QUEDA;
+    color = ID_AMARELO;
+
   }
 
   if ((color == ID_VERDE)||(color == ID_PRETO)){
-    if (howManyColor(defColors[1].leftRInterval,
-                     defColors[1].leftGInterval,
-                     defColors[1].leftBInterval,
-                     defColors[1].leftWInterval) >
-        howManyColor(defColors[4].leftRInterval,
-                     defColors[4].leftGInterval,
-                     defColors[4].leftBInterval,
-                     defColors[4].leftWInterval)){
+    if (howManyColor(defColors[0].leftRInterval,
+                     defColors[0].leftGInterval,
+                     defColors[0].leftBInterval,
+                     defColors[0].leftWInterval) >
+        howManyColor(defColors[3].leftRInterval,
+                     defColors[3].leftGInterval,
+                     defColors[3].leftBInterval,
+                     defColors[3].leftWInterval)){
                        color = ID_VERDE;
     } else {
       color = ID_PRETO;
@@ -237,66 +231,60 @@ int leftSensorColorRead(ColorConf &defColors[]){
 }
 
 int rightSensorColorRead(ColorConf &defColors[]){
-  int color;
+  int color = -1;
   byte r = 0, g = 0, b=0, w=0, num=0;
   ReadSensorHTColor2Active(COLOR_RIGHT, num, r, g, b, w);
 
   calculateInterval(r, g, b, w);
 
-  //AMARELO
   if (isItColor(defColors[0].rightRInterval,
                 defColors[0].rightGInterval,
                 defColors[0].rightBInterval,
                 defColors[0].rightWInterval) == 1) {
-    color = ID_AMARELO;
-  //VERDE
+    color = ID_VERDE;
   } else if (isItColor(defColors[1].rightRInterval,
                 defColors[1].rightGInterval,
                 defColors[1].rightBInterval,
                 defColors[1].rightWInterval) == 1) {
-    color = ID_VERDE;
-  //AZUL
+    color = ID_AZUL;
   } else if (isItColor(defColors[2].rightRInterval,
                 defColors[2].rightGInterval,
                 defColors[2].rightBInterval,
                 defColors[2].rightWInterval) == 1) {
-    color = ID_AZUL;
-  //VERMELHO
+    color = ID_VERMELHO;
   } else if (isItColor(defColors[3].rightRInterval,
                 defColors[3].rightGInterval,
                 defColors[3].rightBInterval,
                 defColors[3].rightWInterval) == 1) {
-    color = ID_VERMELHO;
-  //PRETO
+    color = ID_PRETO;
   } else if (isItColor(defColors[4].rightRInterval,
                 defColors[4].rightGInterval,
                 defColors[4].rightBInterval,
                 defColors[4].rightWInterval) == 1) {
-    color = ID_PRETO;
-  //BRANCO
+    color = ID_BRANCO;
   } else if (isItColor(defColors[5].rightRInterval,
                 defColors[5].rightGInterval,
                 defColors[5].rightBInterval,
                 defColors[5].rightWInterval) == 1) {
-    color = ID_BRANCO;
-  //QUEDA
+    color = ID_QUEDA;
   } else if (isItColor(defColors[6].rightRInterval,
                 defColors[6].rightGInterval,
                 defColors[6].rightBInterval,
                 defColors[6].rightWInterval) == 1) {
-    color = ID_QUEDA;
+    color = ID_AMARELO;
+
   }
 
   if ((color == ID_VERDE)||(color == ID_PRETO)){
-    if (howManyColor(defColors[1].rightRInterval,
-                     defColors[1].rightGInterval,
-                     defColors[1].rightBInterval,
-                     defColors[1].rightWInterval) >
-        howManyColor(defColors[4].rightRInterval,
-                     defColors[4].rightGInterval,
-                     defColors[4].rightBInterval,
-                     defColors[4].rightWInterval)){
-                       color = ID_VERDE;
+    if (howManyColor(defColors[0].rightRInterval,
+                     defColors[0].rightGInterval,
+                     defColors[0].rightBInterval,
+                     defColors[0].rightWInterval) >
+        howManyColor(defColors[3].rightRInterval,
+                     defColors[3].rightGInterval,
+                     defColors[3].rightBInterval,
+                     defColors[3].rightWInterval)){
+      color = ID_VERDE;
     } else {
       color = ID_PRETO;
     }
