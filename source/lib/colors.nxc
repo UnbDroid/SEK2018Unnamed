@@ -133,7 +133,10 @@ int howManyColor(int intervalR, int intervalG, int intervalB, int intervalW) {
   w[1] = colorsMat[3][1];
   w[2] = colorsMat[3][2];
 
-  total = evalIntervalAmount(r, intervalR) + evalIntervalAmount(g, intervalG) + evalIntervalAmount(b, intervalB) + evalIntervalAmount(w, intervalW);
+
+  /*  */
+  total = evalIntervalAmount(b, intervalB) + evalIntervalAmount(w, intervalW) + evalIntervalAmount(r, intervalR) +
+  evalIntervalAmount(g, intervalG);
 
   return total;
 }
@@ -229,6 +232,19 @@ int leftSensorColorRead(ColorConf &defColors[]){
 
   return color;
 }
+/*
+int rightSensorColor(ColorConf &defColors[]){
+  int right = rightSensorColorRead(defColors);
+  int newRight, rightAmmount;
+
+  rightAmmount = 0;
+  for(int i = 0; i < 3; i ++){
+    newRight = rightSensorColorRead(defColors);
+    if (newRight == right){
+    rightAmmount += 1;
+  }
+  }
+} */
 
 int rightSensorColorRead(ColorConf &defColors[]){
   int color = -1;

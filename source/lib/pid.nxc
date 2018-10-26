@@ -34,7 +34,7 @@ task fowardPID() {
 void turnLeftPID(int turnAngle) {
   SetSensorHTGyro(GIRO);
   ResetRotationCount(MOTOR_BOTH);
-  Wait(10);
+  Wait(20);
   float angle = 0, gyro = 0;
   unsigned long time = CurrentTick();
   unsigned long prev_time;
@@ -69,7 +69,7 @@ void turnLeftPID(int turnAngle) {
 void turnRightPID(int turnAngle){
   SetSensorHTGyro(GIRO);
   ResetRotationCount(MOTOR_BOTH);
-  Wait(10);
+  Wait(20);
   float angle = 0, gyro = 0;
   unsigned long time, prev_time;
   time = CurrentTick();

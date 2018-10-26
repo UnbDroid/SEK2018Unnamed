@@ -17,16 +17,13 @@ void configSensor(){
 }
 
 task main() {
-  /* ColorConf c;
+  ColorConf c;
   ColorConf defColors[7];
   openForRead(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
-  readColorConfFile(c, defColors); */
+  readColorConfFile(c, defColors);
   configSensor();
   closeFile();
-  /* turn(DIREITA, 90); */
-  /* OnFwd(MOTOR_BOTH, 70);
-  /* start fowardPID; */
-  testeArquivo();
-  /* startRoute(defColors); */
+  /* testeCor(); */
+  startRoute(defColors);
   }
 }

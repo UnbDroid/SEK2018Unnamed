@@ -31,8 +31,7 @@
 #define ESQUERDA 0
 #define DIREITA 1
 
-#define ANGLE90 87
-
+#define ANGLE90 90
 /* ====== INICIO DAS FUNCOES DA BIBLIOTECA DE ROTA ====== */
 
 /* */
