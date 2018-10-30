@@ -7,7 +7,6 @@
   Versao: 1.1
 */
 
-
 #include "lib/config.nxc"
 
 task main() {

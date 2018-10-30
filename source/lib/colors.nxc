@@ -7,7 +7,6 @@
   Versao: 1.0
 */
 
-
 #include "include/colors.h"
 
 
@@ -232,22 +231,44 @@ int leftSensorColorRead(ColorConf &defColors[]){
 
   return color;
 }
-/*
+
+
+int leftSensorColor(ColorConf &defColors[]){
+  int left = leftSensorColorRead(defColors);
+  int newLeft, leftAmmount;
+
+  leftAmmount = 0;
+  for(int i = 0; i < 2; i ++){
+    newLeft = leftSensorColorRead(defColors);
+    if (newLeft == left){
+      leftAmmount += 1;
+    }
+  }
+
+  if (leftAmmount == 2) {
+    return newLeft;
+  }
+}
+
 int rightSensorColor(ColorConf &defColors[]){
   int right = rightSensorColorRead(defColors);
   int newRight, rightAmmount;
 
   rightAmmount = 0;
-  for(int i = 0; i < 3; i ++){
+  for(int i = 0; i < 2; i ++){
     newRight = rightSensorColorRead(defColors);
     if (newRight == right){
-    rightAmmount += 1;
+      rightAmmount += 1;
+    }
   }
+
+  if (rightAmmount == 2) {
+    return newRight;
   }
-} */
+}
 
 int rightSensorColorRead(ColorConf &defColors[]){
-  int color = -1;
+  int color = ID_ERRO;
   byte r = 0, g = 0, b=0, w=0, num=0;
   ReadSensorHTColor2Active(COLOR_RIGHT, num, r, g, b, w);
 
@@ -305,6 +326,5 @@ int rightSensorColorRead(ColorConf &defColors[]){
       color = ID_PRETO;
     }
   }
-
   return color;
 }

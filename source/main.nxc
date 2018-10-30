@@ -23,7 +23,7 @@ task main() {
   readColorConfFile(c, defColors);
   configSensor();
   closeFile();
-  /* testeCor(); */
-  startRoute(defColors);
+  testeCor();
+  /* startRoute(defColors); */
   }
 }

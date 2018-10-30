@@ -1,10 +1,12 @@
 /*
   Arquivo: route.nxc
-  Descricao: Este programa cotem toda a logica de programacao do percorrimento de percurso
+  Descricao: Este programa cotem toda a logica de
+    programacao do percorrimento de percurso
   Autores: Renato Nobre, Valesca Soares
   Data de Modificacao: 14/10/2018
   Versao: 0.3
 */
+
 #include "include/route.h"
 
 typedef struct {
@@ -26,23 +28,23 @@ void init_dir(Directions &dir){
 }
 
 void recenter(ColorConf &defColors[]){
-  if ((leftSensorColorRead(defColors) == ID_QUEDA) &&
-      (rightSensorColorRead(defColors) == ID_QUEDA)) {
+  if ((leftSensorColor(defColors) == ID_QUEDA) &&
+      (rightSensorColor(defColors) == ID_QUEDA)) {
     Off(MOTOR_BOTH);
-  } else if (leftSensorColorRead(defColors) == ID_QUEDA) {
-    while (leftSensorColorRead(defColors) != ID_BRANCO) {
+  } else if (leftSensorColor(defColors) == ID_QUEDA) {
+    while (leftSensorColor(defColors) != ID_BRANCO) {
       OnRev(MOTOR_RIGHT, 40);
     }
-  } else if (rightSensorColorRead(defColors) == ID_QUEDA){
-    while (rightSensorColorRead(defColors) != ID_BRANCO) {
+  } else if (rightSensorColor(defColors) == ID_QUEDA){
+    while (rightSensorColor(defColors) != ID_BRANCO) {
       OnRev(MOTOR_LEFT, 40);
     }
   }
 }
 
 int avoidFall(ColorConf &defColors[]){
-  if ((leftSensorColorRead(defColors) == ID_QUEDA) ||
-      (rightSensorColorRead(defColors) == ID_QUEDA)){
+  if ((leftSensorColor(defColors) == ID_QUEDA) ||
+      (rightSensorColor(defColors) == ID_QUEDA)){
     /* Off(MOTOR_BOTH);
     recenter(defColors);
     Off(MOTOR_BOTH); */
@@ -53,12 +55,12 @@ int avoidFall(ColorConf &defColors[]){
 
 void adjustPosition(ColorConf &defColors[], int idColor) {
   Off(MOTOR_BOTH);
-  if (leftSensorColorRead(defColors) == idColor){
-    while(rightSensorColorRead(defColors) != idColor) {
+  if (leftSensorColor(defColors) == idColor){
+    while(rightSensorColor(defColors) != idColor) {
       OnFwd(MOTOR_RIGHT, 40);
     }
-  } else if (rightSensorColorRead(defColors) == idColor){
-    while(leftSensorColorRead(defColors) != idColor) {
+  } else if (rightSensorColor(defColors) == idColor){
+    while(leftSensorColor(defColors) != idColor) {
       OnFwd(MOTOR_LEFT, 40);
     }
   }
@@ -67,8 +69,8 @@ void adjustPosition(ColorConf &defColors[], int idColor) {
 
 int trackPosControll(ColorConf &defColors[], int idColor) {
   int leftColor, rightColor;
-  leftColor = leftSensorColorRead(defColors);
-  rightColor = rightSensorColorRead(defColors);
+  leftColor = leftSensorColor(defColors);
+  rightColor = rightSensorColor(defColors);
   if (avoidFall(defColors) == FALSE){
     if (leftColor != idColor){
       /* adjustPosition(defColors, leftColor); */
@@ -96,13 +98,13 @@ int trackPosControll(ColorConf &defColors[], int idColor) {
 
 void moveUntilWhite(ColorConf &defColors[]) {
   int leftColor, rightColor;
-  leftColor = leftSensorColorRead(defColors);
-  rightColor = rightSensorColorRead(defColors);
+  leftColor = leftSensorColor(defColors);
+  rightColor = rightSensorColor(defColors);
   start fowardPID;
   while ((leftColor != ID_BRANCO) &&
        (rightColor != ID_BRANCO)) {
-   leftColor = leftSensorColorRead(defColors);
-   rightColor = rightSensorColorRead(defColors);
+   leftColor = leftSensorColor(defColors);
+   rightColor = rightSensorColor(defColors);
   }
   stop fowardPID;
   Off(MOTOR_BOTH);
@@ -112,13 +114,13 @@ void moveUntilWhite(ColorConf &defColors[]) {
 
 void moveUntilNotColor(ColorConf &defColors[], int idCor) {
   int leftColor, rightColor;
-  leftColor = leftSensorColorRead(defColors);
-  rightColor = rightSensorColorRead(defColors);
+  leftColor = leftSensorColor(defColors);
+  rightColor = rightSensorColor(defColors);
   start fowardPID;
   while ((leftColor == idCor) &&
        (rightColor == idCor)) {
-   leftColor = leftSensorColorRead(defColors);
-   rightColor = rightSensorColorRead(defColors);
+   leftColor = leftSensorColor(defColors);
+   rightColor = rightSensorColor(defColors);
    if (leftColor == ID_ERRO) {
      leftColor = idCor;
    }
