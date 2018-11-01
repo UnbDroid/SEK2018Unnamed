@@ -17,6 +17,9 @@
   #define INCCOL
 #endif
 
+
+// #include "lib/route.nxc"
+
 /* ====== INICIO DAS VARIAVEIS GLOBAIS DA BIBLIOTECA DE FILESIO ====== */
 
 byte handle = 0;
@@ -95,5 +98,11 @@ void writeColorConfOnFile(const ColorConf recd);
 void readColorConfFile(ColorConf &reacd, ColorConf &output[]);
 
 void closeFile();
+
+// void initDir(Directions &d, int left, int right, int front);
+//
+// void writeDirectionOnFile(const ColorConf recd);
+//
+// void readDirectionOnFile(Directions &reacd, Directions &output);
 
 #endif

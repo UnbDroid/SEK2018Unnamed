@@ -216,7 +216,7 @@ int leftSensorColorRead(ColorConf &defColors[]){
 
   b4 = yellowAm;
 
-  if (greenAm >= blueAm) {
+  if (greenAm > blueAm) {
     b1 = greenAm;
     c1 = ID_VERDE;
   } else {
@@ -224,7 +224,7 @@ int leftSensorColorRead(ColorConf &defColors[]){
     c1 = ID_AZUL;
   }
 
-  if (redAm >= blackAm) {
+  if (redAm > blackAm) {
     b2 = redAm;
     c2 = ID_VERMELHO;
   } else {
@@ -232,7 +232,7 @@ int leftSensorColorRead(ColorConf &defColors[]){
     c2 = ID_PRETO;
   }
 
-  if (whiteAm >= fallAm) {
+  if (whiteAm > fallAm) {
     b3 = whiteAm;
     c3 = ID_BRANCO;
   } else {
@@ -240,7 +240,7 @@ int leftSensorColorRead(ColorConf &defColors[]){
     c3 = ID_QUEDA;
   }
 
-  if (b1 >= b2) {
+  if (b1 > b2) {
     b1 = b1;
     c1 = c1;
   } else {
@@ -248,7 +248,7 @@ int leftSensorColorRead(ColorConf &defColors[]){
     c1 = c2;
   }
 
-  if (b3 >= b4) {
+  if (b3 > b4) {
     b3 = b3;
     c3 = c3;
   } else {
@@ -271,16 +271,17 @@ int leftSensorColor(ColorConf &defColors[]){
   int newLeft, leftAmmount;
 
   leftAmmount = 0;
-  for(int i = 0; i < 2; i ++){
+  for(int i = 0; i < 1; i ++){
     newLeft = leftSensorColorRead(defColors);
     if (newLeft == left){
       leftAmmount += 1;
     }
   }
 
-  if (leftAmmount == 2) {
+  if (leftAmmount == 1) {
     return newLeft;
   }
+  return ID_ERRO;
 }
 
 int rightSensorColor(ColorConf &defColors[]){
@@ -288,16 +289,18 @@ int rightSensorColor(ColorConf &defColors[]){
   int newRight, rightAmmount;
 
   rightAmmount = 0;
-  for(int i = 0; i < 2; i ++){
+  for(int i = 0; i < 1; i ++){
     newRight = rightSensorColorRead(defColors);
     if (newRight == right){
       rightAmmount += 1;
     }
   }
 
-  if (rightAmmount == 2) {
+  if (rightAmmount == 1) {
     return newRight;
   }
+
+  return ID_ERRO;
 }
 
 int rightSensorColorRead(ColorConf &defColors[]){
@@ -349,7 +352,7 @@ int rightSensorColorRead(ColorConf &defColors[]){
 
   b4 = yellowAm;
 
-  if (greenAm >= blueAm) {
+  if (greenAm > blueAm) {
     b1 = greenAm;
     c1 = ID_VERDE;
   } else {
@@ -357,7 +360,7 @@ int rightSensorColorRead(ColorConf &defColors[]){
     c1 = ID_AZUL;
   }
 
-  if (redAm >= blackAm) {
+  if (redAm > blackAm) {
     b2 = redAm;
     c2 = ID_VERMELHO;
   } else {
@@ -365,7 +368,7 @@ int rightSensorColorRead(ColorConf &defColors[]){
     c2 = ID_PRETO;
   }
 
-  if (whiteAm >= fallAm) {
+  if (whiteAm > fallAm) {
     b3 = whiteAm;
     c3 = ID_BRANCO;
   } else {
@@ -373,7 +376,7 @@ int rightSensorColorRead(ColorConf &defColors[]){
     c3 = ID_QUEDA;
   }
 
-  if (b1 >= b2) {
+  if (b1 > b2) {
     b1 = b1;
     c1 = c1;
   } else {
@@ -381,7 +384,7 @@ int rightSensorColorRead(ColorConf &defColors[]){
     c1 = c2;
   }
 
-  if (b3 >= b4) {
+  if (b3 > b4) {
     b3 = b3;
     c3 = c3;
   } else {

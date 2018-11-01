@@ -19,9 +19,11 @@ int currentColor = 0;
 int lastColor = UNDEFINED;
 int turnCount = 0;
 
+int turnVec[] = {0, 0, 0};
+
 Directions dir;
 
-void init_dir(Directions &dir){
+void init_emptyDir(Directions &dir){
   dir.front = DIR_UNKNOWN;
   dir.left = DIR_UNKNOWN;
   dir.right = DIR_UNKNOWN;
@@ -133,7 +135,7 @@ void moveUntilNotColor(ColorConf &defColors[], int idCor) {
 }
 
 void centerOnIntersec() {
-  fowardCm(19);
+  fowardCm(16);
 }
 
 void evaluateDirection(int color) {
@@ -142,21 +144,39 @@ void evaluateDirection(int color) {
     if ((currentColor != ID_PRETO)&&(lastColor != UNDEFINED)&&(currentColor != lastColor)) {
       if ((turnCount == 1)&&(dir.right == DIR_UNKNOWN)){
           PlayTone(500, 500);
+          ClearScreen();
+          TextOut(0,LCD_LINE1,"DIREITA CONF");
+          Wait(10000);
+          turnVec[0] = 1;
           dir.right = lastColor;
+          turnCount = 0;
       } else if ((turnCount == 2)&&(dir.front == DIR_UNKNOWN)){
           PlayTone(500, 500);
+          ClearScreen();
+          TextOut(0,LCD_LINE1,"FRONT CONF");
+          Wait(10000);
+          turnVec[1] = 1;
           dir.front = lastColor;
+          turnCount = 0;
       } else if ((turnCount == 3)&&(dir.left == DIR_UNKNOWN)) {
           PlayTone(500, 500);
+          ClearScreen();
+          TextOut(0,LCD_LINE1,"LEFT CONF");
+          Wait(10000);
+          turnVec[2] = 1;
           dir.left = lastColor;
+          turnCount = 0;
       }
     }
     lastColor = currentColor;
+    string colName = getColorName(lastColor);
+    TextOut(0,LCD_LINE1,colName);
+    NumOut(0,LCD_LINE2,lastColor);
   }
 }
 
 void startRoute(ColorConf &defColors[]) {
-  init_dir(dir);
+  init_emptyDir(dir);
   Wait(50);
   while (true) {
     route(defColors);
@@ -167,11 +187,11 @@ void route(ColorConf &defColors[]) {
   int color;
   moveUntilNotColor(defColors, ID_BRANCO);
   color = trackPosControll(defColors, ID_BRANCO);
-  evaluateDirection(color);
   if (color == ID_PRETO) {
       make180(defColors, color);
   }
   else if ((color != ID_QUEDA)&&(color != ID_BRANCO)) {
+      evaluateDirection(color);
       makeTurn(defColors, color);
   }
 }
@@ -195,35 +215,41 @@ void makeTurn(ColorConf &defColors[], int idCor) {
 
   if (idCor == dir.left) {
     PlayTone(TONE_C7, 500);
-    Wait(10000);
-    /* NumOut(0,LCD_LINE1,dir.left); */
-    turn(ESQUERDA, ANGLE90);
-    leaveIntersec(defColors, idCor);
-  } else if (idCor == dir.right) {
-      PlayTone(TONE_D7, 500);
-      Wait(500);
-      turn(DIREITA, ANGLE90);
-      leaveIntersec(defColors, idCor);
-  } else if (idCor == dir.front) {
-    PlayTone(TONE_E7, 500);
-    Wait(10000);
-    leaveIntersec(defColors, idCor);
-  } else {
-    if (dir.right != DIR_UNKNOWN) {
-      if (dir.front != DIR_UNKNOWN) {
-        Wait(500);
-        turn(ESQUERDA, ANGLE90);
-        turnCount = 3;
-      } else {
-        turnCount = 2;
-      }
-    } else {
-      PlayTone(TONE_G7, 500);
-      Wait(500);
-      turn(DIREITA, ANGLE90);
-      turnCount = 1;
-    }
     Wait(500);
-    leaveIntersec(defColors, idCor);
+    turn(ESQUERDA, ANGLE90);
+  } else if (idCor == dir.right) {
+    PlayTone(TONE_E7, 500);
+    Wait(500);
+    turn(DIREITA, ANGLE90);
+  } else if (idCor == dir.front) {
+    PlayTone(TONE_D7, 500);
+    Wait(500);
+  } else {
+    if (turnVec[turnCount] == 1) {
+
+      turnCount += 1;
+
+      while (turnVec[turnCount] == 1) {
+        turnCount += 1;
+      }
+
+      if (turnCount == 1) {
+        PlayTone(TONE_C7, 500);
+        Wait(500);
+      } else if (turnCount == 2) {
+        PlayTone(TONE_D7, 500);
+        Wait(500);
+        if (turnVec[0] != 0) {
+          turn(ESQUERDA, ANGLE90);
+        }
+      }
+      turnCount += 1;
+    } else {
+      PlayTone(TONE_E7, 500);
+      Wait(500);
+      turn(DIREITA, ANGLE90);
+      turnCount += 1;
+    }
   }
+  leaveIntersec(defColors, idCor);
 }

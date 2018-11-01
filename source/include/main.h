@@ -6,7 +6,9 @@
 
 #include "include/defines.h"
 
+
 #include "lib/route.nxc"
+
 
 
 /* ====== INICIO DAS FUNCOES DO ARQUIVO MAIN ====== */

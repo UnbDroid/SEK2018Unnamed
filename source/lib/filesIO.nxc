@@ -29,6 +29,12 @@ void initColorConf(ColorConf &c, int id, int lRed, int lGreen, int lBlue, int lW
   c.rightWInterval = intervalValue(rWhite);
 }
 
+/* void initDir(Directions &d, int left, int right, int front) {
+  d.front = front;
+  d.left = left;
+  d.right = right;
+} */
+
 void logError(const unsigned int code) {
    TextOut(0, LCD_LINE2, "code            ");
    TextOut(50, LCD_LINE2, FormatNum("%04x", code));
@@ -105,6 +111,23 @@ void writeColorConfOnFile(const ColorConf recd) {
   }
 }
 
+/* void writeDirectionOnFile(const Directions recd) {
+  unsigned int rtn_code = Write(handle, recd);
+  // Return code handling
+  if (rtn_code != LDR_SUCCESS) {
+     switch (rtn_code) {
+       case LDR_EOFEXPECTED:
+          TextOut(0, LCD_LINE1, "no more space   ");
+          break;
+       default:
+          // Unanticipated exception.
+          TextOut(0, LCD_LINE1, "write failed    ");
+          logError(rtn_code);
+          break;
+      }
+  }
+} */
+
 void closeFile(){
   CloseFile(handle);
 }
@@ -125,3 +148,17 @@ void readColorConfFile(ColorConf &reacd, ColorConf &output[]) {
     rtn_code = Read(handle, reacd);
   }
 }
+
+/* void readDirectionOnFile(Directions &reacd, Directions &output) {
+  unsigned int rtn_code = Read(handle, reacd);
+  while (rtn_code != LDR_ENDOFFILE){
+    if (rtn_code == LDR_SUCCESS) {
+      output = reacd;
+    } else {
+      // Unanticipated exception.
+      TextOut(0, LCD_LINE1, "read failed     ");
+      logError(rtn_code);
+    }
+    rtn_code = Read(handle, reacd);
+  }
+} */
