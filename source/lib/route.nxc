@@ -17,6 +17,7 @@ typedef struct {
 
 int currentColor = 0;
 int lastColor = UNDEFINED;
+int midColor = UNDEFINED;
 int turnCount = 0;
 
 int turnVec[] = {0, 0, 0};
@@ -139,9 +140,14 @@ void centerOnIntersec() {
 }
 
 void evaluateDirection(int color) {
+  if (color == ID_PRETO) {
+    midColor = ID_PRETO;
+  } else {
+    midColor = UNDEFINED;
+  }
   if ((color != ID_PRETO) && (color != ID_QUEDA) && (color != ID_ERRO) && (color != ID_BRANCO)) {
     currentColor = color;
-    if ((currentColor != ID_PRETO)&&(lastColor != UNDEFINED)&&(currentColor != lastColor)) {
+    if ((currentColor != ID_PRETO)&&(lastColor != UNDEFINED)&&(midColor != ID_PRETO)) {
       if ((turnCount == 1)&&(dir.right == DIR_UNKNOWN)){
           PlayTone(500, 500);
           ClearScreen();
