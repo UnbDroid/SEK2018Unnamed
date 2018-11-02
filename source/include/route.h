@@ -32,6 +32,10 @@
 #define DIREITA 1
 
 #define ANGLE90 90
+
+#define ERRORDIR 2
+#define RIGHTDIR 1
+#define UNKNOWNDIR 0
 /* ====== INICIO DAS FUNCOES DA BIBLIOTECA DE ROTA ====== */
 
 /* */
@@ -54,5 +58,11 @@ int trackPosControll(ColorConf &defColors[], int idColor);
 void moveUntilNotColor(ColorConf &defColors[], int idCor);
 /* */
 void centerOnIntersec();
+
+void dirToMat();
+
+void matToDir();
+
+void saveConfToFile();
 
 #endif

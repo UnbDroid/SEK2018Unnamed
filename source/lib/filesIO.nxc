@@ -9,6 +9,18 @@
 
 #include "include/filesIO.h"
 
+void initEmptyDir(Directions &dir) {
+  dir.v00 = 0;
+  dir.v01 = 0;
+  dir.v02 = 0;
+  dir.v10 = 0;
+  dir.v11 = 0;
+  dir.v12 = 0;
+  dir.v20 = 0;
+  dir.v21 = 0;
+  dir.v22 = 0;
+}
+
 void initColorConf(ColorConf &c, int id, int lRed, int lGreen, int lBlue, int lWhite, int rRed, int rGreen, int rBlue, int rWhite) {
   c.id = id;
   c.leftRed = lRed;
@@ -28,12 +40,6 @@ void initColorConf(ColorConf &c, int id, int lRed, int lGreen, int lBlue, int lW
   c.rightBInterval = intervalValue(rBlue);
   c.rightWInterval = intervalValue(rWhite);
 }
-
-/* void initDir(Directions &d, int left, int right, int front) {
-  d.front = front;
-  d.left = left;
-  d.right = right;
-} */
 
 void logError(const unsigned int code) {
    TextOut(0, LCD_LINE2, "code            ");
@@ -84,7 +90,7 @@ void openForWrite(string fileName, unsigned int fileSize) {
 
 void openForRead(string fileName, unsigned int fileSize) {
   handle = 0;
-  unsigned int rtn_code = OpenFileRead("config.dat", fileSize, handle);
+  unsigned int rtn_code = OpenFileRead(fileName, fileSize, handle);
 
   // Return code handling
   if (rtn_code != LDR_SUCCESS) {
@@ -111,7 +117,21 @@ void writeColorConfOnFile(const ColorConf recd) {
   }
 }
 
-/* void writeDirectionOnFile(const Directions recd) {
+void writeDirectionOnFile(const Directions recd) {
+
+  ClearScreen();
+  NumOut(0,LCD_LINE1,recd.v00);
+  NumOut(20,LCD_LINE1,recd.v01);
+  NumOut(40,LCD_LINE1,recd.v02);
+
+  NumOut(0,LCD_LINE2,recd.v10);
+  NumOut(20,LCD_LINE2,recd.v11);
+  NumOut(40,LCD_LINE2,recd.v12);
+
+  NumOut(0,LCD_LINE3,recd.v20);
+  NumOut(20,LCD_LINE3,recd.v21);
+  NumOut(40,LCD_LINE3,recd.v22);
+
   unsigned int rtn_code = Write(handle, recd);
   // Return code handling
   if (rtn_code != LDR_SUCCESS) {
@@ -121,12 +141,12 @@ void writeColorConfOnFile(const ColorConf recd) {
           break;
        default:
           // Unanticipated exception.
+          ClearScreen();
           TextOut(0, LCD_LINE1, "write failed    ");
-          logError(rtn_code);
           break;
       }
   }
-} */
+}
 
 void closeFile(){
   CloseFile(handle);
@@ -149,16 +169,27 @@ void readColorConfFile(ColorConf &reacd, ColorConf &output[]) {
   }
 }
 
-/* void readDirectionOnFile(Directions &reacd, Directions &output) {
+void readDirectionOnFile(Directions &reacd) {
+
   unsigned int rtn_code = Read(handle, reacd);
-  while (rtn_code != LDR_ENDOFFILE){
-    if (rtn_code == LDR_SUCCESS) {
-      output = reacd;
-    } else {
-      // Unanticipated exception.
-      TextOut(0, LCD_LINE1, "read failed     ");
-      logError(rtn_code);
-    }
-    rtn_code = Read(handle, reacd);
+  if (rtn_code != LDR_SUCCESS) {
+    // Unanticipated exception.
+    TextOut(0, LCD_LINE1, "read failed     ");
+    logError(rtn_code);
   }
-} */
+
+  ClearScreen();
+  NumOut(0,LCD_LINE1,reacd.v00);
+  NumOut(20,LCD_LINE1,reacd.v01);
+  NumOut(40,LCD_LINE1,reacd.v02);
+
+  NumOut(0,LCD_LINE2,reacd.v10);
+  NumOut(20,LCD_LINE2,reacd.v11);
+  NumOut(40,LCD_LINE2,reacd.v12);
+
+  NumOut(0,LCD_LINE3,reacd.v20);
+  NumOut(20,LCD_LINE3,reacd.v21);
+  NumOut(40,LCD_LINE3,reacd.v22);
+
+
+}

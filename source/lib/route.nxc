@@ -9,26 +9,23 @@
 
 #include "include/route.h"
 
-typedef struct {
-  int front;
-  int left;
-  int right;
-}Directions;
+int lastColor = ID_PRETO;
+int lastDir = 1;
 
-int currentColor = 0;
-int lastColor = UNDEFINED;
-int midColor = UNDEFINED;
 int turnCount = 0;
-
-int turnVec[] = {0, 0, 0};
+int turnVec[3][3] = {{UNKNOWNDIR, UNKNOWNDIR, UNKNOWNDIR},
+                     {UNKNOWNDIR, UNKNOWNDIR, UNKNOWNDIR},
+                     {UNKNOWNDIR, UNKNOWNDIR, UNKNOWNDIR}};
 
 Directions dir;
 
-void init_emptyDir(Directions &dir){
-  dir.front = DIR_UNKNOWN;
-  dir.left = DIR_UNKNOWN;
-  dir.right = DIR_UNKNOWN;
-}
+//       D  F  E
+// COR1 [2  2  1]
+// COR2 [2  0  2]
+// COR3 [0  0  2]
+// 0 = DESCONHECIDO
+// 1 = CERTO
+// 2 = ERRADO
 
 void recenter(ColorConf &defColors[]){
   if ((leftSensorColor(defColors) == ID_QUEDA) &&
@@ -89,16 +86,6 @@ int trackPosControll(ColorConf &defColors[], int idColor) {
   }
 }
 
-/* void ignoreUnknownColor(int leftColor, int rightColor) {
-  if (leftColor == ID_ERRO) {
-    return 0;
-  }
-  if (rightColor == ID_ERRO) {
-    return 0;
-  }
-  return 1;
-} */
-
 void moveUntilWhite(ColorConf &defColors[]) {
   int leftColor, rightColor;
   leftColor = leftSensorColor(defColors);
@@ -112,8 +99,6 @@ void moveUntilWhite(ColorConf &defColors[]) {
   stop fowardPID;
   Off(MOTOR_BOTH);
 }
-
-
 
 void moveUntilNotColor(ColorConf &defColors[], int idCor) {
   int leftColor, rightColor;
@@ -139,50 +124,15 @@ void centerOnIntersec() {
   fowardCm(16);
 }
 
-void evaluateDirection(int color) {
-  if (color == ID_PRETO) {
-    midColor = ID_PRETO;
-  } else {
-    midColor = UNDEFINED;
-  }
-  if ((color != ID_PRETO) && (color != ID_QUEDA) && (color != ID_ERRO) && (color != ID_BRANCO)) {
-    currentColor = color;
-    if ((currentColor != ID_PRETO)&&(lastColor != UNDEFINED)&&(midColor != ID_PRETO)) {
-      if ((turnCount == 1)&&(dir.right == DIR_UNKNOWN)){
-          PlayTone(500, 500);
-          ClearScreen();
-          TextOut(0,LCD_LINE1,"DIREITA CONF");
-          Wait(10000);
-          turnVec[0] = 1;
-          dir.right = lastColor;
-          turnCount = 0;
-      } else if ((turnCount == 2)&&(dir.front == DIR_UNKNOWN)){
-          PlayTone(500, 500);
-          ClearScreen();
-          TextOut(0,LCD_LINE1,"FRONT CONF");
-          Wait(10000);
-          turnVec[1] = 1;
-          dir.front = lastColor;
-          turnCount = 0;
-      } else if ((turnCount == 3)&&(dir.left == DIR_UNKNOWN)) {
-          PlayTone(500, 500);
-          ClearScreen();
-          TextOut(0,LCD_LINE1,"LEFT CONF");
-          Wait(10000);
-          turnVec[2] = 1;
-          dir.left = lastColor;
-          turnCount = 0;
-      }
-    }
-    lastColor = currentColor;
-    string colName = getColorName(lastColor);
-    TextOut(0,LCD_LINE1,colName);
-    NumOut(0,LCD_LINE2,lastColor);
-  }
-}
-
 void startRoute(ColorConf &defColors[]) {
-  init_emptyDir(dir);
+  if (checkFileExistence(ROUTE_FILE_NAME, ROUTE_FILE_SIZE) == 1) {
+    openForRead(ROUTE_FILE_NAME, ROUTE_FILE_SIZE);
+    readDirectionOnFile(dir);
+    dirToMat();
+    closeFile();
+  } else {
+    initEmptyDir(dir);
+  }
   Wait(50);
   while (true) {
     route(defColors);
@@ -195,9 +145,7 @@ void route(ColorConf &defColors[]) {
   color = trackPosControll(defColors, ID_BRANCO);
   if (color == ID_PRETO) {
       make180(defColors, color);
-  }
-  else if ((color != ID_QUEDA)&&(color != ID_BRANCO)) {
-      evaluateDirection(color);
+  } else if ((color != ID_QUEDA)&&(color != ID_BRANCO)) {
       makeTurn(defColors, color);
   }
 }
@@ -209,8 +157,85 @@ void leaveIntersec(ColorConf &defColors[], int idCor) {
 }
 
 void make180(ColorConf &defColors[], int idCor){
+  int i = 0;
+
+  lastDir = 1;
+
+  if (lastColor == COLOR_ONE) {
+    while (turnVec[0][i] == ERRORDIR) {
+      i++;
+      lastDir += 1;
+    }
+    turnVec[0][i] = ERRORDIR;
+  } else if (lastColor == COLOR_TWO) {
+    while (turnVec[1][i] == ERRORDIR) {
+      i++;
+      lastDir += 1;
+    }
+    turnVec[1][i] = ERRORDIR;
+  } else if (lastColor == COLOR_THREE) {
+    while (turnVec[2][i] == ERRORDIR) {
+      i++;
+      lastDir += 1;
+    }
+    turnVec[2][i] = ERRORDIR;
+  }
+  lastColor = ID_PRETO;
+  turnCount = 1;
+  saveConfToFile();
   turn(DIREITA, 180);
   leaveIntersec(defColors, idCor);
+}
+
+void recordDir() {
+  int cont = 0;
+  if (lastColor == COLOR_ONE) {
+    PlayTone(500, 500);
+    while(turnVec[0][cont] == ERRORDIR) {
+      cont++;
+    }
+    turnVec[0][0] = ERRORDIR;
+    turnVec[0][1] = ERRORDIR;
+    turnVec[0][2] = ERRORDIR;
+    turnVec[0][cont] = RIGHTDIR;
+    turnVec[1][cont] = ERRORDIR;
+    turnVec[2][cont] = ERRORDIR;
+  } else if (lastColor == COLOR_TWO) {
+    PlayTone(500, 500);
+    while(turnVec[1][cont] == ERRORDIR) {
+      cont++;
+    }
+    turnVec[1][0] = ERRORDIR;
+    turnVec[1][1] = ERRORDIR;
+    turnVec[1][2] = ERRORDIR;
+    turnVec[1][cont] = RIGHTDIR;
+    turnVec[0][cont] = ERRORDIR;
+    turnVec[2][cont] = ERRORDIR;
+  } else if (lastColor == COLOR_THREE) {
+    PlayTone(500, 500);
+    while(turnVec[2][cont] == ERRORDIR) {
+      cont++;
+    }
+    turnVec[2][0] = ERRORDIR;
+    turnVec[2][1] = ERRORDIR;
+    turnVec[2][2] = ERRORDIR;
+    turnVec[2][cont] = RIGHTDIR;
+    turnVec[0][cont] = ERRORDIR;
+    turnVec[1][cont] = ERRORDIR;
+  }
+  saveConfToFile();
+}
+
+void contTurn(int cont) {
+  if (cont == 0) {
+    Wait(500);
+    turn(DIREITA, ANGLE90);
+  } else if (cont == 1) {
+    Wait(500);
+  } else if (cont == 2) {
+    Wait(500);
+    turn(ESQUERDA, ANGLE90);
+  }
 }
 
 void makeTurn(ColorConf &defColors[], int idCor) {
@@ -219,43 +244,101 @@ void makeTurn(ColorConf &defColors[], int idCor) {
     return;
   }
 
-  if (idCor == dir.left) {
-    PlayTone(TONE_C7, 500);
-    Wait(500);
-    turn(ESQUERDA, ANGLE90);
-  } else if (idCor == dir.right) {
-    PlayTone(TONE_E7, 500);
-    Wait(500);
-    turn(DIREITA, ANGLE90);
-  } else if (idCor == dir.front) {
-    PlayTone(TONE_D7, 500);
-    Wait(500);
-  } else {
-    if (turnVec[turnCount] == 1) {
-
-      turnCount += 1;
-
-      while (turnVec[turnCount] == 1) {
-        turnCount += 1;
+  if (idCor == COLOR_ONE) {
+    if (lastColor != ID_PRETO) {
+      recordDir();
+    }
+    lastColor = COLOR_ONE;
+    int cont = 0;
+    if (turnCount == 0) {
+      while(turnVec[0][cont] == ERRORDIR) {
+        cont++;
       }
-
-      if (turnCount == 1) {
-        PlayTone(TONE_C7, 500);
-        Wait(500);
-      } else if (turnCount == 2) {
-        PlayTone(TONE_D7, 500);
-        Wait(500);
-        if (turnVec[0] != 0) {
-          turn(ESQUERDA, ANGLE90);
-        }
-      }
-      turnCount += 1;
+      contTurn(cont);
     } else {
-      PlayTone(TONE_E7, 500);
-      Wait(500);
-      turn(DIREITA, ANGLE90);
-      turnCount += 1;
+      turnCount = 0;
+      if (lastDir == 2) {
+        Wait(50);
+        turn(DIREITA, ANGLE90);
+      } else if (turnVec[0][1] != ERRORDIR){
+        Wait(50);
+        turn(DIREITA, ANGLE90);
+      }
+    }
+  } else if (idCor == COLOR_TWO) {
+    if (lastColor != ID_PRETO) {
+      recordDir();
+    }
+    lastColor = COLOR_TWO;
+    int cont = 0;
+    if (turnCount == 0) {
+      while(turnVec[1][cont] == ERRORDIR) {
+        cont++;
+      }
+      contTurn(cont);
+    } else {
+      turnCount = 0;
+      if (lastDir == 2) {
+        Wait(50);
+        turn(DIREITA, ANGLE90);
+      } else if (turnVec[1][1] != ERRORDIR){
+        Wait(50);
+        turn(DIREITA, ANGLE90);
+      }
+    }
+  } else if (idCor == COLOR_THREE) {
+    if (lastColor != ID_PRETO) {
+      recordDir();
+    }
+    lastColor = COLOR_THREE;
+    int cont = 0;
+    if (turnCount == 0) {
+      while(turnVec[2][cont] == ERRORDIR) {
+        cont++;
+      }
+      contTurn(cont);
+    } else {
+      turnCount = 0;
+      if (lastDir == 2) {
+        Wait(50);
+        turn(DIREITA, ANGLE90);
+      } else if (turnVec[2][1] != ERRORDIR){
+        Wait(50);
+        turn(DIREITA, ANGLE90);
+      }
     }
   }
   leaveIntersec(defColors, idCor);
+}
+
+void dirToMat() {
+  turnVec[0][0] = dir.v00;
+  turnVec[0][1] = dir.v01;
+  turnVec[0][2] = dir.v02;
+  turnVec[1][0] = dir.v10;
+  turnVec[1][1] = dir.v11;
+  turnVec[1][2] = dir.v12;
+  turnVec[2][0] = dir.v20;
+  turnVec[2][1] = dir.v21;
+  turnVec[2][2] = dir.v22;
+}
+
+void matToDir() {
+  dir.v00 = turnVec[0][0];
+  dir.v01 = turnVec[0][1];
+  dir.v02 = turnVec[0][2];
+  dir.v10 = turnVec[1][0];
+  dir.v11 = turnVec[1][1];
+  dir.v12 = turnVec[1][2];
+  dir.v20 = turnVec[2][0];
+  dir.v21 = turnVec[2][1];
+  dir.v22 = turnVec[2][2];
+}
+
+void saveConfToFile() {
+  deleteFile(ROUTE_FILE_NAME, ROUTE_FILE_SIZE);
+  openForWrite(ROUTE_FILE_NAME, ROUTE_FILE_SIZE);
+  matToDir();
+  writeDirectionOnFile(dir);
+  closeFile();
 }

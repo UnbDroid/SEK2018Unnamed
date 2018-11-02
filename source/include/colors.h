@@ -58,9 +58,16 @@ int colorsMat[][] = {{0,0,0},
 
 #define ID_ERRO -2
 
-#define DIR_UNKNOWN -1
+#define DIR_UNKNOWN 200
 
 #define UNDEFINED -3
+
+#define COLOR_ONE 3
+
+#define COLOR_TWO 2
+
+#define COLOR_THREE 1
+
 
 // Identificador da situacao de Soma
 #define SUM 1

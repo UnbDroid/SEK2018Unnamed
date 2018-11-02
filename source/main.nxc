@@ -23,9 +23,6 @@ task main() {
   readColorConfFile(c, defColors);
   configSensor();
   closeFile();
-  /* while(true){ */
-    /* OnFwd(MOTOR_BOTH, 70); */
-  /* } */
-  /* testeCor(); */
   startRoute(defColors);
+  /* testeDirFile(); */
 }

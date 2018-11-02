@@ -17,6 +17,23 @@
   #define INCCOL
 #endif
 
+// TAMANO DO ARQUIVO
+#define ROUTE_FILE_SIZE 28
+// NOME DO ARQUIVO
+#define ROUTE_FILE_NAME "route.dat"
+
+typedef struct {
+  byte v00;
+  byte v01;
+  byte v02;
+  byte v10;
+  byte v11;
+  byte v12;
+  byte v20;
+  byte v21;
+  byte v22;
+}Directions;
+
 
 // #include "lib/route.nxc"
 
@@ -99,10 +116,8 @@ void readColorConfFile(ColorConf &reacd, ColorConf &output[]);
 
 void closeFile();
 
-// void initDir(Directions &d, int left, int right, int front);
-//
-// void writeDirectionOnFile(const ColorConf recd);
-//
-// void readDirectionOnFile(Directions &reacd, Directions &output);
+void writeDirectionOnFile(const Directions recd);
+
+void readDirectionOnFile(Directions &reacd);
 
 #endif

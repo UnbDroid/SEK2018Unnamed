@@ -6,7 +6,6 @@
 
 #include "include/defines.h"
 
-
 #include "lib/route.nxc"
 
 
@@ -15,5 +14,6 @@
 
 void testeArquivo();
 void testeCor();
+void testeDirFile();
 
 #endif
