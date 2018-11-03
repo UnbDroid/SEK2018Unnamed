@@ -22,7 +22,7 @@ string &str: variavel onde ele vai guardar a string recebida
 */
 
 #define BT_CONN 1
-#define OUTBOX 5
+#define OUTBOX5 5
 #define INBOX1 1
 #define INBOX2 2
 #define INBOX3 3
@@ -62,9 +62,24 @@ sub BTCheck(int conn){
 
 } */
 
+int pegaboneco(){
+
+  RotateMotor(GARRA, -70, 1000);
+
+  RotateMotor(GARRA, 70, 6000);
+
+
+  Off(GARRA);
+  while(1);
+
+  return 1;
+}
+
 task main(){
 
-  string in, out, i;
+  int nbonecos=0;
+
+  string out5 = "Inicio";
   int ufront_esq, ufront_dir, uside_esq, uside_dir;
   BTCheck(BT_CONN); // checa a conexão com o escravo
 
@@ -73,10 +88,11 @@ task main(){
   TextOut(50,LCD_LINE5,"Sdir:");
   TextOut(50,LCD_LINE3,"Sesq:"); */
 
-  start fowardPID;
-
+  SendRemoteString(BT_CONN, OUTBOX5, out5);
 while (true) {
+  string in4, out;
 
+  start fowardPID;
   /* Se a mensagem mandada pelo escravo não tiver erro, ele recebe a mensagem
    e printa o valor recebido na tela */
 
@@ -96,19 +112,25 @@ while (true) {
   ele vira 90 graus na direção do boneco, captura-o, armazena e volta pra pista. */
 
 
-  if(ReceiveRemoteString(INBOX4, true, out) == NO_ERR); //mensagem recebida do escravo
+  while(ReceiveRemoteString(INBOX4, true, in4) != NO_ERR); //mensagem recebida do escravo
 
-  TextOut(0,LCD_LINE1,out); //ver o que o mestre recebeu
+  TextOut(0,LCD_LINE1,in4); //ver o que o mestre recebeu
 
-    if(out == "Vira") {
-      RemotePlayTone(BT_CONN, 500, 100);
-      stop fowardPID;
-      Off(MOTOR_BOTH);
-      turn(ESQUERDA, 90);
-     }
+  if(in4 == "Vira") {
+    RemotePlayTone(BT_CONN, 500, 100);
+    stop fowardPID;
+    Off(MOTOR_BOTH);
+    turn(ESQUERDA, 90);
+
+    nbonecos += pegaboneco();
+
+    turn(DIREITA, 90);
+    out = "Fim";
+    SendRemoteString(BT_CONN, true, out);
+  }
 
 
-  Wait(500);
+  ClearLine(LCD_LINE1);
 
 
       /* Colocar alguma condição para que ele pare caso tenha virado em um local errado (veja queda com os dois sensores),
