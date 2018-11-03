@@ -105,9 +105,7 @@ void fowardCmPID(int cm) {
   ResetRotationCount(MOTOR_BOTH);
   Wait(10);
   float lRotation = MotorRotationCount(MOTOR_LEFT);
-  NumOut(0,LCD_LINE1,lRotation);
   float rRotation = MotorRotationCount(MOTOR_RIGHT);
-  NumOut(0,LCD_LINE2,lRotation);
   float error, turn, pwrLeft, pwrRight, derivate;
   float integral = 0.0;
   float lastError = 0.0;

@@ -268,12 +268,12 @@ void recordDir() {
 
 void contTurn(int cont) {
   if (cont == 0) {
-    Wait(500);
+    Wait(50);
     turn(DIREITA, ANGLE90);
   } else if (cont == 1) {
-    Wait(500);
+    Wait(50);
   } else if (cont == 2) {
-    Wait(500);
+    Wait(50);
     turn(ESQUERDA, ANGLE90);
   }
 }

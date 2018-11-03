@@ -250,8 +250,7 @@ int leftSensorColor(ColorConf &defColors[]){
   int newLeft, leftAmmount;
 
   leftAmmount = 0;
-  return left;
-  /* for(int i = 0; i < 1; i ++){
+  for(int i = 0; i < 1; i ++){
     newLeft = leftSensorColorRead(defColors);
     if (newLeft == left){
       leftAmmount += 1;
@@ -261,7 +260,7 @@ int leftSensorColor(ColorConf &defColors[]){
   if (leftAmmount == 1) {
     return newLeft;
   }
-  return ID_ERRO; */
+  return ID_ERRO;
 }
 
 int rightSensorColor(ColorConf &defColors[]){
@@ -269,8 +268,7 @@ int rightSensorColor(ColorConf &defColors[]){
   int newRight, rightAmmount;
 
   rightAmmount = 0;
-  return right;
-  /* for(int i = 0; i < 1; i ++){
+  for(int i = 0; i < 1; i ++){
     newRight = rightSensorColorRead(defColors);
     if (newRight == right){
       rightAmmount += 1;
@@ -281,7 +279,7 @@ int rightSensorColor(ColorConf &defColors[]){
     return newRight;
   }
 
-  return ID_ERRO; */
+  return ID_ERRO;
 }
 
 int rightSensorColorRead(ColorConf &defColors[]){

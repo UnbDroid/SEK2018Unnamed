@@ -25,4 +25,6 @@ task main() {
   closeFile();
   startRoute(defColors);
   /* testeCor(); */
+  /* testeDirFile(); */
+  /* testeArquivo(); */
 }
