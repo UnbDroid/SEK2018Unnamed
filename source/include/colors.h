@@ -38,9 +38,9 @@ int colorsMat[][] = {{0,0,0},
 /* ====== INICIO DAS DEFINICOES DA BIBLIOTECA DE CORES ====== */
 
 // Tamanho do intervalo no espectro de cor
-#define INTERVAL_SIZE 10.0
+#define INTERVAL_SIZE 12.0
 // Valor do erro que uma cor pode ter para estar no intervalo
-#define MEAN_ERROR 4
+#define MEAN_ERROR 10
 // Id do Verde
 #define ID_VERDE 1
 // Id do Azul
