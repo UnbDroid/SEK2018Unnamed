@@ -84,14 +84,29 @@ task main(){
    ClearLine(LCD_LINE7);
 
    /* Manda mensagem pro mestre */
+   /* if(uside_esq<23 && uside_dir<23){
+     out4 = "fimRampa";
+     SendResponseString(OUTBOX4,out4);
+   } else if(ufront_dir<30 && ufront_esq<30){
+     out4 = "Rampa";
+     SendResponseString(OUTBOX, out4);
+   } else if(uside_dir<23){
+     out4 = "turnRight";
+     SendRespondeString(OUTBOX4, out4);
+   } else */
     if (uside_esq < 23) {
-     out4 = "Vira";
+     out4 = "turnLeft";
      SendResponseString(OUTBOX4,out4);
      while(ReceiveRemoteString(INBOX8, true, in) == STAT_MSG_EMPTY_MAILBOX);
     }
 
-    /* Manda os valores lidos nos ultrassons pro mestre */
 
+    /* Manda os valores lidos nos ultrassons pro mestre */
+    while(1){
+      SendResponseNumber(OUTBOX2,ufront_dir);
+      SendResponseNumber(OUTBOX3,ufront_esq);
+
+    }
      /* SendResponseNumber(OUTBOX2,ufront_dir);
      SendResponseNumber(OUTBOX3,uside_esq);
      SendResponseNumber(OUTBOX4,uside_dir);

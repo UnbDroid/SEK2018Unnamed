@@ -27,11 +27,11 @@ string &str: variavel onde ele vai guardar a string recebida
 #define INBOX2 2
 #define INBOX3 3
 #define INBOX4 4
-#define d_boneco 35
+#define D_BONECO 22
 
 
 
-  #include "lib/move.nxc"
+  #include "lib/main.nxc"
 
 /* Função que checa a conexão bluetooth entre os cérebros */
 
@@ -43,37 +43,59 @@ sub BTCheck(int conn){
   }
 }
 
-/* Função para alinhar o boneco com a garra, recebe os valores recebidos pelo escravo */
+/* Função para alinhar o boneco com a garra, recebe os valores recebidos pelo escravo.
+   Lembrando que na platarforma costuma ter dois bonecos*/
 
-/* void alinhar_boneco (int direita, int esquerda) {
+void alinhar_boneco () {
 
-} */
+  int ufront_esq, ufront_dir;
+
+  while(ReceiveRemoteNumber(INBOX2, true,ufront_dir) == NO_ERR && ufront_dir > D_BONECO) {
+    NumOut(10,LCD_LINE6,ufront_dir);
+    OnFwd(MOTOR_RIGHT, 40);
+    Off(MOTOR_RIGHT);
+  }
+
+
+
+  while(ReceiveRemoteNumber(INBOX3, true,ufront_esq) == NO_ERR && ufront_esq > D_BONECO){
+    NumOut(10,LCD_LINE4,ufront_esq);
+    OnFwd(MOTOR_LEFT, 40);
+    Off(MOTOR_LEFT);
+  }
+
+
+
+
+}
 
 /* Função que desce a garra que ja vai estar aberta, vai pra frente, pega o boneco e armazena no robô
    Garra termina aberta.
  */
 
-/* void capturar() {
-  RotateMotor(OUT_A, -70, 5);
-  fowardCm(6);
-  RotateMotor(OUT_A, 70, 9000);
-  RotateMotor(OUT_A, -70, 4500);
-  (função para dar ré)
-
-} */
-
-int pegaboneco(){
-
-  RotateMotor(GARRA, -70, 1000);
-
-  RotateMotor(GARRA, 70, 6000);
+int capturar() {
 
 
-  Off(GARRA);
+
+  alinhar_boneco ();
+
   while(1);
 
+  //abaixar a garra
+  RotateMotor(OUT_A, -70, 1000);
+  RotateMotor(OUT_A, 70, 6000);
+
+  //RotateMotor(OUT_A, -70, 4500);
+
+  Off(GARRA);
+
+
+  //(função para dar ré)
+
   return 1;
+
 }
+
 
 task main(){
 
@@ -116,39 +138,26 @@ while (true) {
 
   TextOut(0,LCD_LINE1,in4); //ver o que o mestre recebeu
 
-  if(in4 == "Vira") {
-    RemotePlayTone(BT_CONN, 500, 100);
+  if(in4 == "turnLeft") {
     stop fowardPID;
+    RemotePlayTone(BT_CONN, 500, 100);
     Off(MOTOR_BOTH);
     turn(ESQUERDA, 90);
 
-    nbonecos += pegaboneco();
+    nbonecos += capturar();
 
     turn(DIREITA, 90);
     out = "Fim";
     SendRemoteString(BT_CONN, true, out);
   }
+  /* else if(in4 == "turnRight"){
+
+  }else if(in4 == "Rampa"){
+
+  } */
 
 
   ClearLine(LCD_LINE1);
-
-
-      /* Colocar alguma condição para que ele pare caso tenha virado em um local errado (veja queda com os dois sensores),
-      dando ré, virando para o lado oposto e voltando a percorrer a pista. */
-
-      /* Fazer função para alinhar a garra com o boneco e fazer a garra descer,
-      lembrando que na plataforma costuma ter dois bonecos
-      alinhar_boneco (ufront_esq, ufront_dir); */
-
-      /* Após alinhar, o robo vai um pouco pra frente e
-      fecha a garra para armazenar o boneco e dar ré
-      capturar();
-      */
-
-      /* Virar 90 na direção oposta que virou antes e volta para o percorrimento */
-
-
-
 
 }
 
