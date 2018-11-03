@@ -63,6 +63,10 @@ void dirToMat();
 
 void matToDir();
 
+int isRamp();
+
+void foundRamp();
+
 void saveConfToFile();
 
 #endif
