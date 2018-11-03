@@ -11,6 +11,7 @@
 
 int lastColor = ID_PRETO;
 int lastDir = 1;
+int lastKnowColor = ID_BRANCO;
 
 int turnCount = 0;
 int turnVec[3][3] = {{UNKNOWNDIR, UNKNOWNDIR, UNKNOWNDIR},
@@ -70,6 +71,15 @@ int avoidFall(ColorConf &defColors[]){
   return FALSE;
 }
 
+int isConf(int cor) {
+  for(int i = 0; i < 3; i ++) {
+    if (turnVec[cor][i] == 1){
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
 void adjustPosition(ColorConf &defColors[], int idColor) {
   Off(MOTOR_BOTH);
   if (leftSensorColor(defColors) == idColor){
@@ -95,7 +105,10 @@ int trackPosControll(ColorConf &defColors[], int idColor) {
       /* adjustPosition(defColors, rightColor); */
     }
     if((leftColor == ID_ERRO)||(rightColor == ID_ERRO)){
-      leftColor = idColor;
+      leftColor = lastKnowColor;
+      rightColor = lastKnowColor;
+    } else {
+      lastKnowColor = leftColor;
     }
     return leftColor;
   } else {
@@ -169,6 +182,7 @@ void route(ColorConf &defColors[]) {
   } else if ((color != ID_QUEDA)&&(color != ID_BRANCO)) {
       makeTurn(defColors, color);
   }
+
 }
 
 int isRamp() {
@@ -229,7 +243,7 @@ void make180(ColorConf &defColors[], int idCor){
 
 void recordDir() {
   int cont = 0;
-  if (lastColor == COLOR_ONE) {
+  if ((lastColor == COLOR_ONE)&&(isConf(0) != TRUE)) {
     PlayTone(500, 500);
     while(turnVec[0][cont] == ERRORDIR) {
       cont++;
@@ -240,7 +254,7 @@ void recordDir() {
     turnVec[0][cont] = RIGHTDIR;
     turnVec[1][cont] = ERRORDIR;
     turnVec[2][cont] = ERRORDIR;
-  } else if (lastColor == COLOR_TWO) {
+  } else if ((lastColor == COLOR_TWO)&&(isConf(1) != TRUE)) {
     PlayTone(500, 500);
     while(turnVec[1][cont] == ERRORDIR) {
       cont++;
@@ -251,7 +265,7 @@ void recordDir() {
     turnVec[1][cont] = RIGHTDIR;
     turnVec[0][cont] = ERRORDIR;
     turnVec[2][cont] = ERRORDIR;
-  } else if (lastColor == COLOR_THREE) {
+  } else if ((lastColor == COLOR_THREE)&&(isConf(2) != TRUE)) {
     PlayTone(500, 500);
     while(turnVec[2][cont] == ERRORDIR) {
       cont++;

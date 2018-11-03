@@ -20,13 +20,26 @@ task fowardPID() {
     lRotation = MotorRotationCount(MOTOR_LEFT);
     rRotation = MotorRotationCount(MOTOR_RIGHT);
     error = lRotation - rRotation;
-    integral = ((2/3)*integral) + error;
+    integral += error;
+    if (integral > 100) {
+      integral = 100;
+    } else if (integral < -100) {
+      integral = -100;
+    }
     derivate = error - lastError;
     turn = (KP * error) + (KI*integral) + (KD*derivate);
     pwrLeft = TP - turn;
     pwrRight = TP + turn;
     OnFwd(MOTOR_LEFT, pwrLeft);
     OnFwd(MOTOR_RIGHT, pwrRight);
+    ClearScreen();
+    NumOut(0,LCD_LINE1, pwrLeft);
+    NumOut(0,LCD_LINE2, pwrRight);
+    NumOut(0,LCD_LINE3, error);
+    NumOut(0,LCD_LINE4, lRotation);
+    NumOut(0,LCD_LINE5, rRotation);
+    NumOut(0,LCD_LINE6, turn);
+    NumOut(0,LCD_LINE7, integral);
     lastError = error;
   }
 }
