@@ -23,13 +23,15 @@ string &str: variavel onde ele vai guardar a string recebida
 
 
 
-#define INBOX8 8
+#define INBOX6 6
 #define BT_CONN 1
+#define INBOX4 4
 #define INBOX5 5
 #define OUTBOX1 1
 #define OUTBOX2 2
 #define OUTBOX3 3
 #define OUTBOX4 4
+#define D_BONECO 25
 
 #include "include/defines.h"
 
@@ -60,7 +62,7 @@ task main(){
  while(ReceiveRemoteString(INBOX5, true, in1) == STAT_MSG_EMPTY_MAILBOX);
 
  while(true) {
-   string out4, in;
+   string out4, in, out;
    /* Setando o sensor ultrassônico */
    SetSensorLowspeed(FRONT_ULTRA_LEFT);
    SetSensorLowspeed(FRONT_ULTRA_RIGHT);
@@ -94,19 +96,26 @@ task main(){
      out4 = "turnRight";
      SendRespondeString(OUTBOX4, out4);
    } else */
-    if (uside_esq < 23) {
+
+    if (uside_esq < D_BONECO) {
      out4 = "turnLeft";
      SendResponseString(OUTBOX4,out4);
-     while(ReceiveRemoteString(INBOX8, true, in) == STAT_MSG_EMPTY_MAILBOX);
+     while(ReceiveRemoteString(INBOX6, true, in) == STAT_MSG_EMPTY_MAILBOX);
+     RemotePlayTone(BT_CONN, 500, 100);
+    while(out!="Achei") {
+
+      SendResponseNumber(OUTBOX2,ufront_dir);
+      SendResponseNumber(OUTBOX3,ufront_esq);
+    }
+
+
     }
 
 
     /* Manda os valores lidos nos ultrassons pro mestre */
-    while(1){
-      SendResponseNumber(OUTBOX2,ufront_dir);
-      SendResponseNumber(OUTBOX3,ufront_esq);
 
-    }
+
+
      /* SendResponseNumber(OUTBOX2,ufront_dir);
      SendResponseNumber(OUTBOX3,uside_esq);
      SendResponseNumber(OUTBOX4,uside_dir);

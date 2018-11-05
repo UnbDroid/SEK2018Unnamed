@@ -23,11 +23,14 @@ string &str: variavel onde ele vai guardar a string recebida
 
 #define BT_CONN 1
 #define OUTBOX5 5
+#define OUTBOX4 4
+#define OUTBOX6 6
 #define INBOX1 1
 #define INBOX2 2
 #define INBOX3 3
 #define INBOX4 4
-#define D_BONECO 22
+#define D_BONECO_LADO 22
+#define D_BONECO_FRENTE 40
 
 
 
@@ -43,51 +46,109 @@ sub BTCheck(int conn){
   }
 }
 
-/* Função para alinhar o boneco com a garra, recebe os valores recebidos pelo escravo.
-   Lembrando que na platarforma costuma ter dois bonecos*/
 
-void alinhar_boneco () {
 
-  int ufront_esq, ufront_dir;
+void turnRightPID_garra(int distancia){
+  int esq, dir;
+  ReceiveRemoteNumber(INBOX2, true, dir); //valor ultrassom frente da direita
+  ReceiveRemoteNumber(INBOX3, true, esq); //valor ultrassom frente da esquerda
 
-  while(ReceiveRemoteNumber(INBOX2, true,ufront_dir) == NO_ERR && ufront_dir > D_BONECO) {
-    NumOut(10,LCD_LINE6,ufront_dir);
-    OnFwd(MOTOR_RIGHT, 40);
-    Off(MOTOR_RIGHT);
+  ResetRotationCount(MOTOR_BOTH);
+  Wait(10);
+
+  float lRotation = MotorRotationCount(MOTOR_LEFT);
+  float rRotation = MotorRotationCount(MOTOR_RIGHT);
+  float error, turn, pwrLeft, pwrRight, derivate;
+  float integral = 0.0;
+  float lastError = 0.0;
+
+  while(esq > distancia){
+
+    lRotation = MotorRotationCount(MOTOR_LEFT);
+    rRotation = MotorRotationCount(MOTOR_RIGHT);
+    error = abs(lRotation) - abs(rRotation);
+    integral = ((2/3)*integral) + error;
+    derivate = error - lastError;
+    turn = (KP * error) + (KI*integral) + (KD*derivate);
+    pwrLeft = TP - turn;
+    pwrRight = TP + turn;
+
+    OnFwd(MOTOR_LEFT, pwrLeft);
+    OnRev(MOTOR_RIGHT, pwrRight);
+    lastError = error;
   }
-
-
-
-  while(ReceiveRemoteNumber(INBOX3, true,ufront_esq) == NO_ERR && ufront_esq > D_BONECO){
-    NumOut(10,LCD_LINE4,ufront_esq);
-    OnFwd(MOTOR_LEFT, 40);
-    Off(MOTOR_LEFT);
-  }
-
-
-
-
+  Off(MOTOR_BOTH);
 }
+
+   void turnLeftPID_garra(int distancia) {
+     int esq, dir;
+     ReceiveRemoteNumber(INBOX2, true, dir); //valor ultrassom frente da direita
+     //ReceiveRemoteNumber(INBOX3, true, esq); //valor ultrassom frente da esquerda
+
+     ResetRotationCount(MOTOR_BOTH);
+     Wait(10);
+
+     float lRotation = MotorRotationCount(MOTOR_LEFT);
+     float rRotation = MotorRotationCount(MOTOR_RIGHT);
+     float error, turn, pwrLeft, pwrRight, derivate;
+     float integral = 0.0;
+     float lastError = 0.0;
+     while(dir > distancia){
+       ReceiveRemoteNumber(INBOX2, true, dir);
+       lRotation = MotorRotationCount(MOTOR_LEFT);
+       rRotation = MotorRotationCount(MOTOR_RIGHT);
+       error = abs(lRotation) - abs(rRotation);
+       integral = ((2/3)*integral) + error;
+       derivate = error - lastError;
+       turn = (KP * error) + (KI*integral) + (KD*derivate);
+       pwrLeft = TP - turn;
+       pwrRight = TP + turn;
+
+       OnRev(MOTOR_LEFT, pwrLeft);
+       OnFwd(MOTOR_RIGHT, pwrRight);
+       lastError = error;
+     }
+     Off(MOTOR_BOTH);
+   }
+
+   /* Função para alinhar o boneco com a garra, recebe os valores recebidos pelo escravo.
+      Lembrando que na platarforma costuma ter dois bonecos*/
+
+void alinhar_boneco(int direcao){
+  if (direcao == ESQUERDA) {
+    turnLeftPID_garra(D_BONECO_FRENTE);
+  } /*else if (direcao == DIREITA) {
+    turnRightPID_garra(D_BONECO_FRENTE);
+  }*/
+}
+
+
 
 /* Função que desce a garra que ja vai estar aberta, vai pra frente, pega o boneco e armazena no robô
    Garra termina aberta.
  */
 
 int capturar() {
+string out = "Manda";
+string out1 = "Achei";
 
+  SendRemoteString(BT_CONN, OUTBOX6, out);
 
+  alinhar_boneco (ESQUERDA);
 
-  alinhar_boneco ();
+  SendRemoteString(BT_CONN, OUTBOX6, out1);
 
   while(1);
 
+
   //abaixar a garra
-  RotateMotor(OUT_A, -70, 1000);
-  RotateMotor(OUT_A, 70, 6000);
+  RotateMotor(GARRA, -70, 1000);
+  RotateMotor(GARRA, 70, 6000);
 
   //RotateMotor(OUT_A, -70, 4500);
 
   Off(GARRA);
+
 
 
   //(função para dar ré)
@@ -105,10 +166,6 @@ task main(){
   int ufront_esq, ufront_dir, uside_esq, uside_dir;
   BTCheck(BT_CONN); // checa a conexão com o escravo
 
-  TextOut(10,LCD_LINE5,"Recebido:");
-  /* TextOut(10,LCD_LINE3,"Fesq:");
-  TextOut(50,LCD_LINE5,"Sdir:");
-  TextOut(50,LCD_LINE3,"Sesq:"); */
 
   SendRemoteString(BT_CONN, OUTBOX5, out5);
 while (true) {
@@ -140,15 +197,13 @@ while (true) {
 
   if(in4 == "turnLeft") {
     stop fowardPID;
-    RemotePlayTone(BT_CONN, 500, 100);
     Off(MOTOR_BOTH);
-    turn(ESQUERDA, 90);
 
     nbonecos += capturar();
 
     turn(DIREITA, 90);
     out = "Fim";
-    SendRemoteString(BT_CONN, true, out);
+    SendRemoteString(BT_CONN, OUTBOX4, out);
   }
   /* else if(in4 == "turnRight"){
 
