@@ -41,7 +41,7 @@ void recenter(ColorConf &defColors[]){
       OnRev(MOTOR_BOTH, 60);
       leftRead = leftSensorColor(defColors);
       if(leftRead == ID_ERRO) {
-        leftRead= ID_QUEDA;
+        leftRead = ID_QUEDA;
       }
     }
     Off(MOTOR_BOTH);
@@ -60,12 +60,12 @@ void recenter(ColorConf &defColors[]){
   }
 }
 
-int avoidFall(ColorConf &defColors[]){
-  if ((leftSensorColor(defColors) == ID_QUEDA) ||
-      (rightSensorColor(defColors) == ID_QUEDA)){
-    Off(MOTOR_BOTH);
+int avoidFall(ColorConf &defColors[], int leftColor, int rightColor){
+  if ((leftColor == ID_QUEDA) ||
+      (rightColor == ID_QUEDA)){
+    /* Off(MOTOR_BOTH);
     recenter(defColors);
-    Off(MOTOR_BOTH);
+    Off(MOTOR_BOTH); */
     return TRUE;
   }
   return FALSE;
@@ -80,15 +80,18 @@ int isConf(int cor) {
   return FALSE;
 }
 
-void adjustPosition(ColorConf &defColors[], int idColor) {
+void adjustPosition(ColorConf &defColors[], int idColor, int leftColor, int rightColor) {
   Off(MOTOR_BOTH);
-  if (leftSensorColor(defColors) == idColor){
-    while(rightSensorColor(defColors) != idColor) {
-      OnFwd(MOTOR_RIGHT, 60);
+
+  if (leftColor == idColor){
+    while(rightColor != idColor) {
+      OnFwd(MOTOR_RIGHT, 40);
+      rightColor = rightSensorColor(defColors);
     }
-  } else if (rightSensorColor(defColors) == idColor){
-    while(leftSensorColor(defColors) != idColor) {
-      OnFwd(MOTOR_LEFT, 60);
+  } else if (rightColor == idColor){
+    while(leftColor != idColor) {
+      OnFwd(MOTOR_LEFT, 40);
+      leftColor = leftSensorColor(defColors);
     }
   }
   Off(MOTOR_BOTH);
@@ -98,11 +101,15 @@ int trackPosControll(ColorConf &defColors[], int idColor) {
   int leftColor, rightColor;
   leftColor = leftSensorColor(defColors);
   rightColor = rightSensorColor(defColors);
-  if (avoidFall(defColors) == FALSE){
+  if (avoidFall(defColors, leftColor, rightColor) == FALSE){
     if (leftColor != idColor){
-      /* adjustPosition(defColors, leftColor); */
+      if (leftColor != ID_ERRO) {
+        adjustPosition(defColors, leftColor, leftColor, rightColor);
+      }
     } else if (rightColor != idColor) {
-      /* adjustPosition(defColors, rightColor); */
+      if (rightColor != ID_ERRO) {
+        /* adjustPosition(defColors, rightColor, leftColor, rightColor); */
+      }
     }
     if((leftColor == ID_ERRO)||(rightColor == ID_ERRO)){
       leftColor = lastKnowColor;
@@ -116,26 +123,12 @@ int trackPosControll(ColorConf &defColors[], int idColor) {
   }
 }
 
-void moveUntilWhite(ColorConf &defColors[]) {
+void moveUntilWhite(ColorConf &defColors[], int idCor) {
   int leftColor, rightColor;
   leftColor = leftSensorColor(defColors);
   rightColor = rightSensorColor(defColors);
   start fowardPID;
-  while ((leftColor != ID_BRANCO) &&
-       (rightColor != ID_BRANCO)) {
-   leftColor = leftSensorColor(defColors);
-   rightColor = rightSensorColor(defColors);
-  }
-  stop fowardPID;
-  Off(MOTOR_BOTH);
-}
-
-void moveUntilNotColor(ColorConf &defColors[], int idCor) {
-  int leftColor, rightColor;
-  leftColor = leftSensorColor(defColors);
-  rightColor = rightSensorColor(defColors);
-  start fowardPID;
-  while ((leftColor == idCor) &&
+  while ((leftColor == idCor) ||
        (rightColor == idCor)) {
    leftColor = leftSensorColor(defColors);
    rightColor = rightSensorColor(defColors);
@@ -150,8 +143,28 @@ void moveUntilNotColor(ColorConf &defColors[], int idCor) {
   Off(MOTOR_BOTH);
 }
 
+void moveUntilNotColor(ColorConf &defColors[], int idCor) {
+  int leftColor, rightColor;
+  leftColor = leftSensorColor(defColors);
+  rightColor = rightSensorColor(defColors);
+  start fowardPID;
+  while ((leftColor == idCor) &&
+         (rightColor == idCor)) {
+   leftColor = leftSensorColor(defColors);
+   rightColor = rightSensorColor(defColors);
+   if (leftColor == ID_ERRO) {
+     leftColor = idCor;
+   }
+   if (rightColor == ID_ERRO) {
+     rightColor = idCor;
+   }
+  }
+  stop fowardPID;
+  Off(MOTOR_BOTH);
+}
+
 void centerOnIntersec() {
-  fowardCm(18);
+  fowardCm(16);
 }
 
 void startRoute(ColorConf &defColors[]) {
@@ -162,15 +175,24 @@ void startRoute(ColorConf &defColors[]) {
     closeFile();
   } else {
     initEmptyDir(dir);
+    saveConfToFile();
   }
   Wait(50);
-  while (true) {
+  PlayTone(220, 500);
+  Wait(500);
+  PlayTone(440, 500);
+  Wait(500);
+  while(true) {
     route(defColors);
   }
 }
 
 void route(ColorConf &defColors[]) {
   int color;
+
+  int leftColor, rightColor;
+  string colorNameL, colorNameR;
+
   moveUntilNotColor(defColors, ID_BRANCO);
   color = trackPosControll(defColors, ID_BRANCO);
   if (color == ID_PRETO) {
@@ -180,9 +202,8 @@ void route(ColorConf &defColors[]) {
         make180(defColors, color);
       }
   } else if ((color != ID_QUEDA)&&(color != ID_BRANCO)) {
-      makeTurn(defColors, color);
+    makeTurn(defColors, color);
   }
-
 }
 
 int isRamp() {
@@ -205,8 +226,8 @@ void foundRamp() {
 }
 
 void leaveIntersec(ColorConf &defColors[], int idCor) {
-  moveUntilWhite(defColors);
-  trackPosControll(defColors, ID_BRANCO);
+  moveUntilWhite(defColors, idCor);
+  trackPosControll(defColors, idCor);
   route(defColors);
 }
 
@@ -243,7 +264,7 @@ void make180(ColorConf &defColors[], int idCor){
 
 void recordDir() {
   int cont = 0;
-  if ((lastColor == COLOR_ONE)&&(isConf(0) != TRUE)) {
+  if ((lastColor == COLOR_ONE)&&(isConf(0) != TRUE)) { //
     PlayTone(500, 500);
     while(turnVec[0][cont] == ERRORDIR) {
       cont++;
@@ -254,7 +275,7 @@ void recordDir() {
     turnVec[0][cont] = RIGHTDIR;
     turnVec[1][cont] = ERRORDIR;
     turnVec[2][cont] = ERRORDIR;
-  } else if ((lastColor == COLOR_TWO)&&(isConf(1) != TRUE)) {
+  } else if ((lastColor == COLOR_TWO)&&(isConf(1) != TRUE)) { //
     PlayTone(500, 500);
     while(turnVec[1][cont] == ERRORDIR) {
       cont++;
@@ -265,7 +286,7 @@ void recordDir() {
     turnVec[1][cont] = RIGHTDIR;
     turnVec[0][cont] = ERRORDIR;
     turnVec[2][cont] = ERRORDIR;
-  } else if ((lastColor == COLOR_THREE)&&(isConf(2) != TRUE)) {
+  } else if ((lastColor == COLOR_THREE)&&(isConf(2) != TRUE)) { //
     PlayTone(500, 500);
     while(turnVec[2][cont] == ERRORDIR) {
       cont++;

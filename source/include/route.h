@@ -49,9 +49,9 @@ void make180(ColorConf &defColors[], int idCor);
 /* */
 void recenter(ColorConf &defColors[]);
 /* */
-int avoidFall(ColorConf &defColors[]);
+int avoidFall(ColorConf &defColors[], int leftColor, int rightColor);
 /* */
-void adjustPosition(ColorConf &defColors[], int idColor);
+void adjustPosition(ColorConf &defColors[], int idColor, int leftColor, int rightColor);
 /* */
 int trackPosControll(ColorConf &defColors[], int idColor);
 /* */
