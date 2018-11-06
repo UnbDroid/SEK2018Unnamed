@@ -13,6 +13,11 @@
 
 #include "include/defines.h"
 
+// #ifndef INCCOL
+//   #include "lib/colors.nxc"
+//   #define INCCOL
+// #endif
+
 /* ====== INICIO DAS DEFINICOES DA BIBLIOTECA DE PID ====== */
 
 #define PULL_FACTOR 1.001
@@ -51,5 +56,6 @@ task fowardPID();
     Descricao: Manda o robo ir para a frente em alguns cm
 */
 void fowardCmPID(int cm);
+/**/
 
 #endif

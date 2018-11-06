@@ -13,8 +13,8 @@ int lastColor = ID_PRETO;
 int lastDir = 1;
 int lastKnowColor = ID_BRANCO;
 
+int onIntersec = FALSE;
 int lastFallDir = -1;
-
 
 int turnCount = 0;
 int turnVec[3][3] = {{UNKNOWNDIR, UNKNOWNDIR, UNKNOWNDIR},
@@ -93,6 +93,13 @@ void adjustPosition(ColorConf &defColors[], int idColor, int leftColor, int righ
     c2 = getColorName(rightColor);
     TextOut(0,LCD_LINE1,c1);
     TextOut(0,LCD_LINE2,c2);
+
+    /* if ((leftColor == idColor)&&(rightColor != leftColor)) {
+
+    } else if ((rightColor == idColor)&&(leftColor != rightColor)) {
+
+    } */
+
     if (leftColor == idColor){
       while(rightColor != idColor) {
         OnFwd(MOTOR_RIGHT, 60);
@@ -119,11 +126,14 @@ int trackPosControll(ColorConf &defColors[], int idColor) {
     rightColor = lastKnowColor;
   }
   if (avoidFall(defColors, leftColor, rightColor) == FALSE){
-    if (leftColor == idColor){
-      adjustPosition(defColors, leftColor, leftColor, rightColor);
-    } else if (rightColor == idColor) {
-      adjustPosition(defColors, rightColor, leftColor, rightColor);
+    if(onIntersec == FALSE) {
+      if (leftColor == idColor){
+        adjustPosition(defColors, leftColor, leftColor, rightColor);
+      } else if (rightColor == idColor) {
+        adjustPosition(defColors, rightColor, leftColor, rightColor);
+      }
     }
+
     if (rightColor == ID_ERRO) {
       rightColor = lastKnowColor;
     }
@@ -221,10 +231,11 @@ int moveUntilNotColor(ColorConf &defColors[], int idCor) {
   }
 }
 
-void centerOnIntersec() {
+void centerOnIntersec(ColorConf &defColors[], int idCor) {
   byte x = BatteryState();
   x = abs(x-4);
-  fowardCm(16+x);
+  fowardCmPID(16+x);
+  onIntersec = TRUE;
 }
 
 void startRoute(ColorConf &defColors[]) {
@@ -287,6 +298,7 @@ void foundRamp() {
 
 void leaveIntersec(ColorConf &defColors[], int idCor) {
   moveUntilWhite(defColors, idCor);
+  onIntersec = FALSE;
   trackPosControll(defColors, ID_BRANCO);
   route(defColors);
 }
@@ -374,7 +386,7 @@ void contTurn(int cont) {
 }
 
 void makeTurn(ColorConf &defColors[], int idCor) {
-  centerOnIntersec();
+  centerOnIntersec(defColors, idCor);
   if (idCor == DIR_UNKNOWN) {
     return;
   }
@@ -444,6 +456,7 @@ void makeTurn(ColorConf &defColors[], int idCor) {
     }
   }
   leaveIntersec(defColors, idCor);
+
 }
 
 void dirToMat() {

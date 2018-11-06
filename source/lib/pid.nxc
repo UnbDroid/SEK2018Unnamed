@@ -188,6 +188,7 @@ void fowardCmPID(int cm) {
   float error, turn, pwrLeft, pwrRight, derivate;
   float integral = 0.0;
   float lastError = 0.0;
+  int leftColor, rightColor;
   while (lRotation < (cm*CM_TO_ROTATIONS)) {
     lRotation = MotorRotationCount(MOTOR_LEFT);
     rRotation = MotorRotationCount(MOTOR_RIGHT);
