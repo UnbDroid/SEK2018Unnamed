@@ -1,5 +1,26 @@
 #include "include/main.h"
 
+void testeDirFile() {
+  Directions dir;
+    if (checkFileExistence(ROUTE_FILE_NAME, ROUTE_FILE_SIZE) == 1) {
+      openForRead(ROUTE_FILE_NAME, ROUTE_FILE_SIZE);
+      readDirectionOnFile(dir);
+      while(true){
+        NumOut(0,LCD_LINE1,dir.v00);
+        NumOut(20,LCD_LINE1,dir.v01);
+        NumOut(40,LCD_LINE1,dir.v02);
+
+        NumOut(0,LCD_LINE2,dir.v10);
+        NumOut(20,LCD_LINE2,dir.v11);
+        NumOut(40,LCD_LINE2,dir.v12);
+
+        NumOut(0,LCD_LINE3,dir.v20);
+        NumOut(20,LCD_LINE3,dir.v21);
+        NumOut(40,LCD_LINE3,dir.v22);
+      }
+    }
+}
+
 void testeArquivo(){
   ColorConf c;
   ColorConf colors[7];
@@ -25,7 +46,7 @@ void testeArquivo(){
       NumOut(20,LCD_LINE6,colors[i].rightGInterval);
       NumOut(40,LCD_LINE6,colors[i].rightBInterval);
       NumOut(60,LCD_LINE6,colors[i].rightWInterval);
-      Wait(1000);
+      Wait(5000);
       ClearScreen();
   }
 }

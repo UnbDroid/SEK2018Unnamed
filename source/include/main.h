@@ -9,9 +9,11 @@
 #include "lib/route.nxc"
 
 
+
 /* ====== INICIO DAS FUNCOES DO ARQUIVO MAIN ====== */
 
 void testeArquivo();
 void testeCor();
+void testeDirFile();
 
 #endif

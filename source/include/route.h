@@ -31,8 +31,11 @@
 #define ESQUERDA 0
 #define DIREITA 1
 
-#define ANGLE90 87
+#define ANGLE90 90
 
+#define ERRORDIR 2
+#define RIGHTDIR 1
+#define UNKNOWNDIR 0
 /* ====== INICIO DAS FUNCOES DA BIBLIOTECA DE ROTA ====== */
 
 /* */
@@ -46,14 +49,24 @@ void make180(ColorConf &defColors[], int idCor);
 /* */
 void recenter(ColorConf &defColors[]);
 /* */
-int avoidFall(ColorConf &defColors[]);
+int avoidFall(ColorConf &defColors[], int leftColor, int rightColor);
 /* */
-void adjustPosition(ColorConf &defColors[], int idColor);
+void adjustPosition(ColorConf &defColors[], int idColor, int leftColor, int rightColor);
 /* */
 int trackPosControll(ColorConf &defColors[], int idColor);
 /* */
-void moveUntilNotColor(ColorConf &defColors[], int idCor);
+int moveUntilNotColor(ColorConf &defColors[], int idCor);
 /* */
-void centerOnIntersec();
+void centerOnIntersec(ColorConf &defColors[], int idCor);
+
+void dirToMat();
+
+void matToDir();
+
+int isRamp();
+
+void foundRamp();
+
+void saveConfToFile();
 
 #endif

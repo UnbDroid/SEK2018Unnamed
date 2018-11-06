@@ -7,7 +7,6 @@
   Versao: 1.0
 */
 
-
 #include "include/colors.h"
 
 
@@ -114,6 +113,18 @@ int evalInterval(int value[], int expectedInterval) {
   }
 }
 
+int DP(int r, int g, int b){
+  int media=0;
+  int dp=0;
+  media = (r + g + b)/3;
+  dp = (media - r)*((media - r));
+  dp = dp + (media - b)*((media - b));
+  dp = dp + (media - g)*((media - g));
+  dp = dp/3;
+
+  return dp;
+}
+
 int howManyColor(int intervalR, int intervalG, int intervalB, int intervalW) {
   int total;
   int r[3];
@@ -133,7 +144,8 @@ int howManyColor(int intervalR, int intervalG, int intervalB, int intervalW) {
   w[1] = colorsMat[3][1];
   w[2] = colorsMat[3][2];
 
-  total = evalIntervalAmount(r, intervalR) + evalIntervalAmount(g, intervalG) + evalIntervalAmount(b, intervalB) + evalIntervalAmount(w, intervalW);
+  total = evalIntervalAmount(b, intervalB) + evalIntervalAmount(w, intervalW) + evalIntervalAmount(r, intervalR) +
+  evalIntervalAmount(g, intervalG);
 
   return total;
 }
@@ -174,11 +186,15 @@ int leftSensorColorRead(ColorConf &defColors[]){
 
   calculateInterval(r, g, b, w);
 
-  if (isItColor(defColors[0].leftRInterval,
-                defColors[0].leftGInterval,
-                defColors[0].leftBInterval,
-                defColors[0].leftWInterval) == 1) {
-    color = ID_VERDE;
+  if ((isItColor(defColors[3].leftRInterval,
+                defColors[3].leftGInterval,
+                defColors[3].leftBInterval,
+                defColors[3].leftWInterval) == 1) ||
+      (howManyColor(defColors[3].leftRInterval,
+                defColors[3].leftGInterval,
+                defColors[3].leftBInterval,
+                defColors[3].leftWInterval)>2)) {
+    color = ID_PRETO;
   } else if (isItColor(defColors[1].leftRInterval,
                 defColors[1].leftGInterval,
                 defColors[1].leftBInterval,
@@ -189,11 +205,11 @@ int leftSensorColorRead(ColorConf &defColors[]){
                 defColors[2].leftBInterval,
                 defColors[2].leftWInterval) == 1) {
     color = ID_VERMELHO;
-  } else if (isItColor(defColors[3].leftRInterval,
-                defColors[3].leftGInterval,
-                defColors[3].leftBInterval,
-                defColors[3].leftWInterval) == 1) {
-    color = ID_PRETO;
+  } else if (isItColor(defColors[0].leftRInterval,
+                defColors[0].leftGInterval,
+                defColors[0].leftBInterval,
+                defColors[0].leftWInterval) == 1) {
+    color = ID_VERDE;
   } else if (isItColor(defColors[4].leftRInterval,
                 defColors[4].leftGInterval,
                 defColors[4].leftBInterval,
@@ -213,21 +229,60 @@ int leftSensorColorRead(ColorConf &defColors[]){
   }
 
   if ((color == ID_VERDE)||(color == ID_PRETO)){
-    if (howManyColor(defColors[0].leftRInterval,
-                     defColors[0].leftGInterval,
-                     defColors[0].leftBInterval,
-                     defColors[0].leftWInterval) >
-        howManyColor(defColors[3].leftRInterval,
-                     defColors[3].leftGInterval,
-                     defColors[3].leftBInterval,
-                     defColors[3].leftWInterval)){
-                       color = ID_VERDE;
-    } else {
+    int DPGreen=0, DPBlack=0, DPNow=0, DPMedia=0;
+    DPGreen = DP(defColors[0].leftRed, defColors[0].leftGreen, defColors[0].leftBlue);
+    DPBlack = DP(defColors[3].leftRed, defColors[3].leftGreen, defColors[3].leftBlue);
+    DPNow = DP(r,g,b);
+    DPMedia = (DPGreen + DPBlack)/2;
+
+    if(DPNow < DPMedia)
       color = ID_PRETO;
-    }
+    else
+      color = ID_VERDE;
   }
 
   return color;
+}
+
+
+int leftSensorColor(ColorConf &defColors[]){
+  int left = leftSensorColorRead(defColors);
+  int newLeft, leftAmmount;
+
+  leftAmmount = 0;
+  return left;
+  /* for(int i = 0; i < 1; i ++){
+    newLeft = leftSensorColorRead(defColors);
+    if (newLeft == left){
+      leftAmmount += 1;
+    }
+  }
+
+  if (leftAmmount == 1) {
+    return newLeft;
+  }
+  return ID_ERRO;
+   */
+}
+
+int rightSensorColor(ColorConf &defColors[]){
+  int right = rightSensorColorRead(defColors);
+  int newRight, rightAmmount;
+
+  rightAmmount = 0;
+  return right;
+  /* for(int i = 0; i < 1; i ++){
+    newRight = rightSensorColorRead(defColors);
+    if (newRight == right){
+      rightAmmount += 1;
+    }
+  }
+
+  if (rightAmmount == 1) {
+    return newRight;
+  }
+
+  return ID_ERRO; */
 }
 
 int rightSensorColorRead(ColorConf &defColors[]){
@@ -237,58 +292,60 @@ int rightSensorColorRead(ColorConf &defColors[]){
 
   calculateInterval(r, g, b, w);
 
-  if (isItColor(defColors[0].rightRInterval,
-                defColors[0].rightGInterval,
-                defColors[0].rightBInterval,
-                defColors[0].rightWInterval) == 1) {
-    color = ID_VERDE;
-  } else if (isItColor(defColors[1].rightRInterval,
-                defColors[1].rightGInterval,
-                defColors[1].rightBInterval,
-                defColors[1].rightWInterval) == 1) {
-    color = ID_AZUL;
-  } else if (isItColor(defColors[2].rightRInterval,
-                defColors[2].rightGInterval,
-                defColors[2].rightBInterval,
-                defColors[2].rightWInterval) == 1) {
-    color = ID_VERMELHO;
-  } else if (isItColor(defColors[3].rightRInterval,
+  if ((isItColor(defColors[3].rightRInterval,
                 defColors[3].rightGInterval,
                 defColors[3].rightBInterval,
-                defColors[3].rightWInterval) == 1) {
+                defColors[3].rightWInterval) == 1) ||
+       (howManyColor(defColors[3].rightRInterval,
+                defColors[3].rightGInterval,
+                defColors[3].rightBInterval,
+                defColors[3].rightWInterval)>2)) {
     color = ID_PRETO;
-  } else if (isItColor(defColors[4].rightRInterval,
-                defColors[4].rightGInterval,
-                defColors[4].rightBInterval,
-                defColors[4].rightWInterval) == 1) {
-    color = ID_BRANCO;
-  } else if (isItColor(defColors[5].rightRInterval,
-                defColors[5].rightGInterval,
-                defColors[5].rightBInterval,
-                defColors[5].rightWInterval) == 1) {
-    color = ID_QUEDA;
-  } else if (isItColor(defColors[6].rightRInterval,
-                defColors[6].rightGInterval,
-                defColors[6].rightBInterval,
-                defColors[6].rightWInterval) == 1) {
-    color = ID_AMARELO;
+ } else if (isItColor(defColors[1].rightRInterval,
+               defColors[1].rightGInterval,
+               defColors[1].rightBInterval,
+               defColors[1].rightWInterval) == 1) {
+   color = ID_AZUL;
+ } else if (isItColor(defColors[2].rightRInterval,
+               defColors[2].rightGInterval,
+               defColors[2].rightBInterval,
+               defColors[2].rightWInterval) == 1) {
+   color = ID_VERMELHO;
+ } else if (isItColor(defColors[0].rightRInterval,
+              defColors[0].rightGInterval,
+              defColors[0].rightBInterval,
+              defColors[0].rightWInterval) == 1) {
+  color = ID_VERDE;
+ } else if (isItColor(defColors[4].rightRInterval,
+               defColors[4].rightGInterval,
+               defColors[4].rightBInterval,
+               defColors[4].rightWInterval) == 1) {
+   color = ID_BRANCO;
+ } else if (isItColor(defColors[5].rightRInterval,
+               defColors[5].rightGInterval,
+               defColors[5].rightBInterval,
+               defColors[5].rightWInterval) == 1) {
+   color = ID_QUEDA;
+ } else if (isItColor(defColors[6].rightRInterval,
+               defColors[6].rightGInterval,
+               defColors[6].rightBInterval,
+               defColors[6].rightWInterval) == 1) {
+   color = ID_AMARELO;
 
-  }
+ }
 
-  if ((color == ID_VERDE)||(color == ID_PRETO)){
-    if (howManyColor(defColors[0].rightRInterval,
-                     defColors[0].rightGInterval,
-                     defColors[0].rightBInterval,
-                     defColors[0].rightWInterval) >
-        howManyColor(defColors[3].rightRInterval,
-                     defColors[3].rightGInterval,
-                     defColors[3].rightBInterval,
-                     defColors[3].rightWInterval)){
-      color = ID_VERDE;
-    } else {
-      color = ID_PRETO;
-    }
-  }
+ if ((color == ID_VERDE)||(color == ID_PRETO)){
+   int DPGreen=0, DPBlack=0, DPNow=0, DPMedia=0;
+   DPGreen = DP(defColors[0].rightRed, defColors[0].rightGreen, defColors[0].rightBlue);
+   DPBlack = DP(defColors[3].rightRed, defColors[3].rightGreen, defColors[3].rightBlue);
+   DPNow = DP(r,g,b);
+   DPMedia = (DPGreen + DPBlack)/2;
 
-  return color;
+   if(DPNow < DPMedia)
+     color = ID_PRETO;
+   else
+     color = ID_VERDE;
+ }
+
+ return color;
 }
