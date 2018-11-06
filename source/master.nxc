@@ -46,10 +46,12 @@ sub BTCheck(int conn){
 }
 
 void turnRightPID_garra(int distancia){
-  int esq, dir;
+  int esq, dir,lRotation1, lRotation2;
+  string in2 = "notFind";
   if (ReceiveRemoteNumber(INBOX1, true, dir) == NO_ERR); //valor ultrassom frente da direita
   //if (ReceiveRemoteNumber(INBOX2, true, esq) == NO_ERR); //valor ultrassom frente da esquerda
   ResetRotationCount(MOTOR_BOTH);
+  PlayTone(220, 200);
   Wait(10);
 
   float lRotation = MotorRotationCount(MOTOR_LEFT);
@@ -58,12 +60,17 @@ void turnRightPID_garra(int distancia){
   float integral = 0.0;
   float lastError = 0.0;
 
-  while(esq > distancia){
+  while(in2!="Find"){
     if (ReceiveRemoteNumber(INBOX1, true, dir) == NO_ERR);
     lRotation = MotorRotationCount(MOTOR_LEFT);
     rRotation = MotorRotationCount(MOTOR_RIGHT);
     error = abs(lRotation) - abs(rRotation);
-    integral = ((2/3)*integral) + error;
+    integral += error;
+    if (integral > 100) {
+      integral = 100;
+    } else if (integral < -100) {
+      integral = -100;
+    }
     derivate = error - lastError;
     turn = (KP * error) + (KI*integral) + (KD*derivate);
     pwrLeft = TP - turn;
@@ -72,8 +79,10 @@ void turnRightPID_garra(int distancia){
     OnFwd(MOTOR_LEFT, pwrLeft);
     OnRev(MOTOR_RIGHT, pwrRight);
     lastError = error;
+    if(ReceiveRemoteString(INBOX2, true, in2) == NO_ERR);
+    if(in2 == "Find")
+      Off(MOTOR_BOTH);
   }
-  Off(MOTOR_BOTH);
 }
 
 void turnLeftPID_garra(int distancia) {
@@ -83,8 +92,9 @@ void turnLeftPID_garra(int distancia) {
   //if (ReceiveRemoteNumber(INBOX2, true, esq) == NO_ERR); //valor ultrassom frente da esquerda
 
   ResetRotationCount(MOTOR_BOTH);
-  PlayTone(220, 200);
   Wait(500);
+  PlayTone(220, 200);
+  Wait(100);
 
   float lRotation = MotorRotationCount(MOTOR_LEFT);
   float rRotation = MotorRotationCount(MOTOR_RIGHT);
@@ -95,7 +105,12 @@ void turnLeftPID_garra(int distancia) {
     lRotation = MotorRotationCount(MOTOR_LEFT);
     rRotation = MotorRotationCount(MOTOR_RIGHT);
     error = abs(lRotation) - abs(rRotation);
-    integral = ((2/3)*integral) + error;
+    integral += error;
+    if (integral > 100) {
+      integral = 100;
+    } else if (integral < -100) {
+      integral = -100;
+    }
     derivate = error - lastError;
     turn = (KP * error) + (KI*integral) + (KD*derivate);
     pwrLeft = TP - turn;
@@ -169,7 +184,6 @@ task main(){
 
      nbonecos += catchToy();
 
-     turn(DIREITA, 90);
 
    }
    /* else if(in4 == "turnRight"){

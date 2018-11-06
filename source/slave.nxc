@@ -28,9 +28,9 @@ string &str: variavel onde ele vai guardar a string recebida
 #define INBOX1 4
 #define INBOX2 5
 #define INBOX3 6
-#define DIST_SIDE 40
-#define DIST_FRONT1 30
-#define DIST_FRONT2 30
+#define DIST_SIDE 30
+#define DIST_FRONT1 40
+#define DIST_FRONT2 40
 #define VECTOR_SIZE 7
 
 #include "include/defines.h"
@@ -72,7 +72,7 @@ int medianaFilter(int &vetor[], int sizeVector){
 task main(){
   string in1;
   int leftFront, rightFront, sideLeft, sideRight;
-  int rightVector[VECTOR_SIZE], leftVector[VECTOR_SIZE], rightDistFiltered, leftDistFiltered, i;
+  int s_rightVector[VECTOR_SIZE], s_leftVector[VECTOR_SIZE], f_rightVector[VECTOR_SIZE], f_leftVector[VECTOR_SIZE], f_rightDistFiltered, f_leftDistFiltered, s_rightDistFiltered, s_leftDistFiltered, i;
   BTCheck(0); //checa a conexão com o mestre
 
   TextOut(10,LCD_LINE6,"Fdir:");
@@ -104,21 +104,27 @@ task main(){
 
 	 		leftFront = SensorUS(FRONT_ULTRA_LEFT);
 	 		rightFront = SensorUS(FRONT_ULTRA_RIGHT);
+      sideLeft = SensorUS(SIDE_ULTRA_LEFT);
+      sideRight = SensorUS(SIDE_ULTRA_RIGHT);
 
-	 		leftVector[i] = leftFront;
-	 		rightVector[i] = rightFront;
+	 		f_leftVector[i] = leftFront;
+	 		f_rightVector[i] = rightFront;
+      s_leftVector[i] = sideLeft;
+	 		s_rightVector[i] = sideRight;
 
 	 	}
 
-	 	leftDistFiltered = medianaFilter(leftVector,VECTOR_SIZE);
-	 	rightDistFiltered = medianaFilter(rightVector,VECTOR_SIZE);
+	 	f_leftDistFiltered = medianaFilter(f_leftVector,VECTOR_SIZE);
+	 	f_rightDistFiltered = medianaFilter(f_rightVector,VECTOR_SIZE);
+    s_leftDistFiltered = medianaFilter(s_leftVector,VECTOR_SIZE);
+	 	s_rightDistFiltered = medianaFilter(s_rightVector,VECTOR_SIZE);
 
 
     /* Printando o número mandado na tela */
-    NumOut(10,LCD_LINE5,leftFront);
-    NumOut(10,LCD_LINE7,rightFront);
-    NumOut(50,LCD_LINE5,sideLeft);
-    NumOut(50,LCD_LINE7,sideRight);
+    NumOut(10,LCD_LINE5,f_leftDistFiltered);
+    NumOut(10,LCD_LINE7,f_rightDistFiltered);
+    NumOut(50,LCD_LINE5,s_leftDistFiltered);
+    NumOut(50,LCD_LINE7,s_rightDistFiltered);
 
     Wait(500);
     ClearLine(LCD_LINE5);
@@ -136,7 +142,7 @@ task main(){
      SendRespondeString(OUTBOX4, out4);
    } else */
 
-    if (sideLeft < DIST_SIDE) {
+    if (s_leftDistFiltered < DIST_SIDE) {
       out3 = "turnLeft";
       SendResponseString(OUTBOX3,out3);
       while(ReceiveRemoteString(INBOX3, true, in3) == STAT_MSG_EMPTY_MAILBOX);
@@ -146,14 +152,14 @@ task main(){
     	 		leftFront = SensorUS(FRONT_ULTRA_LEFT);
     	 		rightFront = SensorUS(FRONT_ULTRA_RIGHT);
 
-    	 		leftVector[i] = leftFront;
-    	 		rightVector[i] = rightFront;
+    	 		f_leftVector[i] = leftFront;
+    	 		f_rightVector[i] = rightFront;
 
     	 	}
 
-    	 	leftDistFiltered = medianaFilter(leftVector,VECTOR_SIZE);
-    	 	rightDistFiltered = medianaFilter(rightVector,VECTOR_SIZE);
-        if(rightDistFiltered < DIST_FRONT1){
+    	 	f_leftDistFiltered = medianaFilter(f_leftVector,VECTOR_SIZE);
+    	 	f_rightDistFiltered = medianaFilter(f_rightVector,VECTOR_SIZE);
+        if(f_rightDistFiltered < DIST_FRONT1){
           out2 = "Find";
           SendResponseString(OUTBOX2, out2);
         }

@@ -18,11 +18,11 @@
 //Potencia do motor
 #define TP 70.0
 //Constante proporcional
-#define KP 5.0
+#define KP 0.7
 //Constante de integracao
-#define KI 1.0//1.0
+#define KI 0.05//1.0
 //Constante de derivacao
-#define KD 10.0//10.0
+#define KD 1.0//10.0
 
 #define CM_TO_ROTATIONS 32.2580645
 /* ====== INICIO DAS FUNCOES DA BIBLIOTECA DE PID ====== */
