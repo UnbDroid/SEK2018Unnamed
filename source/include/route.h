@@ -39,25 +39,25 @@
 /* ====== INICIO DAS FUNCOES DA BIBLIOTECA DE ROTA ====== */
 
 /* */
-void route(ColorConf &defColors[]);
+void route();
 /* */
-void leaveIntersec(ColorConf &defColors[], int idCor);
+void leaveIntersec(int idCor);
 /* */
-void makeTurn(ColorConf &defColors[], int idCor);
+void makeTurn(int idCor);
 /* */
-void make180(ColorConf &defColors[], int idCor);
+void make180(int idCor);
 /* */
-void recenter(ColorConf &defColors[], int leftRead, int rightRead);
+void recenter(int leftRead, int rightRead);
 /* */
-int avoidFall(ColorConf &defColors[], int leftColor, int rightColor);
+int avoidFall(int leftColor, int rightColor);
 /* */
-void adjustPosition(ColorConf &defColors[], int idColor, int leftColor, int rightColor);
+void adjustPosition(int idColor, int leftColor, int rightColor);
 /* */
-int trackPosControll(ColorConf &defColors[], int idColor);
+int trackPosControll(int idColor);
 /* */
-int moveUntilNotColor(ColorConf &defColors[], int idCor);
+int moveUntilNotColor(int idCor);
 /* */
-void centerOnIntersec(ColorConf &defColors[], int idCor);
+void centerOnIntersec(int idCor);
 
 void dirToMat();
 

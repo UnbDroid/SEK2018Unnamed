@@ -57,8 +57,8 @@ void testeCor(){
   openForRead(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
   readColorConfFile(c, defColors);
   while (true) {
-    int value1 = leftSensorColorRead(defColors);
-    int value2 = rightSensorColorRead(defColors);
+    int value1 = leftSensorColorRead();
+    int value2 = rightSensorColorRead();
     string colorName = getColorName(value1);
     string colorName2 = getColorName(value2);
     TextOut(0,LCD_LINE1,colorName);

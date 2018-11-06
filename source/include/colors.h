@@ -225,7 +225,7 @@ int evalIntervalAmount(int value[], int expectedInterval);
       que caracteriza os valores esperados para cada cor
   Retorno: O valor da cor lida pelo sensor esquerdo.
 */
-int leftSensorColorRead(ColorConf &defColors[]);
+int leftSensorColorRead();
 
 /* Right Sensor Color Read
   Descricao: Avalia a cor sendo lida pelo sensor direito, com base de comparacao
@@ -235,6 +235,8 @@ int leftSensorColorRead(ColorConf &defColors[]);
       que caracteriza os valores esperados para cada cor
   Retorno: O valor da cor lida pelo sensor esquerdo.
 */
-int rightSensorColorRead(ColorConf &defColors[]);
+int rightSensorColorRead();
+
+task updateColors();
 
 #endif

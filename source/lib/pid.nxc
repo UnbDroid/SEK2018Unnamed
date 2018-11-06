@@ -33,13 +33,13 @@ task fowardPID() {
     OnFwd(MOTOR_LEFT, pwrLeft);
     OnFwd(MOTOR_RIGHT, pwrRight);
     ClearScreen();
-    NumOut(0,LCD_LINE1, pwrLeft);
+    /* NumOut(0,LCD_LINE1, pwrLeft);
     NumOut(0,LCD_LINE2, pwrRight);
     NumOut(0,LCD_LINE3, error);
     NumOut(0,LCD_LINE4, lRotation);
     NumOut(0,LCD_LINE5, rRotation);
     NumOut(0,LCD_LINE6, turn);
-    NumOut(0,LCD_LINE7, integral);
+    NumOut(0,LCD_LINE7, integral); */
     lastError = error;
   }
 }

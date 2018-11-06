@@ -9,6 +9,11 @@
 
 #include "include/colors.h"
 
+ColorConf defColors[6];
+
+int leftColorRead;
+int rightColorRead;
+int cont = 0;
 
 string getColorName(int color){
   string colorName;
@@ -103,7 +108,7 @@ int evalIntervalAmount(int value[], int expectedInterval) {
 }
 
 int evalInterval(int value[], int expectedInterval) {
-  if ((value[0] == expectedInterval)||(value[1] == expectedInterval)||(value[2] == expectedInterval)) {
+  if ((value[0] == expectedInterval)) { //||(value[1] == expectedInterval)||(value[2] == expectedInterval)
     return 1;
   } else {
     return 0;
@@ -176,7 +181,7 @@ int isItColor(int intervalR, int intervalG, int intervalB, int intervalW) {
   }
 }
 
-int leftSensorColorRead(ColorConf &defColors[]){
+int leftSensorColorRead() {
   int color = -1;
   byte r = 0, g = 0, b=0, w=0, num=0;
   ReadSensorHTColor2Active(COLOR_LEFT, num, r, g, b, w);
@@ -236,8 +241,28 @@ int leftSensorColorRead(ColorConf &defColors[]){
 }
 
 
-int leftSensorColor(ColorConf &defColors[]){
-  int left = leftSensorColorRead(defColors);
+task updateColors() {
+  int startTime = CurrentTick();
+  unsigned long tempo;
+  while (true) {
+    leftColorRead = leftSensorColorRead();
+    rightColorRead = rightSensorColorRead();
+    cont += 1;
+    unsigned long tempo = CurrentTick();
+    tempo = tempo-startTime/1000.0;
+    string c1, c2;
+    ClearScreen();
+    c1 = getColorName(leftColorRead);
+    c2 = getColorName(leftColorRead);
+    TextOut(0,LCD_LINE1,c1);
+    TextOut(0,LCD_LINE2,c2);
+    NumOut(0,LCD_LINE3,cont);
+    NumOut(0,LCD_LINE4,tempo);
+  }
+}
+
+int leftSensorColor() {
+  int left = leftSensorColorRead();
   int newLeft, leftAmmount;
 
   leftAmmount = 0;
@@ -256,8 +281,8 @@ int leftSensorColor(ColorConf &defColors[]){
    */
 }
 
-int rightSensorColor(ColorConf &defColors[]){
-  int right = rightSensorColorRead(defColors);
+int rightSensorColor() {
+  int right = rightSensorColorRead();
   int newRight, rightAmmount;
 
   rightAmmount = 0;
@@ -276,7 +301,7 @@ int rightSensorColor(ColorConf &defColors[]){
   return ID_ERRO; */
 }
 
-int rightSensorColorRead(ColorConf &defColors[]){
+int rightSensorColorRead() {
   int color = -1;
   byte r = 0, g = 0, b=0, w=0, num=0;
   ReadSensorHTColor2Active(COLOR_RIGHT, num, r, g, b, w);
