@@ -18,7 +18,7 @@ void configSensor(){
 
 task main() {
   ColorConf c;
-  ColorConf defColors[7];
+  ColorConf defColors[6];
   openForRead(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
   readColorConfFile(c, defColors);
   configSensor();
