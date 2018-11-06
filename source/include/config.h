@@ -61,7 +61,7 @@ void saveToFile(int id, int lRed, int lGreen, int lBlue, int lWhite, int rRed, i
     - blue: Valor da cor de azul sendo lida por um dos sensores
     - white: Valor da cor de branco sendo lida por um dos sensores
 */
-void ColorConfUI(string colorName, float red, float green, float blue, float white);
+void ColorConfUI(string colorName, float lColors[], float rColors[]);
 
 /* Config Color
   Descricao: Configura um processo de salvamento de cor

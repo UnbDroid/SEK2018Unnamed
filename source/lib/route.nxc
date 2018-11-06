@@ -38,6 +38,7 @@ void recenter(int leftRead, int rightRead){
     Off(MOTOR_BOTH);
     Wait(20000);
   } else if (leftRead == ID_QUEDA) {
+    lastFallDir = ESQUERDA;
     Wait(50);
     while (leftRead != ID_BRANCO) {
       OnRev(MOTOR_RIGHT, 60);
@@ -48,6 +49,7 @@ void recenter(int leftRead, int rightRead){
     }
     Off(MOTOR_BOTH);
   } else if (rightRead == ID_QUEDA){
+    lastFallDir = DIREITA;
     Wait(50);
     while (rightRead != ID_BRANCO) {
       OnRev(MOTOR_LEFT, 60);
@@ -116,10 +118,10 @@ int trackPosControll(int idColor) {
   leftColor = leftColorRead;
   rightColor = rightColorRead;
   if (leftColor == ID_ERRO) {
-    leftColor = lastKnowColor;
+    leftColor = idColor;
   }
   if (rightColor == ID_ERRO) {
-    rightColor = lastKnowColor;
+    rightColor = idColor;
   }
   if (avoidFall(leftColor, rightColor) == FALSE){
     if(onIntersec == FALSE) {
