@@ -21,94 +21,143 @@ string &str: variavel onde ele vai guardar a string recebida
 
  */
 
-
-
-#define INBOX6 6
 #define BT_CONN 1
-#define INBOX4 4
-#define INBOX5 5
 #define OUTBOX1 1
 #define OUTBOX2 2
 #define OUTBOX3 3
-#define OUTBOX4 4
-#define D_BONECO 25
+#define INBOX1 4
+#define INBOX2 5
+#define INBOX3 6
+#define DIST_SIDE 40
+#define DIST_FRONT1 30
+#define DIST_FRONT2 30
+#define VECTOR_SIZE 7
 
 #include "include/defines.h"
 
 /* Função que checa a conexão bluetooth entre os cérebros */
 sub BTCheck(int conn){
- if (!BluetoothStatus(conn)==NO_ERR){
- TextOut(5,LCD_LINE2,"Sem conexão.");
- Wait(1000);
- Stop(true);
- }
+  if (!BluetoothStatus(conn)==NO_ERR){
+    TextOut(5,LCD_LINE2,"Sem conexão.");
+    Wait(1000);
+    Stop(true);
+  }
+}
+
+void medianaOrder(int &v[], int sizeVector) {
+   int i,j,aux,K;
+
+   for(i=0;i<sizeVector-1;i++){
+
+      for(j=0;j<sizeVector-1;j++){
+         if(v[j]>v[j+1]){
+            aux=v[j];
+            v[j]=v[j+1];
+            v[j+1]=aux;
+
+         }
+      }
+   }
+}
+
+
+int medianaFilter(int &vetor[], int sizeVector){
+
+   medianaOrder(vetor,sizeVector);
+
+   return vetor[(sizeVector-1)/2];
+
 }
 
 task main(){
- string in1, out1, out2, out3;
- int ufront_esq, ufront_dir, uside_esq, uside_dir;
- BTCheck(0); //checa a conexão com o mestre
+  string in1;
+  int leftFront, rightFront, sideLeft, sideRight;
+  int rightVector[VECTOR_SIZE], leftVector[VECTOR_SIZE], rightDistFiltered, leftDistFiltered, i;
+  BTCheck(0); //checa a conexão com o mestre
 
- TextOut(10,LCD_LINE6,"Fdir:");
- TextOut(10,LCD_LINE4,"Fesq:");
- TextOut(50,LCD_LINE6,"Sdir:");
- TextOut(50,LCD_LINE4,"Sesq:");
+  TextOut(10,LCD_LINE6,"Fdir:");
+  TextOut(10,LCD_LINE4,"Fesq:");
+  TextOut(50,LCD_LINE6,"Sdir:");
+  TextOut(50,LCD_LINE4,"Sesq:");
 
- SetSensorLowspeed(FRONT_ULTRA_LEFT);
- SetSensorLowspeed(FRONT_ULTRA_RIGHT);
- SetSensorLowspeed(SIDE_ULTRA_LEFT);
- SetSensorLowspeed(SIDE_ULTRA_RIGHT);
+  SetSensorLowspeed(FRONT_ULTRA_LEFT);
+  SetSensorLowspeed(FRONT_ULTRA_RIGHT);
+  SetSensorLowspeed(SIDE_ULTRA_LEFT);
+  SetSensorLowspeed(SIDE_ULTRA_RIGHT);
 
- while(ReceiveRemoteString(INBOX5, true, in1) == STAT_MSG_EMPTY_MAILBOX);
+  while(ReceiveRemoteString(INBOX1, true, in1) == STAT_MSG_EMPTY_MAILBOX);
 
- while(true) {
-   string out4, in, out;
-   /* Setando o sensor ultrassônico */
-   SetSensorLowspeed(FRONT_ULTRA_LEFT);
-   SetSensorLowspeed(FRONT_ULTRA_RIGHT);
-   SetSensorLowspeed(SIDE_ULTRA_LEFT);
-   SetSensorLowspeed(SIDE_ULTRA_RIGHT);
+  while(true) {
+    string out3, in3, out2;
+    /* Setando o sensor ultrassônico */
+    SetSensorLowspeed(FRONT_ULTRA_LEFT);
+    SetSensorLowspeed(FRONT_ULTRA_RIGHT);
+    SetSensorLowspeed(SIDE_ULTRA_LEFT);
+    SetSensorLowspeed(SIDE_ULTRA_RIGHT);
 
-   ufront_esq = SensorUS(FRONT_ULTRA_LEFT);
-   ufront_dir = SensorUS(FRONT_ULTRA_RIGHT);
-   uside_esq = SensorUS(SIDE_ULTRA_LEFT);
-   uside_dir = SensorUS(SIDE_ULTRA_RIGHT);
+    leftFront = SensorUS(FRONT_ULTRA_LEFT);
+    rightFront = SensorUS(FRONT_ULTRA_RIGHT);
+    sideLeft = SensorUS(SIDE_ULTRA_LEFT);
+    sideRight = SensorUS(SIDE_ULTRA_RIGHT);
+
+    for(i=0;i<VECTOR_SIZE;i++){
+
+	 		leftFront = SensorUS(FRONT_ULTRA_LEFT);
+	 		rightFront = SensorUS(FRONT_ULTRA_RIGHT);
+
+	 		leftVector[i] = leftFront;
+	 		rightVector[i] = rightFront;
+
+	 	}
+
+	 	leftDistFiltered = medianaFilter(leftVector,VECTOR_SIZE);
+	 	rightDistFiltered = medianaFilter(rightVector,VECTOR_SIZE);
 
 
-   /* Printando o número mandado na tela */
-   NumOut(10,LCD_LINE5,ufront_esq);
-   NumOut(10,LCD_LINE7,ufront_dir);
-   NumOut(50,LCD_LINE5,uside_esq);
-   NumOut(50,LCD_LINE7,uside_dir);
+    /* Printando o número mandado na tela */
+    NumOut(10,LCD_LINE5,leftFront);
+    NumOut(10,LCD_LINE7,rightFront);
+    NumOut(50,LCD_LINE5,sideLeft);
+    NumOut(50,LCD_LINE7,sideRight);
 
-   Wait(500);
-   ClearLine(LCD_LINE5);
-   ClearLine(LCD_LINE7);
+    Wait(500);
+    ClearLine(LCD_LINE5);
+    ClearLine(LCD_LINE7);
 
-   /* Manda mensagem pro mestre */
-   /* if(uside_esq<23 && uside_dir<23){
-     out4 = "fimRampa";
-     SendResponseString(OUTBOX4,out4);
-   } else if(ufront_dir<30 && ufront_esq<30){
+    /* Manda mensagem pro mestre */
+    /* if(sideLeft<23 && sideRight<23){
+        out4 = "fimRampa";
+        SendResponseString(OUTBOX4,out4);
+   } else if(rightFront<30 && leftFront<30){
      out4 = "Rampa";
      SendResponseString(OUTBOX, out4);
-   } else if(uside_dir<23){
+   } else if(sideRight<23){
      out4 = "turnRight";
      SendRespondeString(OUTBOX4, out4);
    } else */
 
-    if (uside_esq < D_BONECO) {
-     out4 = "turnLeft";
-     SendResponseString(OUTBOX4,out4);
-     while(ReceiveRemoteString(INBOX6, true, in) == STAT_MSG_EMPTY_MAILBOX);
-     RemotePlayTone(BT_CONN, 500, 100);
-    while(out!="Achei") {
+    if (sideLeft < DIST_SIDE) {
+      out3 = "turnLeft";
+      SendResponseString(OUTBOX3,out3);
+      while(ReceiveRemoteString(INBOX3, true, in3) == STAT_MSG_EMPTY_MAILBOX);
+      while(out2!="Find") {
+        for(i=0;i<VECTOR_SIZE;i++){
 
-      SendResponseNumber(OUTBOX2,ufront_dir);
-      SendResponseNumber(OUTBOX3,ufront_esq);
-    }
+    	 		leftFront = SensorUS(FRONT_ULTRA_LEFT);
+    	 		rightFront = SensorUS(FRONT_ULTRA_RIGHT);
 
+    	 		leftVector[i] = leftFront;
+    	 		rightVector[i] = rightFront;
 
+    	 	}
+
+    	 	leftDistFiltered = medianaFilter(leftVector,VECTOR_SIZE);
+    	 	rightDistFiltered = medianaFilter(rightVector,VECTOR_SIZE);
+        if(rightDistFiltered < DIST_FRONT1){
+          out2 = "Find";
+          SendResponseString(OUTBOX2, out2);
+        }
+      }
     }
 
 
@@ -116,9 +165,10 @@ task main(){
 
 
 
-     /* SendResponseNumber(OUTBOX2,ufront_dir);
-     SendResponseNumber(OUTBOX3,uside_esq);
-     SendResponseNumber(OUTBOX4,uside_dir);
+     /* SendResponseNumber(OUTBOX2,rightFront);
+     SendResponseNumber(OUTBOX3,sideLeft);
+     SendResponseNumber(OUTBOX4,sideRight);
      Wait(100); */
 
-}}
+   }
+}
