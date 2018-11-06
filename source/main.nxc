@@ -27,5 +27,5 @@ task main() {
   /* start fowardPID; */
   /* testeCor(); */
   /* testeDirFile(); */
-  /* testeArquivo(); */
+  testeArquivo();
 }

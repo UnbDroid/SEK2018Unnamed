@@ -108,7 +108,7 @@ int evalIntervalAmount(int value[], int expectedInterval) {
 }
 
 int evalInterval(int value[], int expectedInterval) {
-  if ((value[0] == expectedInterval)) { //||(value[1] == expectedInterval)||(value[2] == expectedInterval)
+  if ((value[0] == expectedInterval)||(value[1] == expectedInterval)||(value[2] == expectedInterval)) { //
     return 1;
   } else {
     return 0;
@@ -253,7 +253,7 @@ task updateColors() {
     string c1, c2;
     ClearScreen();
     c1 = getColorName(leftColorRead);
-    c2 = getColorName(leftColorRead);
+    c2 = getColorName(rightColorRead);
     TextOut(0,LCD_LINE1,c1);
     TextOut(0,LCD_LINE2,c2);
     NumOut(0,LCD_LINE3,cont);
