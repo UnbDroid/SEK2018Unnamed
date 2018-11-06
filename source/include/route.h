@@ -55,7 +55,7 @@ void adjustPosition(ColorConf &defColors[], int idColor, int leftColor, int righ
 /* */
 int trackPosControll(ColorConf &defColors[], int idColor);
 /* */
-void moveUntilNotColor(ColorConf &defColors[], int idCor);
+int moveUntilNotColor(ColorConf &defColors[], int idCor);
 /* */
 void centerOnIntersec();
 

@@ -42,7 +42,7 @@ void recenter(ColorConf &defColors[]){
   } else if (leftRead == ID_QUEDA) {
     Wait(50);
     while (leftRead != ID_BRANCO) {
-      OnRev(MOTOR_RIGHT, 40);
+      OnRev(MOTOR_RIGHT, 60);
       leftRead = leftSensorColor(defColors);
       if(leftRead == ID_ERRO) {
         leftRead = ID_QUEDA;
@@ -53,7 +53,7 @@ void recenter(ColorConf &defColors[]){
   } else if (rightRead == ID_QUEDA){
     Wait(50);
     while (rightRead != ID_BRANCO) {
-      OnRev(MOTOR_LEFT, 40);
+      OnRev(MOTOR_LEFT, 60);
       rightRead = rightSensorColor(defColors);
       if(rightRead == ID_ERRO) {
         rightRead = ID_QUEDA;
@@ -85,7 +85,7 @@ int isConf(int cor) {
 }
 
 void adjustPosition(ColorConf &defColors[], int idColor, int leftColor, int rightColor) {
-  if(idColor==ID_VERMELHO || idColor==ID_AZUL || idColor==ID_VERDE || idColor==ID_PRETO){
+  if(idColor==ID_VERMELHO || idColor == ID_BRANCO || idColor==ID_AZUL || idColor==ID_VERDE || idColor==ID_PRETO){
     Off(MOTOR_BOTH);
 
     string c1, c2;
@@ -119,14 +119,10 @@ int trackPosControll(ColorConf &defColors[], int idColor) {
     rightColor = lastKnowColor;
   }
   if (avoidFall(defColors, leftColor, rightColor) == FALSE){
-    if (leftColor != idColor){
-      if (leftColor != ID_ERRO) {
-        adjustPosition(defColors, leftColor, leftColor, rightColor);
-      }
-    } else if (rightColor != idColor) {
-      if (rightColor != ID_ERRO) {
-        adjustPosition(defColors, rightColor, leftColor, rightColor);
-      }
+    if (leftColor == idColor){
+      adjustPosition(defColors, leftColor, leftColor, rightColor);
+    } else if (rightColor == idColor) {
+      adjustPosition(defColors, rightColor, leftColor, rightColor);
     }
     if (rightColor == ID_ERRO) {
       rightColor = lastKnowColor;
@@ -190,15 +186,20 @@ void moveUntilWhite(ColorConf &defColors[], int idCor) {
   Off(MOTOR_BOTH);
 }
 
-void moveUntilNotColor(ColorConf &defColors[], int idCor) {
+int moveUntilNotColor(ColorConf &defColors[], int idCor) {
   int leftColor, rightColor;
   leftColor = leftSensorColor(defColors);
   rightColor = rightSensorColor(defColors);
+  if (leftColor == ID_ERRO) {
+    leftColor = idCor;
+  }
+  if (rightColor == ID_ERRO) {
+    rightColor = idCor;
+  }
 
   /* start fowardPID; */
   startProperPID();
-  while ((leftColor == idCor) &&
-         (rightColor == idCor)) {
+  while ((leftColor == idCor) && (rightColor == idCor)) {
    leftColor = leftSensorColor(defColors);
    rightColor = rightSensorColor(defColors);
    if (leftColor == ID_ERRO) {
@@ -208,9 +209,16 @@ void moveUntilNotColor(ColorConf &defColors[], int idCor) {
      rightColor = idCor;
    }
   }
+
   /* stop fowardPID; */
   stopProperPID();
   Off(MOTOR_BOTH);
+
+  if ((leftColor != ID_ERRO)&&(leftColor != idCor)) {
+    return leftColor;
+  } else {
+    return rightColor;
+  }
 }
 
 void centerOnIntersec() {
@@ -245,8 +253,8 @@ void route(ColorConf &defColors[]) {
   int leftColor, rightColor;
   string colorNameL, colorNameR;
 
-  moveUntilNotColor(defColors, ID_BRANCO);
-  color = trackPosControll(defColors, ID_BRANCO);
+  color = moveUntilNotColor(defColors, ID_BRANCO);
+  color = trackPosControll(defColors, color);
   if (color == ID_PRETO) {
       if (isRamp() == TRUE) {
         foundRamp();
@@ -279,7 +287,7 @@ void foundRamp() {
 
 void leaveIntersec(ColorConf &defColors[], int idCor) {
   moveUntilWhite(defColors, idCor);
-  trackPosControll(defColors, idCor);
+  trackPosControll(defColors, ID_BRANCO);
   route(defColors);
 }
 
