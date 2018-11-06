@@ -22,8 +22,8 @@ task main() {
   readColorConfFile(c, defColors);
   configSensor();
   closeFile();
-  start updateColors;
-  startRoute();
+  /* start updateColors; */
+  /* startRoute(); */
   /* start fowardPID; */
   /* testeCor(); */
   /* testeDirFile(); */
