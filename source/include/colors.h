@@ -53,8 +53,6 @@ int colorsMat[][] = {{0,0,0},
 #define ID_BRANCO 5
 // Id da Queda
 #define ID_QUEDA 6
-// Id do Amarelo
-#define ID_AMARELO 7
 
 #define ID_ERRO -2
 

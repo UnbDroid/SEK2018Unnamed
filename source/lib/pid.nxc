@@ -66,8 +66,8 @@ task fowardPIDPullLeft() {
     turn = (KP * error) + (KI*integral) + (KD*derivate);
     pwrLeft = TP - turn;
     pwrRight = TP + turn;
-    OnFwd(MOTOR_LEFT, pwrLeft * PULL_FACTOR);
-    OnFwd(MOTOR_RIGHT, pwrRight);
+    OnFwd(MOTOR_LEFT, pwrLeft);
+    OnFwd(MOTOR_RIGHT, pwrRight * PULL_FACTOR);
     lastError = error;
   }
 }
@@ -94,8 +94,8 @@ task fowardPIDPullRight() {
     turn = (KP * error) + (KI*integral) + (KD*derivate);
     pwrLeft = TP - turn;
     pwrRight = TP + turn;
-    OnFwd(MOTOR_LEFT, pwrLeft);
-    OnFwd(MOTOR_RIGHT, pwrRight * PULL_FACTOR);
+    OnFwd(MOTOR_LEFT, pwrLeft * PULL_FACTOR);
+    OnFwd(MOTOR_RIGHT, pwrRight);
     lastError = error;
   }
 }

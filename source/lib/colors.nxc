@@ -14,9 +14,6 @@ string getColorName(int color){
   string colorName;
 
   switch (color) {
-    case ID_AMARELO:
-      colorName = "AMARELO";
-      break;
     case ID_VERDE:
       colorName = "VERDE";
       break;
@@ -193,7 +190,7 @@ int leftSensorColorRead(ColorConf &defColors[]){
       (howManyColor(defColors[3].leftRInterval,
                 defColors[3].leftGInterval,
                 defColors[3].leftBInterval,
-                defColors[3].leftWInterval)>2)) {
+                defColors[3].leftWInterval)>5)) {
     color = ID_PRETO;
   } else if (isItColor(defColors[1].leftRInterval,
                 defColors[1].leftGInterval,
@@ -220,12 +217,6 @@ int leftSensorColorRead(ColorConf &defColors[]){
                 defColors[5].leftBInterval,
                 defColors[5].leftWInterval) == 1) {
     color = ID_QUEDA;
-  } else if (isItColor(defColors[6].leftRInterval,
-                defColors[6].leftGInterval,
-                defColors[6].leftBInterval,
-                defColors[6].leftWInterval) == 1) {
-    color = ID_AMARELO;
-
   }
 
   if ((color == ID_VERDE)||(color == ID_PRETO)){
@@ -326,12 +317,6 @@ int rightSensorColorRead(ColorConf &defColors[]){
                defColors[5].rightBInterval,
                defColors[5].rightWInterval) == 1) {
    color = ID_QUEDA;
- } else if (isItColor(defColors[6].rightRInterval,
-               defColors[6].rightGInterval,
-               defColors[6].rightBInterval,
-               defColors[6].rightWInterval) == 1) {
-   color = ID_AMARELO;
-
  }
 
  if ((color == ID_VERDE)||(color == ID_PRETO)){

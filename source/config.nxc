@@ -28,7 +28,5 @@ task main() {
     PlayTone(500, 500);
     configColor(ID_QUEDA);
     PlayTone(500, 500);
-    /* configColor(ID_AMARELO);
-    PlayTone(500, 500); */
     Wait(1000);
 }

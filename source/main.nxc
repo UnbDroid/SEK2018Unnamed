@@ -24,8 +24,8 @@ task main() {
   configSensor();
   closeFile();
   /* start fowardPID; */
-  /* startRoute(defColors); */
-  testeCor();
+  startRoute(defColors);
+  /* testeCor(); */
   /* testeDirFile(); */
   /* testeArquivo(); */
 }

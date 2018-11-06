@@ -47,7 +47,7 @@ void makeTurn(ColorConf &defColors[], int idCor);
 /* */
 void make180(ColorConf &defColors[], int idCor);
 /* */
-void recenter(ColorConf &defColors[]);
+void recenter(ColorConf &defColors[], int leftRead, int rightRead);
 /* */
 int avoidFall(ColorConf &defColors[], int leftColor, int rightColor);
 /* */

@@ -32,13 +32,11 @@ Directions dir;
 // 2 = ERRADO
 
 
-void recenter(ColorConf &defColors[]){
-  int leftRead, rightRead;
+void recenter(ColorConf &defColors[], int leftRead, int rightRead){
   PlayTone(880, 500);
-  leftRead = leftSensorColor(defColors);
-  rightRead = rightSensorColor(defColors);
   if ((leftRead == ID_QUEDA) && (rightRead == ID_QUEDA)) {
     Off(MOTOR_BOTH);
+    Wait(20000);
   } else if (leftRead == ID_QUEDA) {
     Wait(50);
     while (leftRead != ID_BRANCO) {
@@ -49,7 +47,6 @@ void recenter(ColorConf &defColors[]){
       }
     }
     Off(MOTOR_BOTH);
-    /* turn(DIREITA, 10); */
   } else if (rightRead == ID_QUEDA){
     Wait(50);
     while (rightRead != ID_BRANCO) {
@@ -60,7 +57,6 @@ void recenter(ColorConf &defColors[]){
       }
     }
     Off(MOTOR_BOTH);
-    /* turn(ESQUERDA, 10); */
   }
 }
 
@@ -68,7 +64,7 @@ int avoidFall(ColorConf &defColors[], int leftColor, int rightColor){
   if ((leftColor == ID_QUEDA) ||
       (rightColor == ID_QUEDA)){
     Off(MOTOR_BOTH);
-    recenter(defColors);
+    recenter(defColors, leftColor, rightColor);
     Off(MOTOR_BOTH);
     return TRUE;
   }
