@@ -13,6 +13,9 @@ int lastColor = ID_PRETO;
 int lastDir = 1;
 int lastKnowColor = ID_BRANCO;
 
+int lastFallDir = -1;
+
+
 int turnCount = 0;
 int turnVec[3][3] = {{UNKNOWNDIR, UNKNOWNDIR, UNKNOWNDIR},
                      {UNKNOWNDIR, UNKNOWNDIR, UNKNOWNDIR},
@@ -31,41 +34,42 @@ Directions dir;
 
 void recenter(ColorConf &defColors[]){
   int leftRead, rightRead;
+  PlayTone(880, 500);
   leftRead = leftSensorColor(defColors);
   rightRead = rightSensorColor(defColors);
   if ((leftRead == ID_QUEDA) && (rightRead == ID_QUEDA)) {
     Off(MOTOR_BOTH);
   } else if (leftRead == ID_QUEDA) {
     Wait(50);
-    while (leftRead == ID_QUEDA) {
-      OnRev(MOTOR_BOTH, 60);
+    while (leftRead != ID_BRANCO) {
+      OnRev(MOTOR_RIGHT, 40);
       leftRead = leftSensorColor(defColors);
       if(leftRead == ID_ERRO) {
         leftRead = ID_QUEDA;
       }
     }
     Off(MOTOR_BOTH);
-    turn(DIREITA, 10);
+    /* turn(DIREITA, 10); */
   } else if (rightRead == ID_QUEDA){
     Wait(50);
-    while (rightRead == ID_QUEDA) {
-      OnRev(MOTOR_BOTH, 60);
+    while (rightRead != ID_BRANCO) {
+      OnRev(MOTOR_LEFT, 40);
       rightRead = rightSensorColor(defColors);
       if(rightRead == ID_ERRO) {
-        rightRead= ID_QUEDA;
+        rightRead = ID_QUEDA;
       }
     }
     Off(MOTOR_BOTH);
-    turn(ESQUERDA, 10);
+    /* turn(ESQUERDA, 10); */
   }
 }
 
 int avoidFall(ColorConf &defColors[], int leftColor, int rightColor){
   if ((leftColor == ID_QUEDA) ||
       (rightColor == ID_QUEDA)){
-    /* Off(MOTOR_BOTH);
+    Off(MOTOR_BOTH);
     recenter(defColors);
-    Off(MOTOR_BOTH); */
+    Off(MOTOR_BOTH);
     return TRUE;
   }
   return FALSE;
@@ -81,26 +85,39 @@ int isConf(int cor) {
 }
 
 void adjustPosition(ColorConf &defColors[], int idColor, int leftColor, int rightColor) {
-  Off(MOTOR_BOTH);
+  if(idColor==ID_VERMELHO || idColor==ID_AZUL || idColor==ID_VERDE || idColor==ID_PRETO){
+    Off(MOTOR_BOTH);
 
-  if (leftColor == idColor){
-    while(rightColor != idColor) {
-      OnFwd(MOTOR_RIGHT, 40);
-      rightColor = rightSensorColor(defColors);
+    string c1, c2;
+    c1 = getColorName(leftColor);
+    c2 = getColorName(rightColor);
+    TextOut(0,LCD_LINE1,c1);
+    TextOut(0,LCD_LINE2,c2);
+    if (leftColor == idColor){
+      while(rightColor != idColor) {
+        OnFwd(MOTOR_RIGHT, 60);
+        rightColor = rightSensorColor(defColors);
+      }
+    } else if (rightColor == idColor){
+      while(leftColor != idColor) {
+        OnFwd(MOTOR_LEFT, 60);
+        leftColor = leftSensorColor(defColors);
+      }
     }
-  } else if (rightColor == idColor){
-    while(leftColor != idColor) {
-      OnFwd(MOTOR_LEFT, 40);
-      leftColor = leftSensorColor(defColors);
-    }
+    Off(MOTOR_BOTH);
   }
-  Off(MOTOR_BOTH);
 }
 
 int trackPosControll(ColorConf &defColors[], int idColor) {
   int leftColor, rightColor;
   leftColor = leftSensorColor(defColors);
   rightColor = rightSensorColor(defColors);
+  if (leftColor == ID_ERRO) {
+    leftColor = lastKnowColor;
+  }
+  if (rightColor == ID_ERRO) {
+    rightColor = lastKnowColor;
+  }
   if (avoidFall(defColors, leftColor, rightColor) == FALSE){
     if (leftColor != idColor){
       if (leftColor != ID_ERRO) {
@@ -108,12 +125,14 @@ int trackPosControll(ColorConf &defColors[], int idColor) {
       }
     } else if (rightColor != idColor) {
       if (rightColor != ID_ERRO) {
-        /* adjustPosition(defColors, rightColor, leftColor, rightColor); */
+        adjustPosition(defColors, rightColor, leftColor, rightColor);
       }
     }
-    if((leftColor == ID_ERRO)||(rightColor == ID_ERRO)){
-      leftColor = lastKnowColor;
+    if (rightColor == ID_ERRO) {
       rightColor = lastKnowColor;
+    }
+    if(leftColor == ID_ERRO){
+      leftColor = lastKnowColor;
     } else {
       lastKnowColor = leftColor;
     }
@@ -123,11 +142,35 @@ int trackPosControll(ColorConf &defColors[], int idColor) {
   }
 }
 
+
+void startProperPID() {
+  if (lastFallDir == ESQUERDA) {
+    start fowardPIDPullLeft;
+  } else if (lastFallDir == DIREITA) {
+    start fowardPIDPullRight;
+  } else {
+    start fowardPID;
+  }
+}
+
+void stopProperPID() {
+  if (lastFallDir == ESQUERDA) {
+    stop fowardPID;
+  } else if (lastFallDir == DIREITA) {
+    stop fowardPID;
+  } else {
+    stop fowardPID;
+  }
+}
+
 void moveUntilWhite(ColorConf &defColors[], int idCor) {
   int leftColor, rightColor;
   leftColor = leftSensorColor(defColors);
   rightColor = rightSensorColor(defColors);
-  start fowardPID;
+
+  startProperPID();
+  /* start fowardPID; */
+
   while ((leftColor == idCor) ||
        (rightColor == idCor)) {
    leftColor = leftSensorColor(defColors);
@@ -139,7 +182,11 @@ void moveUntilWhite(ColorConf &defColors[], int idCor) {
      rightColor = idCor;
    }
   }
-  stop fowardPID;
+
+  /* stop fowardPID; */
+  stopProperPID();
+
+
   Off(MOTOR_BOTH);
 }
 
@@ -147,7 +194,9 @@ void moveUntilNotColor(ColorConf &defColors[], int idCor) {
   int leftColor, rightColor;
   leftColor = leftSensorColor(defColors);
   rightColor = rightSensorColor(defColors);
-  start fowardPID;
+
+  /* start fowardPID; */
+  startProperPID();
   while ((leftColor == idCor) &&
          (rightColor == idCor)) {
    leftColor = leftSensorColor(defColors);
@@ -159,12 +208,15 @@ void moveUntilNotColor(ColorConf &defColors[], int idCor) {
      rightColor = idCor;
    }
   }
-  stop fowardPID;
+  /* stop fowardPID; */
+  stopProperPID();
   Off(MOTOR_BOTH);
 }
 
 void centerOnIntersec() {
-  fowardCm(16);
+  byte x = BatteryState();
+  x = abs(x-4);
+  fowardCm(16+x);
 }
 
 void startRoute(ColorConf &defColors[]) {
