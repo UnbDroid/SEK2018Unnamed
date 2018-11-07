@@ -8,6 +8,8 @@
 */
 #include "include/pid.h"
 
+float angle = 0.0;
+
 task fowardPID() {
   ResetRotationCount(MOTOR_BOTH);
   Wait(10);
@@ -101,7 +103,6 @@ task fowardPIDPullRight() {
 }
 
 void turnLeftPID(int turnAngle) {
-  SetSensorHTGyro(GIRO);
   ResetRotationCount(MOTOR_BOTH);
   Wait(20);
   float angle = 0, gyro = 0;
@@ -141,7 +142,6 @@ void turnLeftPID(int turnAngle) {
 }
 
 void turnRightPID(int turnAngle){
-  SetSensorHTGyro(GIRO);
   ResetRotationCount(MOTOR_BOTH);
   Wait(20);
   float angle = 0, gyro = 0;

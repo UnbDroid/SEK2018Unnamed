@@ -57,7 +57,7 @@ int trackPosControll(int idColor);
 /* */
 int moveUntilNotColor(int idCor);
 /* */
-void centerOnIntersec(int idCor);
+int centerOnIntersec(int idCor);
 
 void dirToMat();
 
