@@ -126,3 +126,29 @@ void fowardCmPID(int cm) {
   }
   Off(MOTOR_BOTH);
 }
+
+void backwardCmPID(int cm) {
+  ResetRotationCount(MOTOR_BOTH);
+  Wait(10);
+  float lRotation = MotorRotationCount(MOTOR_LEFT);
+  NumOut(0,LCD_LINE1,lRotation);
+  float rRotation = MotorRotationCount(MOTOR_RIGHT);
+  NumOut(0,LCD_LINE2,lRotation);
+  float error, turn, pwrLeft, pwrRight, derivate;
+  float integral = 0.0;
+  float lastError = 0.0;
+  while (lRotation > (cm*CM_TO_ROTATIONS)*(-1)) {
+    lRotation = MotorRotationCount(MOTOR_LEFT);
+    rRotation = MotorRotationCount(MOTOR_RIGHT);
+    error = lRotation - rRotation;
+    integral = ((2/3)*integral) + error;
+    derivate = error - lastError;
+    turn = (KP * error) + (KI*integral) + (KD*derivate);
+    pwrLeft = TP + turn;
+    pwrRight = TP - turn;
+    OnRev(MOTOR_LEFT, pwrLeft);
+    OnRev(MOTOR_RIGHT, pwrRight);
+    lastError = error;
+  }
+  Off(MOTOR_BOTH);
+}
