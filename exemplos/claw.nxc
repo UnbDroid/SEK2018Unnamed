@@ -1,6 +1,6 @@
 task main() {
-  RotateMotor(OUT_C, -90, 1000); //desce aberta
+  /* RotateMotor(OUT_C, -90, 1000); //desce aberta */
   RotateMotor(OUT_C, 90, 5800); //fecha
-  RotateMotor(OUT_C, -90, 4500); //abre
+  /* RotateMotor(OUT_C, -90, 4500); //abre */
 }
 // MOTORROTATIONCOUNT pra ver se ta forçando

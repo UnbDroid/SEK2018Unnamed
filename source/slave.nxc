@@ -72,6 +72,7 @@ int medianaFilter(int &vetor[], int sizeVector){
 
 task main(){
   string in1;
+  int contador = 0;
   int leftFront, rightFront, sideLeft, sideRight;
   int s_rightVector[VECTOR_SIZE], s_leftVector[VECTOR_SIZE], f_rightVector[VECTOR_SIZE], f_leftVector[VECTOR_SIZE], f_rightDistFiltered, f_leftDistFiltered, s_rightDistFiltered, s_leftDistFiltered, i;
   BTCheck(0); //checa a conexão com o mestre
@@ -81,15 +82,15 @@ task main(){
   TextOut(50,LCD_LINE6,"Sdir:");
   TextOut(50,LCD_LINE4,"Sesq:");
 
-  SetSensorLowspeed(FRONT_ULTRA_LEFT);
-  SetSensorLowspeed(FRONT_ULTRA_RIGHT);
-  SetSensorLowspeed(SIDE_ULTRA_LEFT);
-  SetSensorLowspeed(SIDE_ULTRA_RIGHT);
-
   while(ReceiveRemoteString(INBOX1, true, in1) == STAT_MSG_EMPTY_MAILBOX);
 
   while(true) {
     string out3, in3, out2;
+
+    if(contador!=0) {
+      while(ReceiveRemoteString(INBOX3, true, in3) == STAT_MSG_EMPTY_MAILBOX);
+    }
+
     /* Setando o sensor ultrassônico */
     SetSensorLowspeed(FRONT_ULTRA_LEFT);
     SetSensorLowspeed(FRONT_ULTRA_RIGHT);
@@ -131,6 +132,7 @@ task main(){
       } else */
 
     if (s_leftDistFiltered < DIST_SIDE_BONECO) {
+      contador++;
       out3 = "turnLeft";
 
       /* Printando o número mandado na tela */

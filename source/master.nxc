@@ -99,7 +99,7 @@ float turnLeftPID_garra(int distancia) {
   ResetRotationCount(MOTOR_BOTH);
   Wait(500);
 
-  float angle = 0, gyro = 0;
+  float angle = 0, gyro = 0, angle1 = 0;
   unsigned long time = CurrentTick();
   unsigned long prev_time;
   float lRotation = MotorRotationCount(MOTOR_LEFT);
@@ -136,7 +136,8 @@ float turnLeftPID_garra(int distancia) {
     if(in2 == "Find")
       Off(MOTOR_BOTH);
   }
-  return angle;
+  angle1 = angle - gyro - 80;
+  return angle1;
 }
 
    /* Função para alinhar o boneco com a garra, recebe os valores recebidos pelo escravo.
@@ -144,6 +145,7 @@ float turnLeftPID_garra(int distancia) {
 float alignToy(int direcao){
   float angle = 0;
   if (direcao == ESQUERDA) {
+    turn(ESQUERDA, 80);
     angle = turnLeftPID_garra(D_BONECO_FRENTE);
     return angle;
   } /*else if (direcao == DIREITA) {
@@ -159,7 +161,7 @@ float alignToy(int direcao){
  */
 
 int catchToy(string mensagem) {
-  string out = "Manda";
+  string out = "Manda", out1 = "Start";
   float angle = 0.0;
   /* string out1 = "Achei"; */
   SendRemoteString(BT_CONN, OUTBOX3, out);
@@ -173,8 +175,10 @@ int catchToy(string mensagem) {
     RotateMotor(GARRA, -90, 4500); //abre
     Off(GARRA);
     backwardCmPID(15); //ANDAR PRA TRAS
-    //turnRightPID(angle); //VOLTAR O MESMO ANGULO
-    /* SendRemoteString(BT_CONN, OUTBOX3, out1); */ //manda mensagem para que ele possa procurar mais bonecos
+    turn(DIREITA, -angle); //VOLTAR O MESMO ANGULO
+    Wait(50);
+    SendRemoteString(BT_CONN, OUTBOX3, out1); //manda mensagem para que ele possa procurar mais bonecos
+    return 1;
   }
   else if(mensagem == "turnRight") {
       angle = alignToy(DIREITA);
@@ -189,8 +193,6 @@ int catchToy(string mensagem) {
       //turnLeftPID(angle); //VOLTAR O MESMO ANGULO
       /* SendRemoteString(BT_CONN, OUTBOX3, out1); */ //manda mensagem para que ele possa procurar mais bonecos
   }
-
-  return 1;
  }
 
 task main(){
@@ -205,26 +207,22 @@ task main(){
    string in3;
 
    start fowardPID;
-   while(ReceiveRemoteString(INBOX3, true, in3) != NO_ERR); //mensagem recebida do escravo
+   while(ReceiveRemoteString(INBOX3, true, in3) != NO_ERR); //mensagem recebida do escravo "turnLeft" ou "turnLeft"
 
      //ver o que o mestre recebeu
    if(in3 == "turnLeft") {
      stop fowardPID;
      Off(MOTOR_BOTH);
      nbonecos += catchToy(in3);
-
     }
   /*else if(in4 == "turnRight"){
       stop fowardPID;
       Off(MOTOR_BOTH);
       nbonecos += catchToy(in4);
-
     }
     else if(in4 == "Rampa"){
 
    } */
 
-
-   ClearLine(LCD_LINE1);
  }
 }
