@@ -28,6 +28,8 @@
 #define COLOR_LEFT IN_2
 //Sensor de giroscopio
 #define GIRO IN_3
+//Sensor Ultra
+#define FRONT_ULTRA IN_4
 
 /* ====== DEFINICOES GERAIS DO BERNARD ====== */
 
@@ -38,9 +40,9 @@
 // Ultrassom lateral da esquerda
 #define SIDE_ULTRA_LEFT IN_1
 // Ultrassom frontal da direita
-#define FRONT_ULTRA_RIGHT IN_2
+#define DOWN_ULTRA_RIGHT IN_2
 // Ultrassom frontal da esquerda
-#define FRONT_ULTRA_LEFT IN_3
+#define DOWN_ULTRA_LEFT IN_3
 // Ultrassom lateral da direita
 #define SIDE_ULTRA_RIGHT IN_4
 

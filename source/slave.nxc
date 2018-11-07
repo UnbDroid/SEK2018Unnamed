@@ -31,7 +31,7 @@ string &str: variavel onde ele vai guardar a string recebida
 #define DIST_SIDE_BONECO 30
 #define DIST_SIDE_RAMPA 15
 #define DIST_FRONT1 30
-#define DIST_FRONT2 40
+#define DIST_FRONT2 30
 #define VECTOR_SIZE 7
 
 #include "include/defines.h"
@@ -85,27 +85,26 @@ task main(){
   while(ReceiveRemoteString(INBOX1, true, in1) == STAT_MSG_EMPTY_MAILBOX);
 
   while(true) {
-    string out3, in3, out2;
+    string out3, in3 = "direcao", out2;
 
     if(contador!=0) {
       while(ReceiveRemoteString(INBOX3, true, in3) == STAT_MSG_EMPTY_MAILBOX);
     }
 
     /* Setando o sensor ultrassônico */
-    SetSensorLowspeed(FRONT_ULTRA_LEFT);
-    SetSensorLowspeed(FRONT_ULTRA_RIGHT);
+    SetSensorLowspeed(FRONT_ULTRA);
     SetSensorLowspeed(SIDE_ULTRA_LEFT);
     SetSensorLowspeed(SIDE_ULTRA_RIGHT);
 
-    leftFront = SensorUS(FRONT_ULTRA_LEFT);
-    rightFront = SensorUS(FRONT_ULTRA_RIGHT);
+    leftFront = SensorUS(FRONT_ULTRA);
+
     sideLeft = SensorUS(SIDE_ULTRA_LEFT);
     sideRight = SensorUS(SIDE_ULTRA_RIGHT);
 
     for(i=0;i<VECTOR_SIZE;i++){
 
-	 		leftFront = SensorUS(FRONT_ULTRA_LEFT);
-	 		rightFront = SensorUS(FRONT_ULTRA_RIGHT);
+	 		leftFront = SensorUS(FRONT_ULTRA);
+
       sideLeft = SensorUS(SIDE_ULTRA_LEFT);
       sideRight = SensorUS(SIDE_ULTRA_RIGHT);
 
@@ -122,18 +121,36 @@ task main(){
 	 	s_rightDistFiltered = medianaFilter(s_rightVector,VECTOR_SIZE);
 
     /* Manda mensagem pro mestre */
-    /* if(s_leftDistFiltered<DIST_SIDE_RAMPA && s_rightDistFiltered<DIST_SIDE_RAMPA){
-        out4 = "Rampa";
-        SendResponseString(OUTBOX4,out4);
-        }
-      else if(s_rightDistFiltered< DIST_SIDE_BONECO){
-        out4 = "turnRight";
-        SendRespondeString(OUTBOX4, out4);
-      } else */
+      if(s_rightDistFiltered< DIST_SIDE_BONECO){
+        contador++;
+        out2 = "notFind";
+        out3 = "turnRight";
+        SendResponseString(OUTBOX3,out3);
+        while(ReceiveRemoteString(INBOX3, true, in3) == STAT_MSG_EMPTY_MAILBOX);
+        while(out2!="Find") {
+          for(i=0;i<VECTOR_SIZE;i++){
 
-    if (s_leftDistFiltered < DIST_SIDE_BONECO) {
+            leftFront = SensorUS(FRONT_ULTRA);
+
+
+            f_leftVector[i] = leftFront;
+            f_rightVector[i] = rightFront;
+
+          }
+
+          f_leftDistFiltered = medianaFilter(f_leftVector,VECTOR_SIZE);
+          f_rightDistFiltered = medianaFilter(f_rightVector,VECTOR_SIZE);
+          if(f_leftDistFiltered < DIST_FRONT2){
+            out2 = "Find";
+            SendResponseString(OUTBOX2, out2);
+          }
+        }
+      }
+
+  else if (s_leftDistFiltered < DIST_SIDE_BONECO) {
       contador++;
       out3 = "turnLeft";
+      out2 = "notFind";
 
       /* Printando o número mandado na tela */
       NumOut(10,LCD_LINE5,f_leftDistFiltered);
@@ -149,8 +166,8 @@ task main(){
       while(out2!="Find") {
         for(i=0;i<VECTOR_SIZE;i++){
 
-    	 		leftFront = SensorUS(FRONT_ULTRA_LEFT);
-    	 		rightFront = SensorUS(FRONT_ULTRA_RIGHT);
+    	 		leftFront = SensorUS(FRONT_ULTRA);
+
 
     	 		f_leftVector[i] = leftFront;
     	 		f_rightVector[i] = rightFront;
