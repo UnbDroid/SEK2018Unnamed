@@ -12,7 +12,6 @@
 string in3;
 
 int lastColor = ID_PRETO;
-int lastKnowColor = ID_BRANCO;
 
 int onIntersec = FALSE;
 int lastFallDir = -1;
@@ -24,10 +23,6 @@ int turnVec[3][3] = {{UNKNOWNDIR, UNKNOWNDIR, UNKNOWNDIR},
                      {UNKNOWNDIR, UNKNOWNDIR, UNKNOWNDIR}};
 
 Directions dir;
-
-task reciveFallWarning() {
-
-}
 
 void recenter(int leftRead, int rightRead){
 
@@ -73,6 +68,7 @@ int avoidFall(int leftColor, int rightColor){
     Off(MOTOR_BOTH);
     recenter(leftColor, rightColor);
     Off(MOTOR_BOTH);
+    PlayTone(20, 500);
     return TRUE;
   }
   return FALSE;
@@ -88,7 +84,7 @@ int isConf(int cor) {
 }
 
 void adjustPosition(int idColor, int leftColor, int rightColor) {
-  PlayTone(500,500);
+
   if(idColor != ID_ERRO){
     Off(MOTOR_BOTH);
     string c1, c2;
@@ -120,20 +116,20 @@ int trackPosControll(int idColor) {
   if(in3 == "leftFall"){
      leftColor = ID_QUEDA;
      rightColor = rightColorRead;
-  }else if(in3=="rightFall"){
+  } else if(in3=="rightFall"){
      rightColor = ID_QUEDA;
      leftColor = leftColorRead;
-  }else if(in3 == "empty"){
+  } else if(in3 == "empty"){
     leftColor = leftColorRead;
     rightColor = rightColorRead;
   }
 
-  if (leftColor == ID_ERRO) {
+  /* if ((leftColor == ID_ERRO)&&(idColor!=ID_QUEDA)) {
     leftColor = idColor;
   }
-  if (rightColor == ID_ERRO) {
+  if  ((rightColor == ID_ERRO)&&(idColor!=ID_QUEDA)) {
     rightColor = idColor;
-  }
+  } */
   if (avoidFall(leftColor,rightColor) == FALSE){
     if(onIntersec == FALSE) {
       if (leftColor == idColor){
@@ -142,19 +138,7 @@ int trackPosControll(int idColor) {
         adjustPosition(rightColor, leftColor, rightColor);
       }
     }
-
-
-    if (rightColor == ID_ERRO) {
-      rightColor = lastKnowColor;
-    }
-    if(leftColor == ID_ERRO){
-      leftColor = lastKnowColor;
-      } else {
-        lastKnowColor = leftColor;
-      }
-      return leftColor;
-  } else {
-    return ID_QUEDA;
+    return leftColor;
   }
 }
 
@@ -290,7 +274,7 @@ void route() {
   color = trackPosControll(color);
   if (color == ID_PRETO) {
     make180(color);
-  } else if ((color != ID_QUEDA) || (color != ID_BRANCO)){
+  } else if (color != ID_BRANCO){
     makeTurn(color);
   }
 }

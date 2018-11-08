@@ -1,5 +1,5 @@
 #define VECTOR_SIZE 7
-#define DOWN_DIST 7
+#define DOWN_DIST 8
 
 
 #include "include/defines.h"
@@ -39,11 +39,6 @@ task main(){
 
   BTCheck(0); //checa a conexão com o mestre
 
- TextOut(10,LCD_LINE6,"Fdir:");
- TextOut(10,LCD_LINE4,"Fesq:");
- TextOut(50,LCD_LINE6,"Sdir:");
- TextOut(50,LCD_LINE4,"Sesq:");
-
  while(ReceiveRemoteString(INBOX1SLAVE, true, in1) == STAT_MSG_EMPTY_MAILBOX);
 
  while(true) {
@@ -70,6 +65,8 @@ task main(){
 
    downLeftFiltered = medianaFilter(downLeftVec, VECTOR_SIZE);
    downRightFiltered = medianaFilter(downRightVec, VECTOR_SIZE);
+   TextOut(10,LCD_LINE3,NumToStr(downLeftFiltered));
+   TextOut(10,LCD_LINE4,NumToStr(downRightFiltered));
 
    if(downLeftFiltered > DOWN_DIST){
      out3 = "leftFall";
