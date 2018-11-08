@@ -33,6 +33,7 @@ int medianaFilter(int &vector[], int sizeVector){
 
 task main(){
   string in1;
+  int contador=0;
   /* int contador = 0; */
   int i, downLeft, downRight, downLeftFiltered, downRightFiltered;
   int downLeftVec[VECTOR_SIZE], downRightVec[VECTOR_SIZE];
@@ -71,14 +72,16 @@ task main(){
    if(downLeftFiltered > DOWN_DIST){
      out3 = "leftFall";
      SendResponseString(OUTBOX3SLAVE, out3);
+     contador=1;
      //while(ReceiveRemoteString(INBOX3SLAVE, true, in3) == STAT_MSG_EMPTY_MAILBOX);
    }else if(downRightFiltered > DOWN_DIST){
      out3 = "rightFall";
      SendResponseString(OUTBOX3SLAVE, out3);
      //while(ReceiveRemoteString(INBOX3SLAVE, true, in3) == STAT_MSG_EMPTY_MAILBOX);
-   } else {
+   } else if(contador == 1){
      out3 = "empty";
      SendResponseString(OUTBOX3SLAVE, out3);
+     contador=0;
    }
  }
 }

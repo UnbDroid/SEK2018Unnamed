@@ -210,10 +210,12 @@ int moveUntilNotColor(int idCor) {
      rightColor = idCor;
    }
    if(ReceiveRemoteString(INBOX3MASTER, true, in3) == NO_ERR);
-   if(in3=="leftFall")
-      leftColor = ID_QUEDA;
-   if(in3=="rightFall")
-      rightColor = ID_QUEDA;
+   if(in3=="leftFall") {
+    leftColor = ID_QUEDA;
+   }
+   if(in3=="rightFall") {
+    rightColor = ID_QUEDA;
+   }
   }
   in3 = "empty";
   stopProperPID();
