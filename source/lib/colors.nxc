@@ -188,13 +188,13 @@ task updateColors() {
     unsigned long tempo = CurrentTick();
     tempo = tempo-startTime/1000.0;
     string c1, c2;
-    ClearScreen();
+    /* ClearScreen();
     c1 = getColorName(leftColorRead);
     c2 = getColorName(rightColorRead);
     TextOut(0,LCD_LINE1,c1);
     TextOut(0,LCD_LINE2,c2);
     NumOut(0,LCD_LINE3,cont);
-    NumOut(0,LCD_LINE4,tempo);
+    NumOut(0,LCD_LINE4,tempo); */
   }
 }
 

@@ -13,6 +13,7 @@ string in3;
 
 int lastColor = ID_PRETO;
 
+
 int onIntersec = FALSE;
 int lastFallDir = -1;
 int lastDir = 1;
@@ -25,37 +26,58 @@ int turnVec[3][3] = {{UNKNOWNDIR, UNKNOWNDIR, UNKNOWNDIR},
 Directions dir;
 
 void recenter(int leftRead, int rightRead){
-
    if ((leftRead == ID_QUEDA) && (rightRead == ID_QUEDA)) {
     Off(MOTOR_BOTH);
-    Wait(20000);
+    Wait(2000000);
   } else if (leftRead == ID_QUEDA) {
     lastFallDir = ESQUERDA;
-    Wait(50);
-    while (leftRead != ID_BRANCO) {
-      OnRev(MOTOR_RIGHT, 60);
-      leftRead = leftColorRead;
-      if(leftRead == ID_ERRO) {
-        leftRead = ID_QUEDA;
+    while (leftRead == ID_QUEDA) {
+      ResetRotationCount(MOTOR_BOTH);
+      Wait(100);
+      while(MotorRotationCount(MOTOR_RIGHT)<1){
+        OnRev(MOTOR_BOTH, 55);
       }
+      PlayTone(TONE_D7,1000);
+      Off(MOTOR_BOTH);
+      Wait(2000);
+      while(MotorRotationCount(MOTOR_RIGHT)<2){
+        OnRev(MOTOR_RIGHT, 55);
+      }
+      PlayTone(TONE_A7,500);
+      Off(MOTOR_BOTH);
+      Wait(2000);
       if(ReceiveRemoteString(INBOX3MASTER, true, in3) == NO_ERR);
       if(in3=="leftFall"){
          leftRead = ID_QUEDA;
+      } else {
+        leftRead = leftColorRead;
       }
     }
     Off(MOTOR_BOTH);
   } else if (rightRead == ID_QUEDA){
     lastFallDir = DIREITA;
     Wait(50);
-    while (rightRead != ID_BRANCO) {
-      OnRev(MOTOR_LEFT, 60);
-      rightRead = rightColorRead;
+    while (rightRead == ID_QUEDA) {
+      ResetRotationCount(MOTOR_BOTH);
+      Wait(100);
+      while(MotorRotationCount(MOTOR_LEFT)<40){
+        OnRev(MOTOR_BOTH, 55);
+      }
+      Off(MOTOR_BOTH);
+      while(MotorRotationCount(MOTOR_LEFT)<100){
+        OnRev(MOTOR_LEFT, 55);
+      }
+      Off(MOTOR_BOTH);
+
+      /* rightRead = rightColorRead;
       if(rightRead == ID_ERRO) {
         rightRead = ID_QUEDA;
-      }
+      } */
       if(ReceiveRemoteString(INBOX3MASTER, true, in3) == NO_ERR);
-      if(in3=="rightFall"){
+      if(in3 == "rightFall"){
         rightRead = ID_QUEDA;
+      } else {
+        rightRead = leftColorRead;
       }
     }
     Off(MOTOR_BOTH);
@@ -66,9 +88,10 @@ int avoidFall(int leftColor, int rightColor){
 
    if ((leftColor == ID_QUEDA) || (rightColor == ID_QUEDA)){
     Off(MOTOR_BOTH);
+    PlayTone(500, 2000);
+    Wait(1000);
     recenter(leftColor, rightColor);
     Off(MOTOR_BOTH);
-    PlayTone(20, 500);
     return TRUE;
   }
   return FALSE;
@@ -85,7 +108,7 @@ int isConf(int cor) {
 
 void adjustPosition(int idColor, int leftColor, int rightColor) {
 
-  if(idColor != ID_ERRO){
+  if((idColor != ID_ERRO)&&(idColor != ID_QUEDA)){
     Off(MOTOR_BOTH);
     string c1, c2;
     c1 = getColorName(leftColor);
@@ -119,7 +142,7 @@ int trackPosControll(int idColor) {
   } else if(in3=="rightFall"){
      rightColor = ID_QUEDA;
      leftColor = leftColorRead;
-  } else if(in3 == "empty"){
+  } else {
     leftColor = leftColorRead;
     rightColor = rightColorRead;
   }
@@ -130,13 +153,12 @@ int trackPosControll(int idColor) {
   if  ((rightColor == ID_ERRO)&&(idColor!=ID_QUEDA)) {
     rightColor = idColor;
   } */
+
   if (avoidFall(leftColor,rightColor) == FALSE){
-    if(onIntersec == FALSE) {
-      if (leftColor == idColor){
-        adjustPosition(leftColor, leftColor, rightColor);
-      } else if (rightColor == idColor) {
-        adjustPosition(rightColor, leftColor, rightColor);
-      }
+    if ((leftColor == idColor)&&(idColor != ID_ERRO)){
+      /* adjustPosition(leftColor, leftColor, rightColor); */
+    } else if ((rightColor == idColor)&&(idColor != ID_ERRO)) {
+      /* adjustPosition(rightColor, leftColor, rightColor); */
     }
     return leftColor;
   }
@@ -216,6 +238,7 @@ int moveUntilNotColor(int idCor) {
    if(in3=="rightFall") {
     rightColor = ID_QUEDA;
    }
+
   }
   in3 = "empty";
   stopProperPID();
@@ -239,7 +262,7 @@ int centerOnIntersec(int idCor) {
   fowardCmPID(16+x);
   onIntersec = TRUE;
   if ((leftColorRead == ID_BRANCO)&&(possibleRamp == TRUE)){
-    foundRamp();
+    /* foundRamp(); */
     return 1;
   }
   return 0;
@@ -273,10 +296,15 @@ void route() {
   string colorNameL, colorNameR;
 
   color = moveUntilNotColor(ID_BRANCO);
-  color = trackPosControll(color);
+  if(color == ID_ERRO) {
+    while (color == ID_ERRO) {
+      color = leftColorRead;
+    }
+  }
+  /* trackPosControll(color); */
   if (color == ID_PRETO) {
     make180(color);
-  } else if (color != ID_BRANCO){
+  } else if ((color != ID_BRANCO)&&(color!= ID_ERRO)){
     makeTurn(color);
   }
 }
@@ -341,7 +369,7 @@ void make180(int idCor){
 void recordDir() {
   int cont = 0;
   if ((lastColor == COLOR_ONE)&&(isConf(0) != TRUE)) {
-    PlayTone(TONE_A7, 500);
+    /* PlayTone(TONE_A7, 500); */
     while(turnVec[0][cont] == ERRORDIR) {
       cont++;
     }
@@ -350,10 +378,7 @@ void recordDir() {
     turnVec[0][2] = ERRORDIR;
     turnVec[0][cont] = RIGHTDIR;
   } else if ((lastColor == COLOR_TWO)&&(isConf(1) != TRUE)) {
-    PlayTone(TONE_A7, 500);
-    ClearScreen();
-    TextOut(0,LCD_LINE1,"RECORD DIR");
-    Wait(5000);
+    /* PlayTone(TONE_A7, 500); */
     while(turnVec[1][cont] == ERRORDIR) {
       cont++;
     }
@@ -362,10 +387,7 @@ void recordDir() {
     turnVec[1][2] = ERRORDIR;
     turnVec[1][cont] = RIGHTDIR;
   } else if ((lastColor == COLOR_THREE)&&(isConf(2) != TRUE)) {
-    PlayTone(TONE_A7, 500);
-    ClearScreen();
-    TextOut(0,LCD_LINE1,"RECORD DIR");
-    Wait(5000);
+    /* PlayTone(TONE_A7, 500); */
     while(turnVec[2][cont] == ERRORDIR) {
       cont++;
     }
@@ -390,7 +412,8 @@ void contTurn(int cont) {
 }
 
 void makeTurn(int idCor) {
-  int ramp = centerOnIntersec(idCor);
+  centerOnIntersec(idCor);
+  int ramp = 0;
   if (ramp == 0) {
     if (idCor == DIR_UNKNOWN) {
       return;

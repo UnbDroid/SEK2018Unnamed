@@ -1,5 +1,6 @@
-#define VECTOR_SIZE 7
-#define DOWN_DIST 8
+#define VECTOR_SIZE 3
+#define DOWN_DIST 3000000
+#define ALPHA 0.8
 
 
 #include "include/defines.h"
@@ -12,7 +13,7 @@ sub BTCheck(int conn){
   }
 }
 
-void medianaOrder(int &v[], int sizeVector){
+void medianaOrder(float &v[], int sizeVector){
   int i, j, aux, K;
 
   for(i=0; i<(sizeVector - 1); i++){
@@ -26,7 +27,7 @@ void medianaOrder(int &v[], int sizeVector){
   }
 }
 
-int medianaFilter(int &vector[], int sizeVector){
+float medianaFilter(int &vector[], int sizeVector){
   medianaOrder(vector, sizeVector);
   return vector[(sizeVector-1)/2];
 }
@@ -35,26 +36,27 @@ task main(){
   string in1;
   int contador=0;
   /* int contador = 0; */
-  int i, downLeft, downRight, downLeftFiltered, downRightFiltered;
-  int downLeftVec[VECTOR_SIZE], downRightVec[VECTOR_SIZE];
+  int i;
+  float downLeft, downRight, downLeftFiltered, downRightFiltered;
+  float downLeftVec[VECTOR_SIZE], downRightVec[VECTOR_SIZE];
+  float mediaLeft = DOWN_DIST-2, mediaRight = DOWN_DIST-2;
 
   BTCheck(0); //checa a conexão com o mestre
+
+  /* Setando o sensor ultrassônico */
+  SetSensorLowspeed(DOWN_ULTRA_LEFT);
+  SetSensorLowspeed(DOWN_ULTRA_RIGHT);
 
  while(ReceiveRemoteString(INBOX1SLAVE, true, in1) == STAT_MSG_EMPTY_MAILBOX);
 
  while(true) {
    string out3, in3, out2;
-
    /* if(contador!=0) {
      while(ReceiveRemoteString(INBOX3SLAVE, true, in3) == STAT_MSG_EMPTY_MAILBOX);
    } */
 
-   /* Setando o sensor ultrassônico */
-   SetSensorLowspeed(DOWN_ULTRA_LEFT);
-   SetSensorLowspeed(DOWN_ULTRA_RIGHT);
-
-   downLeft = SensorUS(DOWN_ULTRA_LEFT);
-   downRight = SensorUS(DOWN_ULTRA_RIGHT);
+   /* downLeft = SensorUS(DOWN_ULTRA_LEFT);
+   downRight = SensorUS(DOWN_ULTRA_RIGHT); */
 
    for(i=0; i<VECTOR_SIZE; i++){
      downLeft = SensorUS(DOWN_ULTRA_LEFT);
@@ -66,22 +68,24 @@ task main(){
 
    downLeftFiltered = medianaFilter(downLeftVec, VECTOR_SIZE);
    downRightFiltered = medianaFilter(downRightVec, VECTOR_SIZE);
-   TextOut(10,LCD_LINE3,NumToStr(downLeftFiltered));
-   TextOut(10,LCD_LINE4,NumToStr(downRightFiltered));
+   mediaLeft = (ALPHA * downLeftFiltered) + ((1 - ALPHA)*mediaLeft);
+   mediaRight = (ALPHA * downRightFiltered) + ((1 - ALPHA)*mediaRight);
+   ClearScreen();
+   NumOut(0,LCD_LINE3,mediaLeft);
+   NumOut(0,LCD_LINE4,mediaRight);
+   TextOut(10,LCD_LINE3,NumToStr(mediaLeft));
+   TextOut(10,LCD_LINE4,NumToStr(mediaRight));
 
-   if(downLeftFiltered > DOWN_DIST){
-     out3 = "leftFall";
+  if(mediaRight > DOWN_DIST){
+     out3 = "rightFall";
      SendResponseString(OUTBOX3SLAVE, out3);
      contador=1;
      //while(ReceiveRemoteString(INBOX3SLAVE, true, in3) == STAT_MSG_EMPTY_MAILBOX);
-   }else if(downRightFiltered > DOWN_DIST){
-     out3 = "rightFall";
-     SendResponseString(OUTBOX3SLAVE, out3);
-     //while(ReceiveRemoteString(INBOX3SLAVE, true, in3) == STAT_MSG_EMPTY_MAILBOX);
-   } else if(contador == 1){
-     out3 = "empty";
-     SendResponseString(OUTBOX3SLAVE, out3);
-     contador=0;
-   }
+   } else if(mediaLeft > DOWN_DIST){
+      out3 = "leftFall";
+      SendResponseString(OUTBOX3SLAVE, out3);
+      contador=1;
+      //while(ReceiveRemoteString(INBOX3SLAVE, true, in3) == STAT_MSG_EMPTY_MAILBOX);
+    }
  }
 }

@@ -40,6 +40,8 @@
 
 /* */
 void route();
+
+task receiveMSG();
 /* */
 void leaveIntersec(int idCor);
 /* */
