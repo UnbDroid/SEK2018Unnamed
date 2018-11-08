@@ -9,6 +9,14 @@
 
 #include "lib/main.nxc"
 
+sub BTCheck(int conn){
+  if(!BluetoothStatus(conn)==NO_ERR){
+    TextOut(5, LCD_LINE2, "Sem conexão.");
+    Wait(1000);
+    Stop(true);
+  }
+}
+
 void configSensor(){
   SetSensorLowspeed(COLOR_LEFT);
   SetHTColor2Mode(COLOR_LEFT, HT_CMD_COLOR2_ACTIVE);
@@ -19,14 +27,17 @@ void configSensor(){
 
 task main() {
   ColorConf c;
+  string out1 = "Inicio";
   openForRead(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
   readColorConfFile(c, defColors);
   configSensor();
   closeFile();
-  /* start updateColors; */
-  startRoute();
+  BTCheck(BT_CONN);
+  SendRemoteString(BT_CONN, OUTBOX1MASTER, out1);
+  start updateColors;
+  /* startRoute(); */
   /* start fowardPID; */
-  /* testeCor(); */
+  testeCor();
   /* testeDirFile(); */
   /* testeArquivo(); */
 }

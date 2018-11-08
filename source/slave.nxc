@@ -1,0 +1,87 @@
+#define VECTOR_SIZE 7
+#define DOWN_DIST 7
+
+
+#include "include/defines.h"
+
+sub BTCheck(int conn){
+  if(!BluetoothStatus(conn)==NO_ERR){
+    TextOut(5, LCD_LINE2, "Sem conexão.");
+    Wait(1000);
+    Stop(true);
+  }
+}
+
+void medianaOrder(int &v[], int sizeVector){
+  int i, j, aux, K;
+
+  for(i=0; i<(sizeVector - 1); i++){
+    for(j=0; j<(sizeVector - 1); j++){
+      if(v[j] > v[j+1]){
+        aux = v[j];
+        v[j] = v[j+1];
+        v[j+1] = aux;
+      }
+    }
+  }
+}
+
+int medianaFilter(int &vector[], int sizeVector){
+  medianaOrder(vector, sizeVector);
+  return vector[(sizeVector-1)/2];
+}
+
+task main(){
+  string in1;
+  /* int contador = 0; */
+  int i, downLeft, downRight, downLeftFiltered, downRightFiltered;
+  int downLeftVec[VECTOR_SIZE], downRightVec[VECTOR_SIZE];
+
+  BTCheck(0); //checa a conexão com o mestre
+
+ TextOut(10,LCD_LINE6,"Fdir:");
+ TextOut(10,LCD_LINE4,"Fesq:");
+ TextOut(50,LCD_LINE6,"Sdir:");
+ TextOut(50,LCD_LINE4,"Sesq:");
+
+ while(ReceiveRemoteString(INBOX1SLAVE, true, in1) == STAT_MSG_EMPTY_MAILBOX);
+
+ while(true) {
+   string out3, in3, out2;
+
+   /* if(contador!=0) {
+     while(ReceiveRemoteString(INBOX3SLAVE, true, in3) == STAT_MSG_EMPTY_MAILBOX);
+   } */
+
+   /* Setando o sensor ultrassônico */
+   SetSensorLowspeed(DOWN_ULTRA_LEFT);
+   SetSensorLowspeed(DOWN_ULTRA_RIGHT);
+
+   downLeft = SensorUS(DOWN_ULTRA_LEFT);
+   downRight = SensorUS(DOWN_ULTRA_RIGHT);
+
+   for(i=0; i<VECTOR_SIZE; i++){
+     downLeft = SensorUS(DOWN_ULTRA_LEFT);
+     downRight = SensorUS(DOWN_ULTRA_RIGHT);
+
+     downLeftVec[i] = downLeft;
+     downRightVec[i] = downRight;
+   }
+
+   downLeftFiltered = medianaFilter(downLeftVec, VECTOR_SIZE);
+   downRightFiltered = medianaFilter(downRightVec, VECTOR_SIZE);
+
+   if(downLeftFiltered > DOWN_DIST){
+     out3 = "leftFall";
+     SendResponseString(OUTBOX3SLAVE, out3);
+     //while(ReceiveRemoteString(INBOX3SLAVE, true, in3) == STAT_MSG_EMPTY_MAILBOX);
+   }else if(downRightFiltered > DOWN_DIST){
+     out3 = "rightFall";
+     SendResponseString(OUTBOX3SLAVE, out3);
+     //while(ReceiveRemoteString(INBOX3SLAVE, true, in3) == STAT_MSG_EMPTY_MAILBOX);
+   } else {
+     out3 = "empty";
+     SendResponseString(OUTBOX3SLAVE, out3);
+   }
+ }
+}

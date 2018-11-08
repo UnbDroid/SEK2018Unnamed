@@ -28,6 +28,8 @@
 #define COLOR_LEFT IN_2
 //Sensor de giroscopio
 #define GIRO IN_3
+//Sensor Ultra
+#define FRONT_ULTRA IN_4
 
 /* ====== DEFINICOES GERAIS DO BERNARD ====== */
 
@@ -37,10 +39,10 @@
 #define PORTA_RIGHT OUT_B
 // Ultrassom lateral da esquerda
 #define SIDE_ULTRA_LEFT IN_1
-// Ultrassom frontal da direita
-#define FRONT_ULTRA_RIGHT IN_2
-// Ultrassom frontal da esquerda
-#define FRONT_ULTRA_LEFT IN_3
+// Ultrassom para baixo da direita
+#define DOWN_ULTRA_RIGHT IN_2
+// Ultrassom para baixo da esquerda
+#define DOWN_ULTRA_LEFT IN_3
 // Ultrassom lateral da direita
 #define SIDE_ULTRA_RIGHT IN_4
 
@@ -50,5 +52,31 @@
 #define TRUE 1
 //Valor de falso
 #define FALSE 0
+
+#define OUTBOX1SLAVE 1
+
+#define OUTBOX2SLAVE 2
+
+#define OUTBOX3SLAVE 3
+
+#define INBOX1SLAVE 4
+
+#define INBOX2SLAVE 5
+
+#define INBOX3SLAVE 6
+
+#define OUTBOX1MASTER 4
+
+#define OUTBOX2MASTER 5
+
+#define OUTBOX3MASTER 6
+
+#define INBOX1MASTER 1
+
+#define INBOX2MASTER 2
+
+#define INBOX3MASTER 3
+
+#define BT_CONN 1
 
 #endif
