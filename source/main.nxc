@@ -35,9 +35,9 @@ task main() {
   BTCheck(BT_CONN);
   SendRemoteString(BT_CONN, OUTBOX1MASTER, out1);
   start updateColors;
-  /* startRoute(); */
+  startRoute();
   /* start fowardPID; */
-  testeCor();
+  /* testeCor(); */
   /* testeDirFile(); */
   /* testeArquivo(); */
 }
