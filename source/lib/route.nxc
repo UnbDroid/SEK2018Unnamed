@@ -73,6 +73,7 @@ int isConf(int cor) {
 
 void adjustPosition(int idColor, int leftColor, int rightColor) {
   Off(MOTOR_BOTH);
+  Wait(50);
   PlayTone(500, 500);
   if (leftColor == idColor){
     while(rightColor != idColor) {
@@ -89,11 +90,12 @@ void adjustPosition(int idColor, int leftColor, int rightColor) {
 }
 
 int trackPosControll(int idColor) {
-  int leftColor, rightColor;
+  int leftColor = leftColorRead;
+  int rightColor = rightColorRead;
 
-  if (leftColor == idColor){
+  if ((leftColor == idColor)){
     /* adjustPosition(idColor, leftColor, rightColor); */
-  } else if (rightColor == idColor) {
+  } else if ((rightColor == idColor)) {
     /* adjustPosition(idColor, leftColor, rightColor); */
   }
 }
