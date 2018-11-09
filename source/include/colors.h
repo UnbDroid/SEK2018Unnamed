@@ -38,11 +38,9 @@ int colorsMat[][] = {{0,0,0},
 /* ====== INICIO DAS DEFINICOES DA BIBLIOTECA DE CORES ====== */
 
 // Tamanho do intervalo no espectro de cor
-#define INTERVAL_SIZE 15.0
+#define INTERVAL_SIZE 12.0
 // Valor do erro que uma cor pode ter para estar no intervalo
-#define MEAN_ERROR 8
-// Id do Amarelo
-#define ID_AMARELO 0
+#define MEAN_ERROR 10
 // Id do Verde
 #define ID_VERDE 1
 // Id do Azul
@@ -53,8 +51,20 @@ int colorsMat[][] = {{0,0,0},
 #define ID_PRETO 4
 // Id do Branco
 #define ID_BRANCO 5
-// Id da Queda
-#define ID_QUEDA 6
+
+#define ID_ERRO -2
+
+#define DIR_UNKNOWN 200
+
+#define UNDEFINED -3
+
+#define COLOR_ONE 3
+
+#define COLOR_TWO 2
+
+#define COLOR_THREE 1
+
+
 // Identificador da situacao de Soma
 #define SUM 1
 // Identificador da situacao de Subtracao
@@ -84,23 +94,23 @@ int colorsMat[][] = {{0,0,0},
     - rightWInterval: Intervalo onde o azul esta no sensor direito
 */
 typedef struct {
-  int id;
-  int leftRed;
-  int leftGreen;
-  int leftBlue;
-  int leftWhite;
-  int rightRed;
-  int rightGreen;
-  int rightBlue;
-  int rightWhite;
-  int leftRInterval;
-  int leftGInterval;
-  int leftBInterval;
-  int leftWInterval;
-  int rightRInterval;
-  int rightGInterval;
-  int rightBInterval;
-  int rightWInterval;
+  byte id;
+  byte leftRed;
+  byte leftGreen;
+  byte leftBlue;
+  byte leftWhite;
+  byte rightRed;
+  byte rightGreen;
+  byte rightBlue;
+  byte rightWhite;
+  byte leftRInterval;
+  byte leftGInterval;
+  byte leftBInterval;
+  byte leftWInterval;
+  byte rightRInterval;
+  byte rightGInterval;
+  byte rightBInterval;
+  byte rightWInterval;
 } ColorConf;
 
 /* ====== INICIO DAS FUNCOES DA BIBLIOTECA DE CORES ====== */
@@ -213,7 +223,7 @@ int evalIntervalAmount(int value[], int expectedInterval);
       que caracteriza os valores esperados para cada cor
   Retorno: O valor da cor lida pelo sensor esquerdo.
 */
-int leftSensorColorRead(ColorConf &defColors[]);
+int leftSensorColorRead();
 
 /* Right Sensor Color Read
   Descricao: Avalia a cor sendo lida pelo sensor direito, com base de comparacao
@@ -223,6 +233,8 @@ int leftSensorColorRead(ColorConf &defColors[]);
       que caracteriza os valores esperados para cada cor
   Retorno: O valor da cor lida pelo sensor esquerdo.
 */
-int rightSensorColorRead(ColorConf &defColors[]);
+int rightSensorColorRead();
+
+task updateColors();
 
 #endif

@@ -97,7 +97,6 @@ task main(){
     SetSensorLowspeed(SIDE_ULTRA_RIGHT);
 
     leftFront = SensorUS(FRONT_ULTRA);
-
     sideLeft = SensorUS(SIDE_ULTRA_LEFT);
     sideRight = SensorUS(SIDE_ULTRA_RIGHT);
 

@@ -45,4 +45,8 @@ void turn(int direcao, int graus);
 */
 void fowardCm(int cm);
 
+void startProperPID(int lastFallDir);
+
+void stopProperPID(int lastFallDir);
+
 #endif

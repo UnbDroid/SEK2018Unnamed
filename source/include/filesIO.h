@@ -17,6 +17,26 @@
   #define INCCOL
 #endif
 
+// TAMANO DO ARQUIVO
+#define ROUTE_FILE_SIZE 28
+// NOME DO ARQUIVO
+#define ROUTE_FILE_NAME "route.dat"
+
+typedef struct {
+  byte v00;
+  byte v01;
+  byte v02;
+  byte v10;
+  byte v11;
+  byte v12;
+  byte v20;
+  byte v21;
+  byte v22;
+}Directions;
+
+
+// #include "lib/route.nxc"
+
 /* ====== INICIO DAS VARIAVEIS GLOBAIS DA BIBLIOTECA DE FILESIO ====== */
 
 byte handle = 0;
@@ -94,5 +114,10 @@ void writeColorConfOnFile(const ColorConf recd);
 */
 void readColorConfFile(ColorConf &reacd, ColorConf &output[]);
 
+void closeFile();
+
+void writeDirectionOnFile(const Directions recd);
+
+void readDirectionOnFile(Directions &reacd);
 
 #endif

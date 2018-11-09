@@ -9,23 +9,35 @@
 
 #include "lib/main.nxc"
 
+sub BTCheck(int conn){
+  if(!BluetoothStatus(conn)==NO_ERR){
+    TextOut(5, LCD_LINE2, "Sem conexão.");
+    Wait(1000);
+    Stop(true);
+  }
+}
+
 void configSensor(){
   SetSensorLowspeed(COLOR_LEFT);
   SetHTColor2Mode(COLOR_LEFT, HT_CMD_COLOR2_ACTIVE);
   SetSensorLowspeed(COLOR_RIGHT);
   SetHTColor2Mode(COLOR_RIGHT, HT_CMD_COLOR2_ACTIVE);
+  SetSensorHTGyro(GIRO);
 }
 
 task main() {
   ColorConf c;
-  ColorConf defColors[7];
+  string out1 = "Inicio";
   openForRead(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
   readColorConfFile(c, defColors);
   configSensor();
-  /* turn(DIREITA, 90); */
-  /* OnFwd(MOTOR_BOTH, 70);
-  Wait(1000); */
+  closeFile();
+  BTCheck(BT_CONN);
+  SendRemoteString(BT_CONN, OUTBOX1MASTER, out1);
+  /* start updateColors; */
+  startRoute();
   /* start fowardPID; */
-  startRoute(defColors);
-  }
+  /* testeCor(); */
+  /* testeDirFile(); */
+  /* testeArquivo(); */
 }

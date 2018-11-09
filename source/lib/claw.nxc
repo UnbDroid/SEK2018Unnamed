@@ -1,0 +1,194 @@
+//MASTER
+
+/* Algumas coisas sobre comunicação
+Para o mestre:
+1 - Para o mestre enviar strings para o escravo utiliza-se a função SendRemoteString(byte conn, byte queue, string str);
+byte conn: checa a comunicação, utiliza-se BT_CONN
+byte queue: caixa onde a mensagem vai ser armazenada para envio (pode-se colocar de 0 a 9), eu defini uma constante OUTBOX
+string str: a string que deseja enviar, pode-se colocar uma variável ou a mensagem diretamente entre parênteses
+2 - Para o mestre enviar números para o escravo utiliza-se a função SendRemoteNumber(byte conn, byte queue, long val);
+byte conn: checa a comunicação, utiliza-se BT_CONN
+byte queue: caixa onde a mensagem vai ser armazenada para envio (pode-se colocar de 0 a 9), eu defini uma constante OUTBOX
+long val: o número que deseja enviar, pode-se colocar uma variável ou o número direto
+3 - Para o mestre receber números do escravo, utiliza-se a função ReceiveRemoteNumber(byte queue, bool clear, long &val);
+byte queue: caixa de entrada onde a mensagem vai ser recebida (deve ser o mesmo número da caixa que foi mandada)
+bool clear: true or false , caso seja true a cada mensagem nova que ele receber ele apaga a anterior, se for false ele guarda somente a primeira mensagem que receber
+long &val: variável onde ele vai guardar o número recebido
+4 - Para o mestre receber strings do escravo, utiliza-se a função ReceiveRemoteString(byte queue, bool clear, string &str);
+byte queue: caixa de entrada onde a mensagem vai ser recebida (deve ser o mesmo número da caixa que foi mandada)
+bool clear: true or false , caso seja true a cada mensagem nova que ele receber ele apaga a anterior, se for false ele guarda somente a primeira mensagem que receber
+string &str: variavel onde ele vai guardar a string recebida
+5 - Ao receber uma mensagem é necessário utilizar: if((função de receber) == NO_ERR); que checa só recebe mensagens sem erro
+*/
+
+#define D_BONECO_LADO 22
+#define D_BONECO_FRENTE 23
+#define LEFT_CATCH_MSG "turnLeft"
+#define RIGHT_CATCH_MSG "turnRight"
+#define NONE_CATCH_MSG "empty"
+
+
+/* Função que checa a conexão bluetooth entre os cérebros */
+
+/* float turnRightPID_garra(int distancia){
+  string in2 = "notFind";
+  SetSensorHTGyro(GIRO);
+  ResetRotationCount(MOTOR_BOTH);
+  Wait(500);
+
+  float angle = 0, gyro = 0, angle1 = 0;
+  unsigned long time = CurrentTick();
+  unsigned long prev_time;
+  float lRotation = MotorRotationCount(MOTOR_LEFT);
+  float rRotation = MotorRotationCount(MOTOR_RIGHT);
+  float error, turn, pwrLeft, pwrRight, derivate;
+  float integral = 0.0;
+  float lastError = 0.0;
+
+  while(in2!="Find"){
+    PlayTone(220, 200);
+
+    prev_time = time;
+    time = CurrentTick();
+    gyro = SensorHTGyro(GIRO);
+    angle += gyro * (time - prev_time)/1000.0;
+
+    if (ReceiveRemoteNumber(INBOX1SLAVE, true, dir) == NO_ERR);
+    lRotation = MotorRotationCount(MOTOR_LEFT);
+    rRotation = MotorRotationCount(MOTOR_RIGHT);
+    error = abs(lRotation) - abs(rRotation);
+    integral += error;
+    if (integral > 100) {
+      integral = 100;
+    } else if (integral < -100) {
+      integral = -100;
+    }
+    derivate = error - lastError;
+    turn = (KP * error) + (KI*integral) + (KD*derivate);
+    pwrLeft = TP - turn;
+    pwrRight = TP + turn;
+
+    OnFwd(MOTOR_LEFT, pwrLeft);
+    OnRev(MOTOR_RIGHT, pwrRight);
+    lastError = error;
+    if(ReceiveRemoteString(INBOX2, true, in2) == NO_ERR);
+    if(in2 == "Find")
+      Off(MOTOR_BOTH);
+  }
+  angle1 = angle - gyro + 80;
+  return angle1;
+}
+
+float turnLeftPID_garra(int distancia) {
+  string in2 = "notFind";
+  SetSensorHTGyro(GIRO);
+  ResetRotationCount(MOTOR_BOTH);
+  Wait(500);
+
+  float angle = 0, gyro = 0, angle1 = 0;
+  unsigned long time = CurrentTick();
+  unsigned long prev_time;
+  float lRotation = MotorRotationCount(MOTOR_LEFT);
+  float rRotation = MotorRotationCount(MOTOR_RIGHT);
+  float error, turn, pwrLeft, pwrRight, derivate;
+  float integral = 0.0;
+  float lastError = 0.0;
+  while(in2!="Find"){
+    PlayTone(220, 200);
+
+    prev_time = time;
+    time = CurrentTick();
+    gyro = SensorHTGyro(GIRO);
+    angle += gyro * (time - prev_time)/1000.0;
+
+    lRotation = MotorRotationCount(MOTOR_LEFT);
+    rRotation = MotorRotationCount(MOTOR_RIGHT);
+    error = abs(lRotation) - abs(rRotation);
+    integral += error;
+    if (integral > 100) {
+      integral = 100;
+    } else if (integral < -100) {
+      integral = -100;
+    }
+    derivate = error - lastError;
+    turn = (KP * error) + (KI*integral) + (KD*derivate);
+    pwrLeft = TP - turn;
+    pwrRight = TP + turn;
+
+    OnRev(MOTOR_LEFT, pwrLeft);
+    OnFwd(MOTOR_RIGHT, pwrRight);
+    lastError = error;
+    if(ReceiveRemoteString(INBOX2, true, in2) == NO_ERR);
+    if(in2 == "Find")
+      Off(MOTOR_BOTH);
+  }
+  angle1 = angle - gyro - 85;
+  return angle1;
+} */
+
+   /* Função para alinhar o boneco com a garra, recebe os valores recebidos pelo escravo.
+      Lembrando que na platarforma costuma ter dois bonecos*/
+float alignToy(int direcao){
+  float angle = 0;
+  if (direcao == ESQUERDA) {
+    turn(ESQUERDA, 85);
+    /* angle = turnLeftPID_garra(D_BONECO_FRENTE); */
+    angle = 85;
+    return angle;
+  } else if (direcao == DIREITA) {
+    turn(DIREITA, 85);
+    /* angle = turnRightPID_garra(D_BONECO_FRENTE); */
+    angle = 85;
+    return angle;
+  }
+ }
+
+
+
+/* Função que desce a garra que ja vai estar aberta, vai pra frente, pega o boneco e armazena no robô
+   Garra termina aberta.
+ */
+
+int catchToy(string mensagem) {
+  string out = "Manda", out1 = "Start";
+  float angle = 0.0;
+  /* string out1 = "Achei"; */
+  SendRemoteString(BT_CONN, OUTBOX3MASTER, out);
+   if(mensagem == "turnLeft") {
+    angle = alignToy(ESQUERDA);
+    ClearScreen();
+
+    RotateMotor(GARRA,-90,1000);
+    fowardCmPID(10);
+    RotateMotor(GARRA,90,6000);
+    RotateMotor(GARRA,-90,5000);
+    Off(GARRA);
+
+    backwardCmPID(10); //ANDAR PRA TRAS
+    turn(DIREITA, angle); //VOLTAR O MESMO ANGULO
+    /* SendRemoteString(BT_CONN, OUTBOX3MASTER, out1); //manda mensagem para que ele possa procurar mais bonecos */
+    return 1;
+  }
+  else if(mensagem == "turnRight") {
+      angle = alignToy(DIREITA);
+      ClearScreen();
+
+      RotateMotor(GARRA,-90,1000);
+      fowardCmPID(10);
+      RotateMotor(GARRA,90,6000);
+      RotateMotor(GARRA,-90,5000);
+      Off(GARRA);
+
+      backwardCmPID(10); //ANDAR PRA TRAS
+      turn(ESQUERDA, angle); //VOLTAR O MESMO ANGULO
+      SendRemoteString(BT_CONN, OUTBOX3MASTER, out1); //manda mensagem para que ele possa procurar mais bonecos
+  }
+ }
+
+int beginCatch(string msg){
+  if((msg == LEFT_CATCH_MSG) || (msg == RIGHT_CATCH_MSG)){
+    catchToy(msg);
+     return 1;
+  }
+  return 0;
+}

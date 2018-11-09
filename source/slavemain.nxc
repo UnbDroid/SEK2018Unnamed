@@ -1,0 +1,170 @@
+#define VECTOR_SIZE 3
+#define VECTOR_SIZE_BONECO 7
+#define DOWN_DIST 9
+#define ALPHA 0.8
+#define DIST_SIDE_BONECO 30
+
+#define CLOSE_MSG "close"
+#define OPEN_MSG "open"
+#define EMPTY_MSG "empty"
+
+#include "include/defines.h"
+
+string openDoorMSG = EMPTY_MSG;
+
+sub BTCheck(int conn){
+  if(!BluetoothStatus(conn)==NO_ERR){
+    TextOut(5, LCD_LINE2, "Sem conexão.");
+    Wait(1000);
+    Stop(true);
+  }
+}
+
+void openDoor() {
+  RotateMotor(PORTA_LEFT, 60, 80);
+  RotateMotor(PORTA_RIGHT, 60, 70);
+}
+
+void closeDoor() {
+  RotateMotor(PORTA_RIGHT, -60, 70);
+  RotateMotor(PORTA_LEFT, -60, 80);
+}
+
+task holdDoorClosed() {
+  while(true) {
+    OnFwd(PORTA_LEFT, 0);
+    OnFwd(PORTA_RIGHT, 0);
+  }
+}
+
+task waitOpenDoorMSG(){
+  while(true) {
+    if(ReceiveRemoteString(INBOX2SLAVE, true, openDoorMSG) == NO_ERR);
+  }
+}
+
+void configSensors() {
+  SetSensorLowspeed(DOWN_ULTRA_LEFT);
+  SetSensorLowspeed(DOWN_ULTRA_RIGHT);
+  SetSensorLowspeed(SIDE_ULTRA_LEFT);
+  SetSensorLowspeed(SIDE_ULTRA_RIGHT);
+}
+
+void medianaOrder(float &v[], int sizeVector){
+  int i, j, aux, K;
+  for(i=0; i<(sizeVector - 1); i++){
+    for(j=0; j<(sizeVector - 1); j++){
+      if(v[j] > v[j+1]){
+        aux = v[j];
+        v[j] = v[j+1];
+        v[j+1] = aux;
+      }
+    }
+  }
+}
+
+float medianaFilter(int &vector[], int sizeVector){
+  medianaOrder(vector, sizeVector);
+  return vector[(sizeVector-1)/2];
+}
+
+task readUltraValues() {
+  int i;
+  int contador=0;
+  float downLeft, downRight, downLeftFiltered, downRightFiltered;
+  float downLeftVec[VECTOR_SIZE];
+  float downRightVec[VECTOR_SIZE];
+  float mediaLeft = DOWN_DIST-2;
+  float mediaRight = DOWN_DIST-2;
+  string out3;
+  /* string i2; */
+
+  int sideLeft, sideRight;
+  /* int contadorBoneco=0; */
+  int sideRightVec[VECTOR_SIZE_BONECO], sideLeftVec[VECTOR_SIZE_BONECO], sideRightFiltered, sideLeftFiltered, j;
+
+  while(true) {
+    string out2;
+    for(i=0; i<VECTOR_SIZE; i++){
+      downLeft = SensorUS(DOWN_ULTRA_LEFT);
+      downRight = SensorUS(DOWN_ULTRA_RIGHT);
+
+      downLeftVec[i] = downLeft;
+      downRightVec[i] = downRight;
+    }
+
+    downLeftFiltered = medianaFilter(downLeftVec, VECTOR_SIZE);
+    downRightFiltered = medianaFilter(downRightVec, VECTOR_SIZE);
+
+    mediaLeft = (ALPHA * downLeftFiltered) + ((1 - ALPHA)*mediaLeft);
+    mediaRight = (ALPHA * downRightFiltered) + ((1 - ALPHA)*mediaRight);
+
+    NumOut(0,LCD_LINE1,mediaLeft);
+    NumOut(0,LCD_LINE2,mediaRight);
+
+   if(mediaRight > DOWN_DIST){
+      out3 = "rightFall";
+      SendResponseString(OUTBOX3SLAVE, out3);
+      contador=1;
+    } else if(mediaLeft > DOWN_DIST){
+       out3 = "leftFall";
+       SendResponseString(OUTBOX3SLAVE, out3);
+       contador=1;
+   }
+
+//////////INICIO CODIGO PARA PEGAR BONECO
+
+   /* if(contadorBoneco!=0){
+     while(ReceiveRemoteString(INBOX2SLAVE, true, in2)==STAT_MSG_EMPTY_MAILBOX);
+   } */
+
+   SetSensorLowspeed(SIDE_ULTRA_LEFT);
+   SetSensorLowspeed(SIDE_ULTRA_RIGHT);
+
+   sideLeft = SensorUS(SIDE_ULTRA_LEFT);
+   sideRight = SensorUS(SIDE_ULTRA_RIGHT);
+
+   for(j=0;j<VECTOR_SIZE_BONECO;j++){
+     sideLeft = SensorUS(SIDE_ULTRA_LEFT);
+     sideRight = SensorUS(SIDE_ULTRA_RIGHT);
+
+     sideLeftVec[j] = sideLeft;
+     sideRightVec[j] = sideRight;
+   }
+
+   sideLeftFiltered = medianaFilter(sideLeftVec,VECTOR_SIZE_BONECO);
+   sideRightFiltered = medianaFilter(sideRightVec,VECTOR_SIZE_BONECO);
+
+   if(sideRightFiltered< DIST_SIDE_BONECO){
+     /* contadorBoneco++; */
+     out2 = "turnRight";
+     SendResponseString(OUTBOX2SLAVE,out2);
+   }
+
+   else if (sideLeftFiltered < DIST_SIDE_BONECO) {
+     /* contadorBoneco++; */
+     out2 = "turnLeft";
+     SendResponseString(OUTBOX2SLAVE,out2);
+  }
+
+  }
+}
+
+task main(){
+  string in1;
+  BTCheck(0);
+  /* start holdDoorClosed; */
+  while(ReceiveRemoteString(INBOX1SLAVE, true, in1) == STAT_MSG_EMPTY_MAILBOX);
+  configSensors();
+  start readUltraValues;
+  start waitOpenDoorMSG;
+  while (true) {
+    if (openDoorMSG == OPEN_MSG) {
+      PlayTone(200,500);
+      Wait(500);
+      openDoor();
+    } else if (openDoorMSG == CLOSE_MSG) {
+      closeDoor();
+    }
+  }
+}

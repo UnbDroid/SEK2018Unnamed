@@ -13,16 +13,22 @@
 
 #include "include/defines.h"
 
+// #ifndef INCCOL
+//   #include "lib/colors.nxc"
+//   #define INCCOL
+// #endif
+
 /* ====== INICIO DAS DEFINICOES DA BIBLIOTECA DE PID ====== */
 
+#define PULL_FACTOR 1.001
 //Potencia do motor
 #define TP 70.0
 //Constante proporcional
-#define KP 0.7
+#define KP 0.7 //5
 //Constante de integracao
 #define KI 0.05//1.0
 //Constante de derivacao
-#define KD 1.0//10.0
+#define KD 1.0///10.0
 
 #define CM_TO_ROTATIONS 32.2580645
 /* ====== INICIO DAS FUNCOES DA BIBLIOTECA DE PID ====== */
@@ -50,6 +56,7 @@ task fowardPID();
     Descricao: Manda o robo ir para a frente em alguns cm
 */
 void fowardCmPID(int cm);
+/**/
 
 void backwardCmPID(int cm);
 

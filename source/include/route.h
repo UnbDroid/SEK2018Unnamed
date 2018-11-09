@@ -26,34 +26,59 @@
   #define INCCOL
 #endif
 
+#ifndef INCRAMP
+  #include "lib/ramp.nxc"
+  #define INCRAMP
+#endif
+
+#ifndef INCCLAW
+  #include "lib/claw.nxc"
+  #define INCCLAW
+#endif
+
 /* ====== INICIO DAS DEFINICOES DA BIBLIOTECA DE ROTA ====== */
+
+#define LEFT_FALL_MSG "leftFall"
+#define RIGHT_FALL_MSG "rightFall"
+#define NONE_FALL_MSG "empty"
 
 #define ESQUERDA 0
 #define DIREITA 1
 
-#define ANGLE90 87
+#define ANGLE90 90
 
+#define ERRORDIR 2
+#define RIGHTDIR 1
+#define UNKNOWNDIR 0
 /* ====== INICIO DAS FUNCOES DA BIBLIOTECA DE ROTA ====== */
 
 /* */
-void route(ColorConf &defColors[]);
+void route();
+
+task receiveMSG();
 /* */
-void leaveIntersec(ColorConf &defColors[], int idCor);
+void leaveIntersec(int idCor);
 /* */
-void makeTurn(ColorConf &defColors[], int idCor);
+void makeTurn(int idCor);
 /* */
-void make180(ColorConf &defColors[], int idCor);
+void make180(int idCor);
 /* */
-void recenter(ColorConf &defColors[]);
+void recenter(string msg);
 /* */
-int avoidFall(ColorConf &defColors[]);
+int avoidFall();
 /* */
-void adjustPosition(ColorConf &defColors[], int idColor);
+void adjustPosition(int idColor, int leftColor, int rightColor);
 /* */
-int trackPosControll(ColorConf &defColors[], int idColor);
+int trackPosControll(int idColor);
 /* */
-void moveUntilNotColor(ColorConf &defColors[], int idCor);
+int moveUntilNotColor(int idCor);
 /* */
-void centerOnIntersec();
+int centerOnIntersec(int idCor);
+
+void dirToMat();
+
+void matToDir();
+
+void saveConfToFile();
 
 #endif

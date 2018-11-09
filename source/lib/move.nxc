@@ -9,6 +9,10 @@
 
  #include "include/move.h"
 
+ task foward(){
+   start fowardPID;
+ }
+
 void turn(int direcao, int graus){
   if (direcao == ESQUERDA) {
     turnLeftPID(graus);
@@ -17,8 +21,24 @@ void turn(int direcao, int graus){
   }
 }
 
-task foward(){
-  start fowardPID;
+void startProperPID(int lastFallDir) {
+  if (lastFallDir == ESQUERDA) {
+    start fowardPIDPullLeft;
+  } else if (lastFallDir == DIREITA) {
+    start fowardPIDPullRight;
+  } else {
+    start fowardPID;
+  }
+}
+
+void stopProperPID(int lastFallDir) {
+  if (lastFallDir == ESQUERDA) {
+    stop fowardPIDPullLeft;
+  } else if (lastFallDir == DIREITA) {
+    stop fowardPIDPullRight;
+  } else {
+    stop fowardPID;
+  }
 }
 
 void fowardCm(int cm){
