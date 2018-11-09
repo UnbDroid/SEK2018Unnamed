@@ -179,67 +179,38 @@ int isItColor(int intervalR, int intervalG, int intervalB, int intervalW) {
 }
 
 task updateColors() {
-  int startTime = CurrentTick();
-  unsigned long tempo;
+  int lastKnowColorRight = ID_BRANCO;
+  int lastKnowColorLeft = ID_BRANCO;
+
   while (true) {
-    leftColorRead = leftSensorColorRead();
-    rightColorRead = rightSensorColorRead();
-    cont += 1;
-    unsigned long tempo = CurrentTick();
-    tempo = tempo-startTime/1000.0;
+    int lFirstRead = leftSensorColorRead();
+    int rFirstRead = rightSensorColorRead();
+
+    if (lFirstRead == ID_ERRO){
+      leftColorRead = lastKnowColorLeft;
+    } else {
+      leftColorRead = lFirstRead;
+      lastKnowColorLeft = lFirstRead;
+    }
+
+    if (rFirstRead == ID_ERRO){
+      rightColorRead = lastKnowColorRight;
+    } else {
+      rightColorRead = rFirstRead;
+      lastKnowColorRight = rFirstRead;
+    }
+    
     string c1, c2;
-    /* ClearScreen();
+    ClearScreen();
     c1 = getColorName(leftColorRead);
     c2 = getColorName(rightColorRead);
     TextOut(0,LCD_LINE1,c1);
     TextOut(0,LCD_LINE2,c2);
-    NumOut(0,LCD_LINE3,cont);
-    NumOut(0,LCD_LINE4,tempo); */
   }
-}
-
-int leftSensorColor() {
-  int left = leftSensorColorRead();
-  int newLeft, leftAmmount;
-
-  leftAmmount = 0;
-  return left;
-  /* for(int i = 0; i < 1; i ++){
-    newLeft = leftSensorColorRead(defColors);
-    if (newLeft == left){
-      leftAmmount += 1;
-    }
-  }
-
-  if (leftAmmount == 1) {
-    return newLeft;
-  }
-  return ID_ERRO;
-   */
-}
-
-int rightSensorColor() {
-  int right = rightSensorColorRead();
-  int newRight, rightAmmount;
-
-  rightAmmount = 0;
-  return right;
-  /* for(int i = 0; i < 1; i ++){
-    newRight = rightSensorColorRead(defColors);
-    if (newRight == right){
-      rightAmmount += 1;
-    }
-  }
-
-  if (rightAmmount == 1) {
-    return newRight;
-  }
-
-  return ID_ERRO; */
 }
 
 int rightSensorColorRead() {
-  int color = -1;
+  int color = ID_ERRO;
   byte r = 0, g = 0, b=0, w=0, num=0;
   ReadSensorHTColor2Active(COLOR_RIGHT, num, r, g, b, w);
 
@@ -293,7 +264,7 @@ int rightSensorColorRead() {
 }
 
 int leftSensorColorRead() {
-  int color = -1;
+  int color = ID_ERRO;
   byte r = 0, g = 0, b=0, w=0, num=0;
   ReadSensorHTColor2Active(COLOR_LEFT, num, r, g, b, w);
 

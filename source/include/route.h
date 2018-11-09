@@ -26,7 +26,16 @@
   #define INCCOL
 #endif
 
+#ifndef INCRAMP
+  #include "lib/ramp.nxc"
+  #define INCRAMP
+#endif
+
 /* ====== INICIO DAS DEFINICOES DA BIBLIOTECA DE ROTA ====== */
+
+#define LEFT_FALL_MSG "leftFall"
+#define RIGHT_FALL_MSG "rightFall"
+#define NONE_FALL_MSG "empty"
 
 #define ESQUERDA 0
 #define DIREITA 1
@@ -49,9 +58,9 @@ void makeTurn(int idCor);
 /* */
 void make180(int idCor);
 /* */
-void recenter(int leftRead, int rightRead);
+void recenter();
 /* */
-int avoidFall(int leftColor, int rightColor);
+int avoidFall();
 /* */
 void adjustPosition(int idColor, int leftColor, int rightColor);
 /* */
@@ -64,10 +73,6 @@ int centerOnIntersec(int idCor);
 void dirToMat();
 
 void matToDir();
-
-int isRamp();
-
-void foundRamp();
 
 void saveConfToFile();
 

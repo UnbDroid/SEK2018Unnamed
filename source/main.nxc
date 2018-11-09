@@ -32,9 +32,9 @@ task main() {
   readColorConfFile(c, defColors);
   configSensor();
   closeFile();
-  /* BTCheck(BT_CONN); */
-  /* SendRemoteString(BT_CONN, OUTBOX1MASTER, out1); */
-  start updateColors;
+  BTCheck(BT_CONN);
+  SendRemoteString(BT_CONN, OUTBOX1MASTER, out1);
+  /* start updateColors; */
   startRoute();
   /* start fowardPID; */
   /* testeCor(); */

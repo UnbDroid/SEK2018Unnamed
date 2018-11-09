@@ -43,6 +43,10 @@ void turn(int direcao, int graus);
     Parametros:
       - cm: Quantidade de centimetros
 */
-// void fowardCm(int cm);
+void fowardCm(int cm);
+
+void startProperPID(int lastFallDir);
+
+void stopProperPID(int lastFallDir);
 
 #endif

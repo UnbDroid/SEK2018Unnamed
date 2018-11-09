@@ -1,5 +1,5 @@
 #define VECTOR_SIZE 3
-#define DOWN_DIST 3000000
+#define DOWN_DIST 7
 #define ALPHA 0.8
 
 
@@ -13,9 +13,13 @@ sub BTCheck(int conn){
   }
 }
 
+void configSensors() {
+  SetSensorLowspeed(DOWN_ULTRA_LEFT);
+  SetSensorLowspeed(DOWN_ULTRA_RIGHT);
+}
+
 void medianaOrder(float &v[], int sizeVector){
   int i, j, aux, K;
-
   for(i=0; i<(sizeVector - 1); i++){
     for(j=0; j<(sizeVector - 1); j++){
       if(v[j] > v[j+1]){
@@ -32,60 +36,50 @@ float medianaFilter(int &vector[], int sizeVector){
   return vector[(sizeVector-1)/2];
 }
 
-task main(){
-  string in1;
-  int contador=0;
-  /* int contador = 0; */
+task readUltraValues() {
   int i;
+  int contador=0;
   float downLeft, downRight, downLeftFiltered, downRightFiltered;
-  float downLeftVec[VECTOR_SIZE], downRightVec[VECTOR_SIZE];
-  float mediaLeft = DOWN_DIST-2, mediaRight = DOWN_DIST-2;
+  float downLeftVec[VECTOR_SIZE];
+  float downRightVec[VECTOR_SIZE];
+  float mediaLeft = DOWN_DIST-2;
+  float mediaRight = DOWN_DIST-2;
+  string out3, in3, out2;
+  while(true) {
+    for(i=0; i<VECTOR_SIZE; i++){
+      downLeft = SensorUS(DOWN_ULTRA_LEFT);
+      downRight = SensorUS(DOWN_ULTRA_RIGHT);
 
-  BTCheck(0); //checa a conexão com o mestre
+      downLeftVec[i] = downLeft;
+      downRightVec[i] = downRight;
+    }
 
-  /* Setando o sensor ultrassônico */
-  SetSensorLowspeed(DOWN_ULTRA_LEFT);
-  SetSensorLowspeed(DOWN_ULTRA_RIGHT);
+    downLeftFiltered = medianaFilter(downLeftVec, VECTOR_SIZE);
+    downRightFiltered = medianaFilter(downRightVec, VECTOR_SIZE);
 
- while(ReceiveRemoteString(INBOX1SLAVE, true, in1) == STAT_MSG_EMPTY_MAILBOX);
+    mediaLeft = (ALPHA * downLeftFiltered) + ((1 - ALPHA)*mediaLeft);
+    mediaRight = (ALPHA * downRightFiltered) + ((1 - ALPHA)*mediaRight);
 
- while(true) {
-   string out3, in3, out2;
-   /* if(contador!=0) {
-     while(ReceiveRemoteString(INBOX3SLAVE, true, in3) == STAT_MSG_EMPTY_MAILBOX);
-   } */
+    NumOut(0,LCD_LINE1,mediaLeft);
+    NumOut(0,LCD_LINE2,mediaRight);
 
-   /* downLeft = SensorUS(DOWN_ULTRA_LEFT);
-   downRight = SensorUS(DOWN_ULTRA_RIGHT); */
-
-   for(i=0; i<VECTOR_SIZE; i++){
-     downLeft = SensorUS(DOWN_ULTRA_LEFT);
-     downRight = SensorUS(DOWN_ULTRA_RIGHT);
-
-     downLeftVec[i] = downLeft;
-     downRightVec[i] = downRight;
-   }
-
-   downLeftFiltered = medianaFilter(downLeftVec, VECTOR_SIZE);
-   downRightFiltered = medianaFilter(downRightVec, VECTOR_SIZE);
-   mediaLeft = (ALPHA * downLeftFiltered) + ((1 - ALPHA)*mediaLeft);
-   mediaRight = (ALPHA * downRightFiltered) + ((1 - ALPHA)*mediaRight);
-   ClearScreen();
-   NumOut(0,LCD_LINE3,mediaLeft);
-   NumOut(0,LCD_LINE4,mediaRight);
-   TextOut(10,LCD_LINE3,NumToStr(mediaLeft));
-   TextOut(10,LCD_LINE4,NumToStr(mediaRight));
-
-  if(mediaRight > DOWN_DIST){
-     out3 = "rightFall";
-     SendResponseString(OUTBOX3SLAVE, out3);
-     contador=1;
-     //while(ReceiveRemoteString(INBOX3SLAVE, true, in3) == STAT_MSG_EMPTY_MAILBOX);
-   } else if(mediaLeft > DOWN_DIST){
-      out3 = "leftFall";
+   if(mediaRight > DOWN_DIST){
+      out3 = "rightFall";
       SendResponseString(OUTBOX3SLAVE, out3);
       contador=1;
-      //while(ReceiveRemoteString(INBOX3SLAVE, true, in3) == STAT_MSG_EMPTY_MAILBOX);
-    }
- }
+    } else if(mediaLeft > DOWN_DIST){
+       out3 = "leftFall";
+       SendResponseString(OUTBOX3SLAVE, out3);
+       contador=1;
+   }
+
+  }
+}
+
+task main(){
+  string in1;
+  BTCheck(0);
+  while(ReceiveRemoteString(INBOX1SLAVE, true, in1) == STAT_MSG_EMPTY_MAILBOX);
+  configSensors();
+  start readUltraValues;
 }
