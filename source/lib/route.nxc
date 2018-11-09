@@ -29,31 +29,34 @@ task receiveMSG() {
   }
 }
 
-void recenter(){
-   if ((fallMSG == LEFT_FALL_MSG) && (fallMSG == RIGHT_FALL_MSG)) {
-    Off(MOTOR_BOTH);
-    Wait(2000000);
-  } else if (fallMSG == LEFT_FALL_MSG) {
-    /* Wait(50); */
-    while (fallMSG == LEFT_FALL_MSG) {
+void recenter(string msg){
+  if (msg == LEFT_FALL_MSG) {
+    PlayTone(TONE_E7, 500);
+    RotateMotor(MOTOR_RIGHT, -60, 100);
+    /* while (msg == LEFT_FALL_MSG) {
      OnRev(MOTOR_RIGHT, 60);
-    }
-    Off(MOTOR_BOTH);
-  } else if (fallMSG == RIGHT_FALL_MSG){
-    /* Wait(50); */
-    while (fallMSG == RIGHT_FALL_MSG) {
+     msg = fallMSG;
+    } */
+  } else if (msg == RIGHT_FALL_MSG){
+    PlayTone(TONE_D7, 500);
+    RotateMotor(MOTOR_LEFT, -60, 100);
+    /* while (msg == RIGHT_FALL_MSG) {
       OnRev(MOTOR_LEFT, 60);
-    }
+      msg = fallMSG;
+    } */
   }
+  Off(MOTOR_BOTH);
 }
 
 int avoidFall(){
-   if ((fallMSG == LEFT_FALL_MSG) || (fallMSG == RIGHT_FALL_MSG)){
+  string msg = fallMSG;
+   if ((msg == LEFT_FALL_MSG) || (msg == RIGHT_FALL_MSG)){
     Off(MOTOR_BOTH);
-    stopProperPID(lastFallDir);
-    recenter();
+    stop fowardPID;
+    Wait(50);
+    recenter(msg);
     Off(MOTOR_BOTH);
-    startProperPID(lastFallDir);
+    start fowardPID;
     return TRUE;
   }
   return FALSE;
@@ -89,9 +92,9 @@ int trackPosControll(int idColor) {
   int leftColor, rightColor;
 
   if (leftColor == idColor){
-    adjustPosition(idColor, leftColor, rightColor);
+    /* adjustPosition(idColor, leftColor, rightColor); */
   } else if (rightColor == idColor) {
-    adjustPosition(idColor, leftColor, rightColor);
+    /* adjustPosition(idColor, leftColor, rightColor); */
   }
 }
 
@@ -100,7 +103,7 @@ void moveUntilWhite(int idCor) {
   leftColor = leftColorRead;
   rightColor = rightColorRead;
 
-  startProperPID(lastFallDir);
+  start fowardPID;
 
   while ((leftColor == idCor) || (rightColor == idCor)) {
    leftColor = leftColorRead;
@@ -108,7 +111,7 @@ void moveUntilWhite(int idCor) {
    avoidFall();
   }
 
-  stopProperPID(lastFallDir);
+  stop fowardPID;
   Off(MOTOR_BOTH);
 }
 
@@ -118,7 +121,7 @@ int moveUntilNotWhite() {
   leftColor = leftColorRead;
   rightColor = rightColorRead;
 
-  startProperPID(lastFallDir);
+  start fowardPID;
 
   while ((leftColor == ID_BRANCO) && (rightColor == ID_BRANCO)) {
    leftColor = leftColorRead;
@@ -126,7 +129,7 @@ int moveUntilNotWhite() {
    avoidFall();
   }
 
-  stopProperPID(lastFallDir);
+  stop fowardPID;
   Off(MOTOR_BOTH);
 
   if (leftColor != ID_BRANCO) {
@@ -143,7 +146,7 @@ int centerOnIntersec(int idCor) {
   if (idCor == ID_VERMELHO) {
     possibleRamp = TRUE;
   }
-  fowardCmPID(15+x);
+  fowardCmPID(15.5+x);
   if ((leftColorRead == ID_BRANCO)&&(possibleRamp == TRUE)){
     return 1;
   }

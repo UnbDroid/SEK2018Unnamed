@@ -1,5 +1,5 @@
 #define VECTOR_SIZE 3
-#define DOWN_DIST 7
+#define DOWN_DIST 9
 #define ALPHA 0.8
 
 

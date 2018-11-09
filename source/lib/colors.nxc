@@ -199,7 +199,7 @@ task updateColors() {
       rightColorRead = rFirstRead;
       lastKnowColorRight = rFirstRead;
     }
-    
+
     string c1, c2;
     ClearScreen();
     c1 = getColorName(leftColorRead);
@@ -247,7 +247,7 @@ int rightSensorColorRead() {
    color = ID_BRANCO;
  }
 
- /* if ((color == ID_VERDE)||(color == ID_PRETO)){
+ if ((color == ID_VERDE)||(color == ID_PRETO)){
    int DPGreen=0, DPBlack=0, DPNow=0, DPMedia=0;
    DPGreen = DP(defColors[0].rightRed, defColors[0].rightGreen, defColors[0].rightBlue);
    DPBlack = DP(defColors[3].rightRed, defColors[3].rightGreen, defColors[3].rightBlue);
@@ -258,7 +258,7 @@ int rightSensorColorRead() {
      color = ID_PRETO;
    else
      color = ID_VERDE;
- } */
+ }
 
  return color;
 }
@@ -301,7 +301,7 @@ int leftSensorColorRead() {
     color = ID_BRANCO;
   }
 
-  /* if ((color == ID_VERDE)||(color == ID_PRETO)){
+  if ((color == ID_VERDE)||(color == ID_PRETO)){
     int DPGreen=0, DPBlack=0, DPNow=0, DPMedia=0;
     DPGreen = DP(defColors[0].leftRed, defColors[0].leftGreen, defColors[0].leftBlue);
     DPBlack = DP(defColors[3].leftRed, defColors[3].leftGreen, defColors[3].leftBlue);
@@ -313,7 +313,7 @@ int leftSensorColorRead() {
     } else {
       color = ID_VERDE;
     }
-  } */
+  }
 
   return color;
 }

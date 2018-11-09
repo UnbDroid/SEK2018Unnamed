@@ -58,7 +58,7 @@ void makeTurn(int idCor);
 /* */
 void make180(int idCor);
 /* */
-void recenter();
+void recenter(string msg);
 /* */
 int avoidFall();
 /* */
