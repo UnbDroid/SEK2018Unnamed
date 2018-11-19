@@ -1,0 +1,54 @@
+#include "include/ramp.h"
+
+int isRamp(int turnVec[][]) {
+  for(int i = 0; i < 3; i++) {
+    for(int j = 0; j < 3; j ++) {
+      if (turnVec[i][j] == 0) {
+        return FALSE;
+      }
+    }
+  }
+  return TRUE;
+}
+
+void foundRamp() {
+  PlayTone(500, 500);
+  Wait(1000);
+  PlayTone(500, 500);
+  Wait(1000);
+  PlayTone(500, 500);
+}
+
+void centerOnCircle() {
+  byte x = BatteryState();
+  x = abs(x-4);
+  /* int possibleRamp = FALSE; */
+  fowardCmPID(24+x);
+  Off(MOTOR_BOTH);
+}
+
+void moveUntilBlack() {
+  int leftColor, rightColor;
+  leftColor = leftColorRead;
+  rightColor = rightColorRead;
+
+  start fowardPID;
+
+  while ((leftColor != ID_PRETO) || (rightColor != ID_PRETO)) {
+   leftColor = leftColorRead;
+   rightColor = rightColorRead;
+  }
+
+  stop fowardPID;
+  Off(MOTOR_BOTH);
+}
+
+void plazaLogic() {
+  foundRamp();
+  moveUntilBlack();
+  centerOnCircle();
+  SendRemoteString(BT_CONN, OUTBOX2MASTER, "open");
+  centerOnCircle();
+  SendRemoteString(BT_CONN, OUTBOX2MASTER, "close");
+  start fowardPID;
+}

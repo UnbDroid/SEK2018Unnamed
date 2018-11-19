@@ -58,4 +58,6 @@ task fowardPID();
 void fowardCmPID(int cm);
 /**/
 
+void backwardCmPID(int cm);
+
 #endif
