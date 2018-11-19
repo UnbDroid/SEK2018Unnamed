@@ -42,5 +42,6 @@ void stopProperPID(int lastFallDir) {
 }
 
 void fowardCm(int cm){
+  RemotePlayTone(BT_CONN, 500, 100);
   fowardCmPID(cm);
 }

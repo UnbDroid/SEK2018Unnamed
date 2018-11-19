@@ -1,9 +1,20 @@
 #define VECTOR_SIZE 3
+<<<<<<< HEAD
 #define DOWN_DIST 8
+=======
+#define VECTOR_SIZE_BONECO 7
+#define DOWN_DIST 9
+>>>>>>> d71df2ccb36465276c0b4aad35ff769a6678d613
 #define ALPHA 0.8
+#define DIST_SIDE_BONECO 30
 
+#define CLOSE_MSG "close"
+#define OPEN_MSG "open"
+#define EMPTY_MSG "empty"
 
 #include "include/defines.h"
+
+string openDoorMSG = EMPTY_MSG;
 
 sub BTCheck(int conn){
   if(!BluetoothStatus(conn)==NO_ERR){
@@ -13,9 +24,34 @@ sub BTCheck(int conn){
   }
 }
 
+void openDoor() {
+  RotateMotor(PORTA_LEFT, 60, 80);
+  RotateMotor(PORTA_RIGHT, 60, 70);
+}
+
+void closeDoor() {
+  RotateMotor(PORTA_RIGHT, -60, 70);
+  RotateMotor(PORTA_LEFT, -60, 80);
+}
+
+task holdDoorClosed() {
+  while(true) {
+    OnFwd(PORTA_LEFT, 0);
+    OnFwd(PORTA_RIGHT, 0);
+  }
+}
+
+task waitOpenDoorMSG(){
+  while(true) {
+    if(ReceiveRemoteString(INBOX2SLAVE, true, openDoorMSG) == NO_ERR);
+  }
+}
+
 void configSensors() {
   SetSensorLowspeed(DOWN_ULTRA_LEFT);
   SetSensorLowspeed(DOWN_ULTRA_RIGHT);
+  SetSensorLowspeed(SIDE_ULTRA_LEFT);
+  SetSensorLowspeed(SIDE_ULTRA_RIGHT);
 }
 
 void medianaOrder(float &v[], int sizeVector){
@@ -44,8 +80,15 @@ task readUltraValues() {
   float downRightVec[VECTOR_SIZE];
   float mediaLeft = DOWN_DIST-2;
   float mediaRight = DOWN_DIST-2;
-  string out3, in3, out2;
+  string out3;
+  /* string i2; */
+
+  int sideLeft, sideRight;
+  /* int contadorBoneco=0; */
+  int sideRightVec[VECTOR_SIZE_BONECO], sideLeftVec[VECTOR_SIZE_BONECO], sideRightFiltered, sideLeftFiltered, j;
+
   while(true) {
+    string out2;
     for(i=0; i<VECTOR_SIZE; i++){
       downLeft = SensorUS(DOWN_ULTRA_LEFT);
       downRight = SensorUS(DOWN_ULTRA_RIGHT);
@@ -73,13 +116,59 @@ task readUltraValues() {
        contador=1;
    }
 
+//////////INICIO CODIGO PARA PEGAR BONECO
+
+   /* if(contadorBoneco!=0){
+     while(ReceiveRemoteString(INBOX2SLAVE, true, in2)==STAT_MSG_EMPTY_MAILBOX);
+   } */
+
+   SetSensorLowspeed(SIDE_ULTRA_LEFT);
+   SetSensorLowspeed(SIDE_ULTRA_RIGHT);
+
+   sideLeft = SensorUS(SIDE_ULTRA_LEFT);
+   sideRight = SensorUS(SIDE_ULTRA_RIGHT);
+
+   for(j=0;j<VECTOR_SIZE_BONECO;j++){
+     sideLeft = SensorUS(SIDE_ULTRA_LEFT);
+     sideRight = SensorUS(SIDE_ULTRA_RIGHT);
+
+     sideLeftVec[j] = sideLeft;
+     sideRightVec[j] = sideRight;
+   }
+
+   sideLeftFiltered = medianaFilter(sideLeftVec,VECTOR_SIZE_BONECO);
+   sideRightFiltered = medianaFilter(sideRightVec,VECTOR_SIZE_BONECO);
+
+   if(sideRightFiltered< DIST_SIDE_BONECO){
+     /* contadorBoneco++; */
+     out2 = "turnRight";
+     SendResponseString(OUTBOX2SLAVE,out2);
+   }
+
+   else if (sideLeftFiltered < DIST_SIDE_BONECO) {
+     /* contadorBoneco++; */
+     out2 = "turnLeft";
+     SendResponseString(OUTBOX2SLAVE,out2);
+  }
+
   }
 }
 
 task main(){
   string in1;
   BTCheck(0);
+  /* start holdDoorClosed; */
   while(ReceiveRemoteString(INBOX1SLAVE, true, in1) == STAT_MSG_EMPTY_MAILBOX);
   configSensors();
   start readUltraValues;
+  start waitOpenDoorMSG;
+  while (true) {
+    if (openDoorMSG == OPEN_MSG) {
+      PlayTone(200,500);
+      Wait(500);
+      openDoor();
+    } else if (openDoorMSG == CLOSE_MSG) {
+      closeDoor();
+    }
+  }
 }

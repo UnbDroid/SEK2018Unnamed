@@ -31,6 +31,11 @@
   #define INCRAMP
 #endif
 
+#ifndef INCCLAW
+  #include "lib/claw.nxc"
+  #define INCCLAW
+#endif
+
 /* ====== INICIO DAS DEFINICOES DA BIBLIOTECA DE ROTA ====== */
 
 #define LEFT_FALL_MSG "leftFall"

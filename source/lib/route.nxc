@@ -9,12 +9,17 @@
 
 #include "include/route.h"
 
+
 string fallMSG = NONE_FALL_MSG;
+string catchMSG = NONE_CATCH_MSG;
 
 int lastColor = ID_PRETO;
+int intersecCount = 0;
 
 int lastFallDir = -1;
 int lastDir = 1;
+
+/* int blockMSGRead = FALSE; */
 
 int turnCount = 0;
 int turnVec[3][3] = {{UNKNOWNDIR, UNKNOWNDIR, UNKNOWNDIR},
@@ -26,6 +31,9 @@ Directions dir;
 task receiveMSG() {
   while(true) {
     if(ReceiveRemoteString(INBOX3MASTER, true, fallMSG) == NO_ERR);
+    /* if (blockMSGRead == FALSE) { */
+    if(ReceiveRemoteString(INBOX2MASTER, true, catchMSG) == NO_ERR);
+    /* } */
   }
 }
 
@@ -33,17 +41,9 @@ void recenter(string msg){
   if (msg == LEFT_FALL_MSG) {
     PlayTone(TONE_E7, 500);
     RotateMotor(MOTOR_RIGHT, -60, 100);
-    /* while (msg == LEFT_FALL_MSG) {
-     OnRev(MOTOR_RIGHT, 60);
-     msg = fallMSG;
-    } */
   } else if (msg == RIGHT_FALL_MSG){
     PlayTone(TONE_D7, 500);
     RotateMotor(MOTOR_LEFT, -60, 100);
-    /* while (msg == RIGHT_FALL_MSG) {
-      OnRev(MOTOR_LEFT, 60);
-      msg = fallMSG;
-    } */
   }
   Off(MOTOR_BOTH);
 }
@@ -56,6 +56,25 @@ int avoidFall(){
     Wait(50);
     recenter(msg);
     Off(MOTOR_BOTH);
+    start fowardPID;
+    return TRUE;
+  }
+  return FALSE;
+}
+
+int Toy(){
+  string msg = catchMSG;
+  int toyCount=0;
+  if((msg==RIGHT_CATCH_MSG) || (msg==LEFT_CATCH_MSG)){
+    /* blockMSGRead = TRUE; */
+    Off(MOTOR_BOTH);
+    stop fowardPID;
+    Wait(50);
+    if(toyCount<4){
+      toyCount += beginCatch(msg);
+    }
+    Off(MOTOR_BOTH);
+    /* blockMSGRead = FALSE; */
     start fowardPID;
     return TRUE;
   }
@@ -129,6 +148,7 @@ int moveUntilNotWhite() {
    leftColor = leftColorRead;
    rightColor = rightColorRead;
    avoidFall();
+   Toy();
   }
 
   stop fowardPID;
@@ -144,14 +164,8 @@ int moveUntilNotWhite() {
 int centerOnIntersec(int idCor) {
   byte x = BatteryState();
   x = abs(x-4);
-  int possibleRamp = FALSE;
-  if (idCor == ID_VERMELHO) {
-    possibleRamp = TRUE;
-  }
+  /* int possibleRamp = FALSE; */
   fowardCmPID(15.5+x);
-  if ((leftColorRead == ID_BRANCO)&&(possibleRamp == TRUE)){
-    return 1;
-  }
   return 0;
 }
 
@@ -170,6 +184,7 @@ void prepareFile() {
 void startRoute() {
   start updateColors;
   start receiveMSG;
+  intersecCount = 0;
   prepareFile();
   while(true) {
     route();
@@ -343,6 +358,10 @@ void makeTurn(int idCor) {
       }
     }
     leaveIntersec(idCor);
+    intersecCount += 1;
+    if (intersecCount == 1) {
+      plazaLogic();
+    }
   }
 }
 
