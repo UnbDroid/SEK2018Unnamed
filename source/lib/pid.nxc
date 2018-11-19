@@ -1,0 +1,237 @@
+/*
+  Arquivo: pid.nxc
+  Descricao: Este arquivo contem as definicoes da
+    biblioteca de realizar movimentacoes utilizando controle de PID.
+  Autores: Renato Nobre
+  Data de Modificacao: 08/10/2018
+  Versao: 1.0
+*/
+#include "include/pid.h"
+
+float angle = 0.0;
+
+task fowardPID() {
+  ResetRotationCount(MOTOR_BOTH);
+  Wait(10);
+  float lRotation = MotorRotationCount(MOTOR_LEFT);
+  float rRotation = MotorRotationCount(MOTOR_RIGHT);
+  float error, turn, pwrLeft, pwrRight, derivate;
+  float integral = 0.0;
+  float lastError = 0.0;
+  while (true) {
+    lRotation = MotorRotationCount(MOTOR_LEFT);
+    rRotation = MotorRotationCount(MOTOR_RIGHT);
+    error = lRotation - rRotation;
+    integral += error;
+    if (integral > 100) {
+      integral = 100;
+    } else if (integral < -100) {
+      integral = -100;
+    }
+    derivate = error - lastError;
+    turn = (KP * error) + (KI*integral) + (KD*derivate);
+    pwrLeft = TP - turn;
+    pwrRight = TP + turn;
+    OnFwd(MOTOR_LEFT, pwrLeft);
+    OnFwd(MOTOR_RIGHT, pwrRight);
+    /* ClearScreen(); */
+    /* NumOut(0,LCD_LINE1, pwrLeft);
+    NumOut(0,LCD_LINE2, pwrRight);
+    NumOut(0,LCD_LINE3, error);
+    NumOut(0,LCD_LINE4, lRotation);
+    NumOut(0,LCD_LINE5, rRotation);
+    NumOut(0,LCD_LINE6, turn);
+    NumOut(0,LCD_LINE7, integral); */
+    lastError = error;
+  }
+}
+
+task fowardPIDPullLeft() {
+  ResetRotationCount(MOTOR_BOTH);
+  Wait(10);
+  float lRotation = MotorRotationCount(MOTOR_LEFT);
+  float rRotation = MotorRotationCount(MOTOR_RIGHT);
+  float error, turn, pwrLeft, pwrRight, derivate;
+  float integral = 0.0;
+  float lastError = 0.0;
+  while (true) {
+    lRotation = MotorRotationCount(MOTOR_LEFT);
+    rRotation = MotorRotationCount(MOTOR_RIGHT);
+    error = lRotation - rRotation;
+    integral += error;
+    if (integral > 100) {
+      integral = 100;
+    } else if (integral < -100) {
+      integral = -100;
+    }
+    derivate = error - lastError;
+    turn = (KP * error) + (KI*integral) + (KD*derivate);
+    pwrLeft = TP - turn;
+    pwrRight = TP + turn;
+    OnFwd(MOTOR_LEFT, pwrLeft);
+    OnFwd(MOTOR_RIGHT, pwrRight * PULL_FACTOR);
+    lastError = error;
+  }
+}
+
+task fowardPIDPullRight() {
+  ResetRotationCount(MOTOR_BOTH);
+  Wait(10);
+  float lRotation = MotorRotationCount(MOTOR_LEFT);
+  float rRotation = MotorRotationCount(MOTOR_RIGHT);
+  float error, turn, pwrLeft, pwrRight, derivate;
+  float integral = 0.0;
+  float lastError = 0.0;
+  while (true) {
+    lRotation = MotorRotationCount(MOTOR_LEFT);
+    rRotation = MotorRotationCount(MOTOR_RIGHT);
+    error = lRotation - rRotation;
+    integral += error;
+    if (integral > 100) {
+      integral = 100;
+    } else if (integral < -100) {
+      integral = -100;
+    }
+    derivate = error - lastError;
+    turn = (KP * error) + (KI*integral) + (KD*derivate);
+    pwrLeft = TP - turn;
+    pwrRight = TP + turn;
+    OnFwd(MOTOR_LEFT, pwrLeft * PULL_FACTOR);
+    OnFwd(MOTOR_RIGHT, pwrRight);
+    lastError = error;
+  }
+}
+
+void turnLeftPID(int turnAngle) {
+  ResetRotationCount(MOTOR_BOTH);
+  Wait(20);
+  float angle = 0, gyro = 0;
+  unsigned long time = CurrentTick();
+  unsigned long prev_time;
+  float lRotation = MotorRotationCount(MOTOR_LEFT);
+  float rRotation = MotorRotationCount(MOTOR_RIGHT);
+  float error, turn, pwrLeft, pwrRight, derivate;
+  float integral = 0.0;
+  float lastError = 0.0;
+  while(angle >= -turnAngle){
+
+    prev_time = time;
+    time = CurrentTick();
+    gyro = SensorHTGyro(GIRO);
+    angle += gyro * (time - prev_time)/1000.0;
+
+    lRotation = MotorRotationCount(MOTOR_LEFT);
+    rRotation = MotorRotationCount(MOTOR_RIGHT);
+    error = abs(lRotation) - abs(rRotation);
+    integral += error;
+    if (integral > 100) {
+      integral = 100;
+    } else if (integral < -100) {
+      integral = -100;
+    }
+    derivate = error - lastError;
+    turn = (KP * error) + (KI*integral) + (KD*derivate);
+    pwrLeft = TP - turn;
+    pwrRight = TP + turn;
+
+    OnRev(MOTOR_LEFT, pwrLeft);
+    OnFwd(MOTOR_RIGHT, pwrRight);
+    lastError = error;
+  }
+  Off(MOTOR_BOTH);
+}
+
+void turnRightPID(int turnAngle){
+  ResetRotationCount(MOTOR_BOTH);
+  Wait(20);
+  float angle = 0, gyro = 0;
+  unsigned long time, prev_time;
+  time = CurrentTick();
+  float lRotation = MotorRotationCount(MOTOR_LEFT);
+  float rRotation = MotorRotationCount(MOTOR_RIGHT);
+  float error, turn, pwrLeft, pwrRight, derivate;
+  float integral = 0.0;
+  float lastError = 0.0;
+  while(angle <= turnAngle){
+
+    prev_time = time;
+    time = CurrentTick();
+    gyro = SensorHTGyro(GIRO);
+    angle += gyro * (time - prev_time)/1000.0;
+
+    lRotation = MotorRotationCount(MOTOR_LEFT);
+    rRotation = MotorRotationCount(MOTOR_RIGHT);
+    error = abs(lRotation) - abs(rRotation);
+    integral += error;
+    if (integral > 100) {
+      integral = 100;
+    } else if (integral < -100) {
+      integral = -100;
+    }
+    derivate = error - lastError;
+    turn = (KP * error) + (KI*integral) + (KD*derivate);
+    pwrLeft = TP - turn;
+    pwrRight = TP + turn;
+
+    OnFwd(MOTOR_LEFT, pwrLeft);
+    OnRev(MOTOR_RIGHT, pwrRight);
+    lastError = error;
+  }
+  Off(MOTOR_BOTH);
+}
+
+void fowardCmPID(int cm) {
+  ResetRotationCount(MOTOR_BOTH);
+  Wait(10);
+  float lRotation = MotorRotationCount(MOTOR_LEFT);
+  float rRotation = MotorRotationCount(MOTOR_RIGHT);
+  float error, turn, pwrLeft, pwrRight, derivate;
+  float integral = 0.0;
+  float lastError = 0.0;
+  int leftColor, rightColor;
+  while (lRotation < (cm*CM_TO_ROTATIONS)) {
+    lRotation = MotorRotationCount(MOTOR_LEFT);
+    rRotation = MotorRotationCount(MOTOR_RIGHT);
+    error = lRotation - rRotation;
+    integral += error;
+    if (integral > 100) {
+      integral = 100;
+    } else if (integral < -100) {
+      integral = -100;
+    }
+    derivate = error - lastError;
+    turn = (KP * error) + (KI*integral) + (KD*derivate);
+    pwrLeft = TP - turn;
+    pwrRight = TP + turn;
+    OnFwd(MOTOR_LEFT, pwrLeft);
+    OnFwd(MOTOR_RIGHT, pwrRight);
+    lastError = error;
+  }
+  Off(MOTOR_BOTH);
+}
+
+void backwardCmPID(int cm) {
+  ResetRotationCount(MOTOR_BOTH);
+  Wait(10);
+  float lRotation = MotorRotationCount(MOTOR_LEFT);
+  NumOut(0,LCD_LINE1,lRotation);
+  float rRotation = MotorRotationCount(MOTOR_RIGHT);
+  NumOut(0,LCD_LINE2,lRotation);
+  float error, turn, pwrLeft, pwrRight, derivate;
+  float integral = 0.0;
+  float lastError = 0.0;
+  while (lRotation > (cm*CM_TO_ROTATIONS)*(-1)) {
+    lRotation = MotorRotationCount(MOTOR_LEFT);
+    rRotation = MotorRotationCount(MOTOR_RIGHT);
+    error = lRotation - rRotation;
+    integral = ((2/3)*integral) + error;
+    derivate = error - lastError;
+    turn = (KP * error) + (KI*integral) + (KD*derivate);
+    pwrLeft = TP + turn;
+    pwrRight = TP - turn;
+    OnRev(MOTOR_LEFT, pwrLeft);
+    OnRev(MOTOR_RIGHT, pwrRight);
+    lastError = error;
+  }
+  Off(MOTOR_BOTH);
+}

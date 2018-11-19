@@ -1,0 +1,195 @@
+/*
+  Arquivo: filesIO.nxc
+  Descricao: Este arquivo contem as definicoes para criacao,
+             leitura e escrita de arquivos.
+  Autores: Renato Nobre
+  Data de Modificacao: 13/09/2018
+  Versao: 1.0
+*/
+
+#include "include/filesIO.h"
+
+void initEmptyDir(Directions &dir) {
+  dir.v00 = 0;
+  dir.v01 = 0;
+  dir.v02 = 0;
+  dir.v10 = 0;
+  dir.v11 = 0;
+  dir.v12 = 0;
+  dir.v20 = 0;
+  dir.v21 = 0;
+  dir.v22 = 0;
+}
+
+void initColorConf(ColorConf &c, int id, int lRed, int lGreen, int lBlue, int lWhite, int rRed, int rGreen, int rBlue, int rWhite) {
+  c.id = id;
+  c.leftRed = lRed;
+  c.leftGreen = lGreen;
+  c.leftBlue = lBlue;
+  c.leftWhite = lWhite;
+  c.rightRed = rRed;
+  c.rightGreen = rGreen;
+  c.rightBlue = rBlue;
+  c.rightWhite = rWhite;
+  c.leftRInterval = intervalValue(lRed);
+  c.leftGInterval = intervalValue(lGreen);
+  c.leftBInterval = intervalValue(lBlue);
+  c.leftWInterval = intervalValue(lWhite);
+  c.rightRInterval = intervalValue(rRed);
+  c.rightGInterval = intervalValue(rGreen);
+  c.rightBInterval = intervalValue(rBlue);
+  c.rightWInterval = intervalValue(rWhite);
+}
+
+void logError(const unsigned int code) {
+   TextOut(0, LCD_LINE2, "code            ");
+   TextOut(50, LCD_LINE2, FormatNum("%04x", code));
+}
+
+int checkFileExistence(string fileName, unsigned int fileSize) {
+  unsigned int rtn_code = CreateFile(fileName, fileSize, handle);
+  CloseFile(handle);
+  if (rtn_code == LDR_FILEEXISTS) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+void deleteFile(string fileName, unsigned int fileSize) {
+  if (checkFileExistence(fileName, fileSize) == 1) {
+    unsigned int rtn_code = DeleteFile(fileName);
+  }
+}
+
+void openForWrite(string fileName, unsigned int fileSize) {
+  handle = 0;
+  // Start with the assumptions the file doesn't exist and needs to be created.
+  unsigned int rtn_code = CreateFile(fileName, fileSize, handle);
+
+
+  // If the file already exists, open it with the intent of adding to the data
+  // that is already there.
+  if (rtn_code == LDR_FILEEXISTS) {
+    rtn_code = OpenFileAppend(fileName, fileSize, handle);
+  }
+  // Return code handling
+  switch (rtn_code) {
+    case LDR_SUCCESS:
+       return;
+    case LDR_FILEISFULL:
+       TextOut(0, LCD_LINE1, "file is full    ");
+       break;
+    default:
+       // Unanticipated exception.
+       TextOut(0, LCD_LINE1, "write open      ");
+       logError(rtn_code);
+       break;
+  }
+}
+
+void openForRead(string fileName, unsigned int fileSize) {
+  handle = 0;
+  unsigned int rtn_code = OpenFileRead(fileName, fileSize, handle);
+
+  // Return code handling
+  if (rtn_code != LDR_SUCCESS) {
+     // Unanticipated exception.
+     TextOut(0, LCD_LINE1, "read open       ");
+     logError(rtn_code);
+  }
+}
+
+void writeColorConfOnFile(const ColorConf recd) {
+  unsigned int rtn_code = Write(handle, recd);
+  // Return code handling
+  if (rtn_code != LDR_SUCCESS) {
+     switch (rtn_code) {
+       case LDR_EOFEXPECTED:
+          TextOut(0, LCD_LINE1, "no more space   ");
+          break;
+       default:
+          // Unanticipated exception.
+          TextOut(0, LCD_LINE1, "write failed    ");
+          logError(rtn_code);
+          break;
+      }
+  }
+}
+
+void writeDirectionOnFile(const Directions recd) {
+
+  ClearScreen();
+  NumOut(0,LCD_LINE1,recd.v00);
+  NumOut(20,LCD_LINE1,recd.v01);
+  NumOut(40,LCD_LINE1,recd.v02);
+
+  NumOut(0,LCD_LINE2,recd.v10);
+  NumOut(20,LCD_LINE2,recd.v11);
+  NumOut(40,LCD_LINE2,recd.v12);
+
+  NumOut(0,LCD_LINE3,recd.v20);
+  NumOut(20,LCD_LINE3,recd.v21);
+  NumOut(40,LCD_LINE3,recd.v22);
+
+  unsigned int rtn_code = Write(handle, recd);
+  // Return code handling
+  if (rtn_code != LDR_SUCCESS) {
+     switch (rtn_code) {
+       case LDR_EOFEXPECTED:
+          TextOut(0, LCD_LINE1, "no more space   ");
+          break;
+       default:
+          // Unanticipated exception.
+          ClearScreen();
+          TextOut(0, LCD_LINE1, "write failed    ");
+          break;
+      }
+  }
+}
+
+void closeFile(){
+  CloseFile(handle);
+}
+
+void readColorConfFile(ColorConf &reacd, ColorConf &output[]) {
+  unsigned int rtn_code = Read(handle, reacd);
+  int i = 0;
+  while (rtn_code != LDR_ENDOFFILE){
+
+    if (rtn_code == LDR_SUCCESS) {
+      output[i] = reacd;
+    } else {
+      // Unanticipated exception.
+      TextOut(0, LCD_LINE1, "read failed     ");
+      logError(rtn_code);
+    }
+    i += 1;
+    rtn_code = Read(handle, reacd);
+  }
+}
+
+void readDirectionOnFile(Directions &reacd) {
+
+  unsigned int rtn_code = Read(handle, reacd);
+  if (rtn_code != LDR_SUCCESS) {
+    // Unanticipated exception.
+    TextOut(0, LCD_LINE1, "read failed     ");
+    logError(rtn_code);
+  }
+
+  ClearScreen();
+  NumOut(0,LCD_LINE1,reacd.v00);
+  NumOut(20,LCD_LINE1,reacd.v01);
+  NumOut(40,LCD_LINE1,reacd.v02);
+
+  NumOut(0,LCD_LINE2,reacd.v10);
+  NumOut(20,LCD_LINE2,reacd.v11);
+  NumOut(40,LCD_LINE2,reacd.v12);
+
+  NumOut(0,LCD_LINE3,reacd.v20);
+  NumOut(20,LCD_LINE3,reacd.v21);
+  NumOut(40,LCD_LINE3,reacd.v22);
+
+
+}

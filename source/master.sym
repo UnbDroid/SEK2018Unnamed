@@ -1,0 +1,1217 @@
+#SYMBOLS
+Index	Identifier	Type	Flag	Data	Size	RefCount
+0	__signed_stack_002main	6	1	0	4	16
+1	__signed_stack_001turn	6	1	4	4	4
+2	__float_stack_001fowardPID	10	1	8	4	6
+3	__signed_stack_001main	6	1	12	4	26
+4	__float_stack_001turnLeftPID	10	1	16	4	14
+5	__fowardPID_7qG2_rRotation_7qG2_000	10	1	20	4	3
+6	__fowardPID_7qG2_error_7qG2_000	10	1	24	4	5
+7	__float_stack_001turnRightPID	10	1	28	4	14
+8	__fowardPID_7qG2_lRotation_7qG2_000	10	1	32	4	3
+9	__D0turnRightPID	6	1	36	4	3
+10	__DU0turnRightPID	5	1	40	4	2
+11	__turnRightPID_7qG2_angle_7qG2_000	10	1	44	4	4
+12	__DF0turnLeftPID	10	1	48	4	18
+13	__DF0turnRightPID	10	1	52	4	16
+14	__signed_stack_001BTCheck	6	1	56	4	4
+15	__signed_stack_002BTCheck	6	1	60	4	2
+16	__D0SensorHTGyro_inline_turnLeftPID	6	1	64	4	4
+17	__D0SensorHTGyro_inline_turnRightPID	6	1	68	4	4
+18	__fowardPID_7qG2_turn_7qG2_000	10	1	72	4	3
+19	__turnLeftPID_7qG2_error_7qG2_000	10	1	76	4	5
+20	__turnLeftPID_7qG2_turn_7qG2_000	10	1	80	4	3
+21	__turnLeftPID_7qG2_lRotation_7qG2_000	10	1	84	4	3
+22	__turnLeftPID_7qG2_rRotation_7qG2_000	10	1	88	4	3
+23	__turnLeftPID_7qG2_pwrLeft_7qG2_000	10	1	92	4	2
+24	__turnLeftPID_7qG2_integral_7qG2_000	10	1	96	4	4
+25	__turnLeftPID_7qG2_lastError_7qG2_000	10	1	100	4	3
+26	__turnLeftPID_7qG2_pwrRight_7qG2_000	10	1	104	4	2
+27	__turnLeftPID_7qG2_derivate_7qG2_000	10	1	108	4	2
+28	__fowardPID_7qG2_derivate_7qG2_000	10	1	112	4	2
+29	__fowardPID_7qG2_integral_7qG2_000	10	1	116	4	4
+30	__fowardPID_7qG2_pwrLeft_7qG2_000	10	1	120	4	2
+31	__fowardPID_7qG2_pwrRight_7qG2_000	10	1	124	4	2
+32	__fowardPID_7qG2_lastError_7qG2_000	10	1	128	4	3
+33	__turnLeftPID_7qG2_time_7qG2_000	5	1	132	4	4
+34	__turnLeftPID_7qG2_prev_time_7qG2_000	5	1	136	4	2
+35	__turnLeftPID_7qG2_angle_7qG2_000	10	1	140	4	4
+36	__turnLeftPID_7qG2_gyro_7qG2_000	10	1	144	4	3
+37	__turnRightPID_7qG2_pwrRight_7qG2_000	10	1	148	4	2
+38	__OnRevMutex	9	0	152	4	4
+39	__turnRightPID_7qG2_derivate_7qG2_000	10	1	156	4	2
+40	__D0BTCheck	6	1	160	4	6
+41	__turnRightPID_7qG2_turn_7qG2_000	10	1	164	4	3
+42	__turnRightPID_7qG2_pwrLeft_7qG2_000	10	1	168	4	2
+43	__turnRightPID_7qG2_lastError_7qG2_000	10	1	172	4	3
+44	__TextOutMutex	9	0	176	4	22
+45	__ResetSensorMutex	9	0	180	4	4
+46	__RRNTmpVal	6	1	184	4	16
+47	__turnRightPID_7qG2_integral_7qG2_000	10	1	188	4	4
+48	__MRMutex	9	0	192	4	8
+49	__turnRightPID_7qG2_time_7qG2_000	5	1	196	4	4
+50	__Wait_7qG2_ms_7qG2_000_inline_main	5	1	200	4	2
+51	__turnRightPID_7qG2_prev_time_7qG2_000	5	1	204	4	2
+52	__DU0turnLeftPID	5	1	208	4	2
+53	__turnRightPID_7qG2_gyro_7qG2_000	10	1	212	4	3
+54	__D0turn	6	1	216	4	6
+55	__D0main	6	1	220	4	39
+56	__D0fowardPID	6	1	224	4	2
+57	__turnRightPID_7qG2_rRotation_7qG2_000	10	1	228	4	3
+58	__turnRightPID_7qG2_lRotation_7qG2_000	10	1	232	4	3
+59	__turnRightPID_7qG2_error_7qG2_000	10	1	236	4	5
+60	__DF0fowardPID	10	1	240	4	8
+61	__turn_7qG2_graus_7qG2_000	4	1	244	2	3
+62	__constVal1000	4	0	246	2	2
+63	__constVal600	4	0	248	2	2
+64	__SensorHTGyro_7qG2_offset_7qG2_000_inline_turnLeftPID	4	1	250	2	2
+65	__BTCheck_7qG2_conn_7qG2_000	4	1	252	2	2
+66	__main_7qG2_uside_esq_7qG2_000	4	1	254	2	3
+67	__main_7qG2_uside_dir_7qG2_000	4	1	256	2	2
+68	__main_7qG2_ufront_esq_7qG2_000	4	1	258	2	2
+69	__main_7qG2_ufront_dir_7qG2_000	4	1	260	2	2
+70	__turnRightPID_7qG2_turnAngle_7qG2_000	4	1	262	2	2
+71	__SensorHTGyro_7qG2_offset_7qG2_000_inline_turnRightPID	4	1	264	2	2
+72	__turn_7qG2_direcao_7qG2_000	4	1	266	2	3
+73	__turnLeftPID_7qG2_turnAngle_7qG2_000	4	1	268	2	2
+74	__ClearLine_7qG2_line_7qG2_000_inline_main	1	1	270	1	4
+75	____initialize_global_data_return	1	1	271	1	3
+76	__SensorHTGyro_7qG2_port_7qG2_000_inline_turnRightPID	1	1	272	1	2
+77	__ResetSensor_7qG2_port_7qG2_000_inline_SetSensorHTGyro_inline_turnRightPID	1	1	273	1	2
+78	__SetSensorType_7qG2_port_7qG2_000_inline_SetSensorHTGyro_inline_turnRightPID	1	1	274	1	2
+79	__SetSensorType_7qG2_type_7qG2_000_inline_SetSensorHTGyro_inline_turnRightPID	1	1	275	1	2
+80	__turnRightPID_return	1	1	276	1	3
+81	__SetSensorHTGyro_7qG2_port_7qG2_000_inline_turnRightPID	1	1	277	1	3
+82	__SetSensorMode_7qG2_mode_7qG2_000_inline_SetSensorHTGyro_inline_turnRightPID	1	1	278	1	2
+83	__BTCheck_return	1	1	279	1	3
+84	__turn_return	1	1	280	1	3
+85	__SetSensorMode_7qG2_port_7qG2_000_inline_SetSensorHTGyro_inline_turnRightPID	1	1	281	1	2
+86	__SensorHTGyro_7qG2_port_7qG2_000_inline_turnLeftPID	1	1	282	1	2
+87	__constVal2	2	0	283	1	3
+88	__constVal10	2	0	284	1	3
+89	__ResetSensorTmp	1	1	285	1	2
+90	____ResetSensorSubroutine_return	1	1	286	1	4
+91	__constVal64	2	0	287	1	3
+92	__zfBTCheck	1	1	288	1	3
+93	__RRNErr	1	1	289	1	4
+94	__constVal70	2	0	290	1	6
+95	__constVal1	2	0	291	1	18
+96	__constVal0	2	1	292	1	55
+97	__OnRev_Tmp	2	1	293	1	4
+98	__constVal32	2	0	294	1	24
+99	__constVal5	2	0	295	1	3
+100	__ResetSensorPort	1	1	296	1	4
+101	__constVal3	2	0	297	1	9
+102	__constVal4	2	0	298	1	1
+103	__turnLeftPID_return	1	1	299	1	3
+104	__SetSensorHTGyro_7qG2_port_7qG2_000_inline_turnLeftPID	1	1	300	1	3
+105	__constVal63	2	0	301	1	8
+106	__zfturnRightPID	1	1	302	1	3
+107	__constVal96	2	0	303	1	8
+108	__SetSensorMode_7qG2_mode_7qG2_000_inline_SetSensorHTGyro_inline_turnLeftPID	1	1	304	1	2
+109	__ResetSensor_7qG2_port_7qG2_000_inline_SetSensorHTGyro_inline_turnLeftPID	1	1	305	1	2
+110	__SetSensorMode_7qG2_port_7qG2_000_inline_SetSensorHTGyro_inline_turnLeftPID	1	1	306	1	2
+111	__SetSensorType_7qG2_port_7qG2_000_inline_SetSensorHTGyro_inline_turnLeftPID	1	1	307	1	2
+112	__SetSensorType_7qG2_type_7qG2_000_inline_SetSensorHTGyro_inline_turnLeftPID	1	1	308	1	2
+113	__zfturnLeftPID	1	1	309	1	2
+114	__zfturn	1	1	310	1	6
+115	__zffowardPID	1	1	311	1	2
+116	__zfmain	1	1	312	1	15
+117	__CBTCSArgs	8	0	2	4	4
+118	__CBTCSArgs.Result	2	1	316	1	4
+119	__CBTCSArgs.Connection	1	1	317	1	4
+120	__MRArgs	8	0	4	8	20
+121	__MRArgs.Result	2	1	320	1	20
+122	__MRArgs.QueueID	1	1	321	1	20
+123	__MRArgs.Remove	1	1	322	1	20
+124	__MRArgs.Message	7	0	324	4	20
+125	__MRArgs.Message.Message_type	1	0	0	1	0
+126	__TextOutArgs	8	0	4	16	64
+127	__TextOutArgs.Result	2	1	328	1	64
+128	__TextOutArgs.Location	8	0	2	4	64
+129	__TextOutArgs.Location.X	4	1	332	2	64
+130	__TextOutArgs.Location.Y	4	1	334	2	64
+131	__TextOutArgs.Text	7	0	336	4	64
+132	__TextOutArgs.Text.Text_type	1	0	0	1	0
+133	__TextOutArgs.Options	5	1	340	4	64
+134	__constStr0012	7	0	344	4	1
+135	__constStr0012.__constStr0012_type	1	1	0	1	0
+136	__constStr0013	7	0	346	4	1
+137	__constStr0013.__constStr0013_type	1	1	0	1	0
+138	__OUT_AB	7	0	348	4	5
+139	__OUT_AB.__OUT_AB_type	1	0	0	1	0
+140	__strbufBTCheck	7	0	350	4	2
+141	__strbufBTCheck.__strbufBTCheck_type	1	0	0	1	0
+142	__constStr0011	7	0	352	4	1
+143	__constStr0011.__constStr0011_type	1	1	0	1	0
+144	__constStr0009	7	0	354	4	1
+145	__constStr0009.__constStr0009_type	1	1	0	1	0
+146	__strbufmain	7	0	356	4	8
+147	__strbufmain.__strbufmain_type	1	0	0	1	0
+148	__constStr0010	7	0	358	4	1
+149	__constStr0010.__constStr0010_type	1	1	0	1	0
+150	__BlankLine	7	0	360	4	2
+151	__BlankLine.__BlankLine_type	1	0	0	1	0
+#SOURCES
+Clump	Line	PC	Source
+0	43	0	#line 43 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	44	0		subcall __initialize_global_data, ____initialize_global_data_return
+0	43	2	#line 43 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	45	2	#line 45 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	46	2		set __BTCheck_7qG2_conn_7qG2_000, 1
+0	45	5	#line 45 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	47	5	#line 47 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	48	5		subcall BTCheck, __BTCheck_return
+0	47	7	#line 47 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	47	7	#line 47 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	48	7		set __signed_stack_001main, 10
+0	47	10	#line 47 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	47	10	#line 47 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	48	10		set __signed_stack_002main, 24
+0	47	13	#line 47 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	47	13	#line 47 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	48	13		strcat __strbufmain, __constStr0010
+0	48	17	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	49	17		acquire __TextOutMutex
+0	48	18	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	49	18		mov __TextOutArgs.Location.X, __signed_stack_001main
+0	48	20	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	49	20		mov __TextOutArgs.Location.Y, __signed_stack_002main
+0	48	23	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	49	23		set __TextOutArgs.Options, 0
+0	48	26	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	49	26		mov __TextOutArgs.Text, __strbufmain
+0	48	28	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	49	28		syscall 13, __TextOutArgs
+0	48	31	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	49	31		mov __D0main, __TextOutArgs.Result
+0	48	33	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	49	33		release __TextOutMutex
+0	48	34	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	48	34	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	49	34		set __signed_stack_001main, 10
+0	48	37	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	48	37	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	49	37		set __signed_stack_002main, 40
+0	48	40	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	48	40	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	49	40		strcat __strbufmain, __constStr0011
+0	49	44	#line 49 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	50	44		acquire __TextOutMutex
+0	49	45	#line 49 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	50	45		mov __TextOutArgs.Location.X, __signed_stack_001main
+0	49	47	#line 49 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	50	47		mov __TextOutArgs.Location.Y, __signed_stack_002main
+0	49	50	#line 49 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	50	50		set __TextOutArgs.Options, 0
+0	49	53	#line 49 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	50	53		mov __TextOutArgs.Text, __strbufmain
+0	49	55	#line 49 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	50	55		syscall 13, __TextOutArgs
+0	49	58	#line 49 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	50	58		mov __D0main, __TextOutArgs.Result
+0	49	60	#line 49 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	50	60		release __TextOutMutex
+0	49	61	#line 49 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	49	61	#line 49 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	50	61		set __signed_stack_001main, 50
+0	49	64	#line 49 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	49	64	#line 49 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	50	64		set __signed_stack_002main, 24
+0	49	67	#line 49 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	49	67	#line 49 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	50	67		strcat __strbufmain, __constStr0012
+0	50	71	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	51	71		acquire __TextOutMutex
+0	50	72	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	51	72		mov __TextOutArgs.Location.X, __signed_stack_001main
+0	50	74	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	51	74		mov __TextOutArgs.Location.Y, __signed_stack_002main
+0	50	77	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	51	77		set __TextOutArgs.Options, 0
+0	50	80	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	51	80		mov __TextOutArgs.Text, __strbufmain
+0	50	82	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	51	82		syscall 13, __TextOutArgs
+0	50	85	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	51	85		mov __D0main, __TextOutArgs.Result
+0	50	87	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	51	87		release __TextOutMutex
+0	50	88	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	50	88	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	51	88		set __signed_stack_001main, 50
+0	50	91	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	50	91	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	51	91		set __signed_stack_002main, 40
+0	50	94	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	50	94	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	51	94		strcat __strbufmain, __constStr0013
+0	52	98	#line 52 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	53	98		acquire __TextOutMutex
+0	52	99	#line 52 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	53	99		mov __TextOutArgs.Location.X, __signed_stack_001main
+0	52	101	#line 52 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	53	101		mov __TextOutArgs.Location.Y, __signed_stack_002main
+0	52	104	#line 52 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	53	104		set __TextOutArgs.Options, 0
+0	52	107	#line 52 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	53	107		mov __TextOutArgs.Text, __strbufmain
+0	52	109	#line 52 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	53	109		syscall 13, __TextOutArgs
+0	52	112	#line 52 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	53	112		mov __D0main, __TextOutArgs.Result
+0	52	114	#line 52 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	53	114		release __TextOutMutex
+0	52	115	#line 52 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	54	115	#line 54 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	55	115		start fowardPID
+0	54	117	#line 54 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	54	117	#line 54 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	55	117		mov __signed_stack_001main, __main_7qG2_uside_esq_7qG2_000
+0	54	119	#line 54 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	54	119	#line 54 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	55	119		set __D0main, 35
+0	54	122	#line 54 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	55	122		cmp 1, __zfmain, __signed_stack_001main, __D0main
+0	54	126	#line 54 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	55	126		mov __D0main, __zfmain
+0	61	128	#line 61 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	62	128		brtst 4, __NXC_Label_893, __zfmain
+0	61	131	#line 61 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	62	131	#pragma macro 9
+0	62	131		acquire __MRMutex
+0	62	132		mov __MRArgs.QueueID, __constVal1
+0	62	134		mov __MRArgs.Remove, __constVal1
+0	62	136		set __RRNTmpVal, 0
+0	62	139		syscall 27, __MRArgs
+0	62	142		unflatten __RRNTmpVal, __RRNErr, __MRArgs.Message, __RRNTmpVal
+0	62	147		mov __main_7qG2_ufront_esq_7qG2_000, __RRNTmpVal
+0	62	149		mov __D0main, __MRArgs.Result
+0	62	151		release __MRMutex
+0	9043	152	#line 9043 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	61	152	#line 61 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	62	152		mov __signed_stack_001main, __D0main
+0	61	154	#line 61 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	62	154		set __D0main, 0
+0	61	157	#line 61 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	62	157		cmp 4, __zfmain, __signed_stack_001main, __D0main
+0	61	161	#line 61 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	62	161		mov __D0main, __zfmain
+0	62	163	#line 62 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	63	163		brtst 4, __NXC_Label_898, __zfmain
+0	62	166	#line 62 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	63	166		set __signed_stack_001main, 10
+0	62	169	#line 62 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	62	169	#line 62 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	63	169		set __signed_stack_002main, 32
+0	62	172	#line 62 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	62	172	#line 62 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	63	172		mov __D0main, __main_7qG2_ufront_esq_7qG2_000
+0	63	174	#line 63 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	64	174		acquire __TextOutMutex
+0	63	175	#line 63 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	64	175		mov __TextOutArgs.Location.X, __signed_stack_001main
+0	63	177	#line 63 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	64	177		mov __TextOutArgs.Location.Y, __signed_stack_002main
+0	63	180	#line 63 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	64	180		set __TextOutArgs.Options, 0
+0	63	183	#line 63 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	64	183		numtostr __TextOutArgs.Text, __D0main
+0	63	186	#line 63 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	64	186		syscall 13, __TextOutArgs
+0	63	189	#line 63 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	64	189		mov __D0main, __TextOutArgs.Result
+0	63	191	#line 63 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	64	191		release __TextOutMutex
+0	63	192	#line 63 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	64	192	#line 64 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	64	192	#line 64 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	65	192	#pragma macro 9
+0	65	192		acquire __MRMutex
+0	65	193		mov __MRArgs.QueueID, __constVal2
+0	65	195		mov __MRArgs.Remove, __constVal1
+0	65	197		set __RRNTmpVal, 0
+0	65	200		syscall 27, __MRArgs
+0	65	203		unflatten __RRNTmpVal, __RRNErr, __MRArgs.Message, __RRNTmpVal
+0	65	208		mov __main_7qG2_ufront_dir_7qG2_000, __RRNTmpVal
+0	65	210		mov __D0main, __MRArgs.Result
+0	65	212		release __MRMutex
+0	9092	213	#line 9092 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	64	213	#line 64 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	65	213		mov __signed_stack_001main, __D0main
+0	64	215	#line 64 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	65	215		set __D0main, 0
+0	64	218	#line 64 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	65	218		cmp 4, __zfmain, __signed_stack_001main, __D0main
+0	64	222	#line 64 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	65	222		mov __D0main, __zfmain
+0	65	224	#line 65 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	66	224		brtst 4, __NXC_Label_907, __zfmain
+0	65	227	#line 65 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	66	227		set __signed_stack_001main, 10
+0	65	230	#line 65 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	65	230	#line 65 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	66	230		set __signed_stack_002main, 16
+0	65	233	#line 65 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	65	233	#line 65 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	66	233		mov __D0main, __main_7qG2_ufront_dir_7qG2_000
+0	66	235	#line 66 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	67	235		acquire __TextOutMutex
+0	66	236	#line 66 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	67	236		mov __TextOutArgs.Location.X, __signed_stack_001main
+0	66	238	#line 66 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	67	238		mov __TextOutArgs.Location.Y, __signed_stack_002main
+0	66	241	#line 66 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	67	241		set __TextOutArgs.Options, 0
+0	66	244	#line 66 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	67	244		numtostr __TextOutArgs.Text, __D0main
+0	66	247	#line 66 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	67	247		syscall 13, __TextOutArgs
+0	66	250	#line 66 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	67	250		mov __D0main, __TextOutArgs.Result
+0	66	252	#line 66 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	67	252		release __TextOutMutex
+0	66	253	#line 66 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	67	253	#line 67 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	67	253	#line 67 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	68	253		set __Wait_7qG2_ms_7qG2_000_inline_main, 100
+0	67	256	#line 67 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	7921	256	#line 7921 "NXCDefs.h"
+0	7922	256		wait 100
+0	7921	258	#line 7921 "NXCDefs.h"
+0	68	258	#line 68 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	68	258	#line 68 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	69	258	#pragma macro 9
+0	69	258		acquire __MRMutex
+0	69	259		mov __MRArgs.QueueID, __constVal3
+0	69	261		mov __MRArgs.Remove, __constVal1
+0	69	263		set __RRNTmpVal, 0
+0	69	266		syscall 27, __MRArgs
+0	69	269		unflatten __RRNTmpVal, __RRNErr, __MRArgs.Message, __RRNTmpVal
+0	69	274		mov __main_7qG2_uside_dir_7qG2_000, __RRNTmpVal
+0	69	276		mov __D0main, __MRArgs.Result
+0	69	278		release __MRMutex
+0	9155	279	#line 9155 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	68	279	#line 68 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	69	279		mov __signed_stack_001main, __D0main
+0	68	281	#line 68 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	69	281		set __D0main, 0
+0	68	284	#line 68 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	69	284		cmp 4, __zfmain, __signed_stack_001main, __D0main
+0	68	288	#line 68 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	69	288		mov __D0main, __zfmain
+0	69	290	#line 69 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	70	290		brtst 4, __NXC_Label_918, __zfmain
+0	69	293	#line 69 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	70	293		set __signed_stack_001main, 50
+0	69	296	#line 69 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	69	296	#line 69 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	70	296		set __signed_stack_002main, 32
+0	69	299	#line 69 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	69	299	#line 69 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	70	299		mov __D0main, __main_7qG2_uside_dir_7qG2_000
+0	70	301	#line 70 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	71	301		acquire __TextOutMutex
+0	70	302	#line 70 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	71	302		mov __TextOutArgs.Location.X, __signed_stack_001main
+0	70	304	#line 70 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	71	304		mov __TextOutArgs.Location.Y, __signed_stack_002main
+0	70	307	#line 70 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	71	307		set __TextOutArgs.Options, 0
+0	70	310	#line 70 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	71	310		numtostr __TextOutArgs.Text, __D0main
+0	70	313	#line 70 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	71	313		syscall 13, __TextOutArgs
+0	70	316	#line 70 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	71	316		mov __D0main, __TextOutArgs.Result
+0	70	318	#line 70 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	71	318		release __TextOutMutex
+0	70	319	#line 70 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	71	319	#line 71 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	71	319	#line 71 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	72	319	#pragma macro 9
+0	72	319		acquire __MRMutex
+0	72	320		mov __MRArgs.QueueID, __constVal4
+0	72	322		mov __MRArgs.Remove, __constVal1
+0	72	324		set __RRNTmpVal, 0
+0	72	327		syscall 27, __MRArgs
+0	72	330		unflatten __RRNTmpVal, __RRNErr, __MRArgs.Message, __RRNTmpVal
+0	72	335		mov __main_7qG2_uside_esq_7qG2_000, __RRNTmpVal
+0	72	337		mov __D0main, __MRArgs.Result
+0	72	339		release __MRMutex
+0	9204	340	#line 9204 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	71	340	#line 71 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	72	340		mov __signed_stack_001main, __D0main
+0	71	342	#line 71 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	72	342		set __D0main, 0
+0	71	345	#line 71 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	72	345		cmp 4, __zfmain, __signed_stack_001main, __D0main
+0	71	349	#line 71 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	72	349		mov __D0main, __zfmain
+0	72	351	#line 72 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	73	351		brtst 4, __NXC_Label_927, __zfmain
+0	72	354	#line 72 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	73	354		set __signed_stack_001main, 50
+0	72	357	#line 72 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	72	357	#line 72 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	73	357		set __signed_stack_002main, 16
+0	72	360	#line 72 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	72	360	#line 72 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	73	360		mov __D0main, __main_7qG2_uside_esq_7qG2_000
+0	73	362	#line 73 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	74	362		acquire __TextOutMutex
+0	73	363	#line 73 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	74	363		mov __TextOutArgs.Location.X, __signed_stack_001main
+0	73	365	#line 73 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	74	365		mov __TextOutArgs.Location.Y, __signed_stack_002main
+0	73	368	#line 73 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	74	368		set __TextOutArgs.Options, 0
+0	73	371	#line 73 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	74	371		numtostr __TextOutArgs.Text, __D0main
+0	73	374	#line 73 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	74	374		syscall 13, __TextOutArgs
+0	73	377	#line 73 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	74	377		mov __D0main, __TextOutArgs.Result
+0	73	379	#line 73 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	74	379		release __TextOutMutex
+0	73	380	#line 73 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	74	380	#line 74 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	74	380	#line 74 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	75	380		set __Wait_7qG2_ms_7qG2_000_inline_main, 500
+0	74	383	#line 74 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	7921	383	#line 7921 "NXCDefs.h"
+0	7922	383		wait 500
+0	7921	385	#line 7921 "NXCDefs.h"
+0	75	385	#line 75 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	75	385	#line 75 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	76	385		set __ClearLine_7qG2_line_7qG2_000_inline_main, 32
+0	75	388	#line 75 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	6076	388	#line 6076 "NXCDefs.h"
+0	6077	388	#pragma macro 7
+0	6077	388		acquire __TextOutMutex
+0	6077	389		mov __TextOutArgs.Location.X, __constVal0
+0	6077	391		mov __TextOutArgs.Location.Y, __ClearLine_7qG2_line_7qG2_000_inline_main
+0	6077	393		mov __TextOutArgs.Options, __constVal0
+0	6077	395		mov __TextOutArgs.Text, __BlankLine
+0	6077	397		syscall 13, __TextOutArgs
+0	6077	400		release __TextOutMutex
+0	9273	401	#line 9273 "NXCDefs.h"
+0	6076	401	#line 6076 "NXCDefs.h"
+0	76	401	#line 76 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	76	401	#line 76 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	77	401		set __ClearLine_7qG2_line_7qG2_000_inline_main, 16
+0	76	404	#line 76 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	6076	404	#line 6076 "NXCDefs.h"
+0	6077	404	#pragma macro 7
+0	6077	404		acquire __TextOutMutex
+0	6077	405		mov __TextOutArgs.Location.X, __constVal0
+0	6077	407		mov __TextOutArgs.Location.Y, __ClearLine_7qG2_line_7qG2_000_inline_main
+0	6077	409		mov __TextOutArgs.Options, __constVal0
+0	6077	411		mov __TextOutArgs.Text, __BlankLine
+0	6077	413		syscall 13, __TextOutArgs
+0	6077	416		release __TextOutMutex
+0	9283	417	#line 9283 "NXCDefs.h"
+0	6076	417	#line 6076 "NXCDefs.h"
+0	82	417	#line 82 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	84	417	#line 84 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	85	417		jmp __NXC_Label_892
+0	84	419	#line 84 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	85	419	#line 85 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	86	419		stopthread fowardPID
+0	85	421	#line 85 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	85	421	#line 85 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	86	421		set __turn_7qG2_direcao_7qG2_000, 0
+0	85	424	#line 85 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	85	424	#line 85 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	86	424		set __turn_7qG2_graus_7qG2_000, 90
+0	85	427	#line 85 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	122	427	#line 122 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	123	427		subcall turn, __turn_return
+0	122	429	#line 122 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+0	123	429		exit -1, -1
+1	4885	0		setin __constVal1, __ResetSensorPort, 5
+1	4887	4		getin __ResetSensorTmp, __ResetSensorPort, 5
+1	4888	8		brtst 5, __SensorStillInvalid, __ResetSensorTmp
+1	4889	11		subret ____ResetSensorSubroutine_return
+2	12	0	#line 12 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	13	0	#pragma macro 7
+2	13	0		setout __OUT_AB, 0, __constVal64
+2	7216	5	#line 7216 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	12	5	#line 12 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	12	5	#line 12 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	12	5	#line 12 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	7921	5	#line 7921 "NXCDefs.h"
+2	7922	5		wait 10
+2	7921	7	#line 7921 "NXCDefs.h"
+2	13	7	#line 13 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	14	7	#line 14 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	15	7		getout __fowardPID_7qG2_lRotation_7qG2_000, __constVal0, 14
+2	14	11	#line 14 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	15	11	#line 15 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	16	11		getout __fowardPID_7qG2_rRotation_7qG2_000, __constVal1, 14
+2	15	15	#line 15 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	17	15	#line 17 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	18	15		mov __fowardPID_7qG2_integral_7qG2_000, __constVal0
+2	17	17	#line 17 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	18	17	#line 18 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	19	17		mov __fowardPID_7qG2_lastError_7qG2_000, __constVal0
+2	18	19	#line 18 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	18	19	#line 18 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	19	19		set __D0fowardPID, 1
+2	19	22	#line 19 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	20	22		tst 5, __zffowardPID, __D0fowardPID
+2	19	25	#line 19 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	20	25		brtst 4, __NXC_Label_615, __zffowardPID
+2	20	28	#line 20 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	21	28		getout __fowardPID_7qG2_lRotation_7qG2_000, __constVal0, 14
+2	20	32	#line 20 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	20	32	#line 20 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	21	32	#line 21 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	22	32		getout __fowardPID_7qG2_rRotation_7qG2_000, __constVal1, 14
+2	21	36	#line 21 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	21	36	#line 21 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	21	36	#line 21 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	21	36	#line 21 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	22	36	#line 22 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	22	36	#line 22 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	23	36		sub __fowardPID_7qG2_error_7qG2_000, __fowardPID_7qG2_lRotation_7qG2_000, __fowardPID_7qG2_rRotation_7qG2_000
+2	22	40	#line 22 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	22	40	#line 22 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	22	40	#line 22 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	22	40	#line 22 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	22	40	#line 22 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	22	40	#line 22 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	23	40		mul __float_stack_001fowardPID, __constVal0, __fowardPID_7qG2_integral_7qG2_000
+2	22	44	#line 22 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	23	44	#line 23 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	23	44	#line 23 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	24	44		add __fowardPID_7qG2_integral_7qG2_000, __float_stack_001fowardPID, __fowardPID_7qG2_error_7qG2_000
+2	23	48	#line 23 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	23	48	#line 23 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	23	48	#line 23 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	23	48	#line 23 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	24	48	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	24	48	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	25	48		sub __fowardPID_7qG2_derivate_7qG2_000, __fowardPID_7qG2_error_7qG2_000, __fowardPID_7qG2_lastError_7qG2_000
+2	24	52	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	24	52	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	24	52	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	24	52	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	24	52	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	24	52	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	25	52		mul __float_stack_001fowardPID, __constVal5, __fowardPID_7qG2_error_7qG2_000
+2	24	56	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	24	56	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	24	56	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	24	56	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	24	56	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	25	56		mul __DF0fowardPID, __constVal1, __fowardPID_7qG2_integral_7qG2_000
+2	24	60	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	25	60		add __float_stack_001fowardPID, __float_stack_001fowardPID, __DF0fowardPID
+2	24	64	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	24	64	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	24	64	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	24	64	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	24	64	#line 24 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	25	64		mul __DF0fowardPID, __constVal10, __fowardPID_7qG2_derivate_7qG2_000
+2	25	68	#line 25 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	26	68		add __fowardPID_7qG2_turn_7qG2_000, __float_stack_001fowardPID, __DF0fowardPID
+2	25	72	#line 25 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	25	72	#line 25 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	25	72	#line 25 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	25	72	#line 25 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	26	72	#line 26 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	26	72	#line 26 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	27	72		sub __fowardPID_7qG2_pwrLeft_7qG2_000, __constVal70, __fowardPID_7qG2_turn_7qG2_000
+2	26	76	#line 26 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	26	76	#line 26 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	26	76	#line 26 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	26	76	#line 26 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	27	76	#line 27 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	27	76	#line 27 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	28	76		add __fowardPID_7qG2_pwrRight_7qG2_000, __constVal70, __fowardPID_7qG2_turn_7qG2_000
+2	27	80	#line 27 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	27	80	#line 27 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	27	80	#line 27 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	28	80		mov __DF0fowardPID, __fowardPID_7qG2_pwrLeft_7qG2_000
+2	28	82	#line 28 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	29	82	#pragma macro 7
+2	29	82		setout __constVal0, 2, __DF0fowardPID, 1, __constVal3, 8, __constVal0, 6, __constVal32, 7, __constVal0, 5, __constVal0, 10, __constVal96, 11, __constVal32, 12, __constVal32, 0, __constVal63
+2	7438	105	#line 7438 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	28	105	#line 28 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	28	105	#line 28 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	29	105		mov __DF0fowardPID, __fowardPID_7qG2_pwrRight_7qG2_000
+2	29	107	#line 29 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	30	107	#pragma macro 7
+2	30	107		setout __constVal1, 2, __DF0fowardPID, 1, __constVal3, 8, __constVal0, 6, __constVal32, 7, __constVal0, 5, __constVal0, 10, __constVal96, 11, __constVal32, 12, __constVal32, 0, __constVal63
+2	7445	130	#line 7445 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	29	130	#line 29 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	30	130	#line 30 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	31	130		mov __fowardPID_7qG2_lastError_7qG2_000, __fowardPID_7qG2_error_7qG2_000
+2	30	132	#line 30 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	30	132	#line 30 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	33	132	#line 33 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	34	132		jmp __NXC_Label_614
+2	33	134	#line 33 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+2	34	134		exit -1, -1
+3	34	0	#line 34 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	35	0		set __SetSensorHTGyro_7qG2_port_7qG2_000_inline_turnLeftPID, 2
+3	34	3	#line 34 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	12977	3	#line 12977 "NXCDefs.h"
+3	12978	3		mov __SetSensorType_7qG2_port_7qG2_000_inline_SetSensorHTGyro_inline_turnLeftPID, __constVal2
+3	12977	5	#line 12977 "NXCDefs.h"
+3	12977	5	#line 12977 "NXCDefs.h"
+3	12978	5		set __SetSensorType_7qG2_type_7qG2_000_inline_SetSensorHTGyro_inline_turnLeftPID, 6
+3	12977	8	#line 12977 "NXCDefs.h"
+3	3663	8	#line 3663 "NXCDefs.h"
+3	3664	8		setin __SetSensorType_7qG2_type_7qG2_000_inline_SetSensorHTGyro_inline_turnLeftPID, __SetSensorType_7qG2_port_7qG2_000_inline_SetSensorHTGyro_inline_turnLeftPID, 0
+3	3663	12	#line 3663 "NXCDefs.h"
+3	12978	12	#line 12978 "NXCDefs.h"
+3	12978	12	#line 12978 "NXCDefs.h"
+3	12979	12		mov __SetSensorMode_7qG2_port_7qG2_000_inline_SetSensorHTGyro_inline_turnLeftPID, __SetSensorHTGyro_7qG2_port_7qG2_000_inline_turnLeftPID
+3	12978	14	#line 12978 "NXCDefs.h"
+3	12978	14	#line 12978 "NXCDefs.h"
+3	12979	14		set __SetSensorMode_7qG2_mode_7qG2_000_inline_SetSensorHTGyro_inline_turnLeftPID, 0
+3	12978	17	#line 12978 "NXCDefs.h"
+3	3676	17	#line 3676 "NXCDefs.h"
+3	3677	17		setin __SetSensorMode_7qG2_mode_7qG2_000_inline_SetSensorHTGyro_inline_turnLeftPID, __SetSensorMode_7qG2_port_7qG2_000_inline_SetSensorHTGyro_inline_turnLeftPID, 1
+3	3676	21	#line 3676 "NXCDefs.h"
+3	12979	21	#line 12979 "NXCDefs.h"
+3	12979	21	#line 12979 "NXCDefs.h"
+3	12980	21		mov __ResetSensor_7qG2_port_7qG2_000_inline_SetSensorHTGyro_inline_turnLeftPID, __SetSensorHTGyro_7qG2_port_7qG2_000_inline_turnLeftPID
+3	12979	23	#line 12979 "NXCDefs.h"
+3	3694	23	#line 3694 "NXCDefs.h"
+3	3695	23	#pragma macro 4
+3	3695	23		acquire __ResetSensorMutex
+3	3695	24		mov __ResetSensorPort, __ResetSensor_7qG2_port_7qG2_000_inline_SetSensorHTGyro_inline_turnLeftPID
+3	3695	26		subcall __ResetSensorSubroutine, ____ResetSensorSubroutine_return
+3	3695	28		release __ResetSensorMutex
+3	7530	29	#line 7530 "NXCDefs.h"
+3	3694	29	#line 3694 "NXCDefs.h"
+3	12980	29	#line 12980 "NXCDefs.h"
+3	35	29	#line 35 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	36	29	#line 36 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	37	29	#pragma macro 7
+3	37	29		setout __OUT_AB, 0, __constVal64
+3	7535	34	#line 7535 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	36	34	#line 36 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	36	34	#line 36 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	36	34	#line 36 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	7921	34	#line 7921 "NXCDefs.h"
+3	7922	34		wait 10
+3	7921	36	#line 7921 "NXCDefs.h"
+3	37	36	#line 37 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	37	36	#line 37 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	37	36	#line 37 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	38	36		mov __turnLeftPID_7qG2_angle_7qG2_000, __constVal0
+3	38	38	#line 38 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	38	38	#line 38 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	39	38		mov __turnLeftPID_7qG2_gyro_7qG2_000, __constVal0
+3	38	40	#line 38 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	39	40		gettick __turnLeftPID_7qG2_time_7qG2_000
+3	38	42	#line 38 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	41	42	#line 41 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	42	42		getout __turnLeftPID_7qG2_lRotation_7qG2_000, __constVal0, 14
+3	41	46	#line 41 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	42	46	#line 42 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	43	46		getout __turnLeftPID_7qG2_rRotation_7qG2_000, __constVal1, 14
+3	42	50	#line 42 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	44	50	#line 44 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	45	50		mov __turnLeftPID_7qG2_integral_7qG2_000, __constVal0
+3	44	52	#line 44 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	45	52	#line 45 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	46	52		mov __turnLeftPID_7qG2_lastError_7qG2_000, __constVal0
+3	45	54	#line 45 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	45	54	#line 45 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	46	54		mov __float_stack_001turnLeftPID, __turnLeftPID_7qG2_angle_7qG2_000
+3	45	56	#line 45 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	45	56	#line 45 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	45	56	#line 45 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	45	56	#line 45 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	45	56	#line 45 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	46	56		sub __DF0turnLeftPID, __constVal0, __turnLeftPID_7qG2_turnAngle_7qG2_000
+3	45	60	#line 45 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	46	60		cmp 3, __zfturnLeftPID, __float_stack_001turnLeftPID, __DF0turnLeftPID
+3	45	64	#line 45 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	47	64	#line 47 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	48	64		brtst 4, __NXC_Label_669, __zfturnLeftPID
+3	48	67	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	49	67		mov __turnLeftPID_7qG2_prev_time_7qG2_000, __turnLeftPID_7qG2_time_7qG2_000
+3	48	69	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	48	69	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	48	69	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	49	69		gettick __turnLeftPID_7qG2_time_7qG2_000
+3	48	71	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	48	71	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	48	71	#line 48 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	49	71	#line 49 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	50	71		set __SensorHTGyro_7qG2_port_7qG2_000_inline_turnLeftPID, 2
+3	49	74	#line 49 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	50	74	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	51	74		mov __SensorHTGyro_7qG2_offset_7qG2_000_inline_turnLeftPID, __constVal0
+3	12919	76	#line 12919 "NXCDefs.h"
+3	12920	76		getin __D0SensorHTGyro_inline_turnLeftPID, __SensorHTGyro_7qG2_port_7qG2_000_inline_turnLeftPID, 2
+3	12921	80		sub __D0SensorHTGyro_inline_turnLeftPID, __D0SensorHTGyro_inline_turnLeftPID, __constVal600
+3	12922	84		sub __turnLeftPID_7qG2_gyro_7qG2_000, __D0SensorHTGyro_inline_turnLeftPID, __SensorHTGyro_7qG2_offset_7qG2_000_inline_turnLeftPID
+3	12923	88	#line 12923 "NXCDefs.h"
+3	50	88	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	50	88	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	50	88	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	50	88	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	51	88		mov __float_stack_001turnLeftPID, __turnLeftPID_7qG2_gyro_7qG2_000
+3	50	90	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	50	90	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	50	90	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	50	90	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	50	90	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	51	90		sub __DU0turnLeftPID, __turnLeftPID_7qG2_time_7qG2_000, __turnLeftPID_7qG2_prev_time_7qG2_000
+3	50	94	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	51	94		mul __float_stack_001turnLeftPID, __float_stack_001turnLeftPID, __DU0turnLeftPID
+3	50	98	#line 50 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	52	98	#line 52 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	52	98	#line 52 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	53	98		div __DF0turnLeftPID, __float_stack_001turnLeftPID, __constVal1000
+3	52	102	#line 52 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	53	102		add __turnLeftPID_7qG2_angle_7qG2_000, __turnLeftPID_7qG2_angle_7qG2_000, __DF0turnLeftPID
+3	52	106	#line 52 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	53	106	#line 53 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	54	106		getout __turnLeftPID_7qG2_lRotation_7qG2_000, __constVal0, 14
+3	53	110	#line 53 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	53	110	#line 53 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	54	110	#line 54 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	55	110		getout __turnLeftPID_7qG2_rRotation_7qG2_000, __constVal1, 14
+3	54	114	#line 54 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	54	114	#line 54 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	54	114	#line 54 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	55	114		mov __DF0turnLeftPID, __turnLeftPID_7qG2_lRotation_7qG2_000
+3	54	116	#line 54 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	55	116		abs __float_stack_001turnLeftPID, __DF0turnLeftPID
+3	54	119	#line 54 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	54	119	#line 54 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	55	119		mov __DF0turnLeftPID, __turnLeftPID_7qG2_rRotation_7qG2_000
+3	55	121	#line 55 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	56	121		abs __DF0turnLeftPID, __DF0turnLeftPID
+3	55	124	#line 55 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	56	124		sub __turnLeftPID_7qG2_error_7qG2_000, __float_stack_001turnLeftPID, __DF0turnLeftPID
+3	55	128	#line 55 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	55	128	#line 55 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	55	128	#line 55 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	55	128	#line 55 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	55	128	#line 55 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	55	128	#line 55 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	56	128		mul __float_stack_001turnLeftPID, __constVal0, __turnLeftPID_7qG2_integral_7qG2_000
+3	55	132	#line 55 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	56	132	#line 56 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	56	132	#line 56 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	57	132		add __turnLeftPID_7qG2_integral_7qG2_000, __float_stack_001turnLeftPID, __turnLeftPID_7qG2_error_7qG2_000
+3	56	136	#line 56 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	56	136	#line 56 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	56	136	#line 56 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	56	136	#line 56 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	57	136	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	57	136	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	58	136		sub __turnLeftPID_7qG2_derivate_7qG2_000, __turnLeftPID_7qG2_error_7qG2_000, __turnLeftPID_7qG2_lastError_7qG2_000
+3	57	140	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	57	140	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	57	140	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	57	140	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	57	140	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	57	140	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	58	140		mul __float_stack_001turnLeftPID, __constVal5, __turnLeftPID_7qG2_error_7qG2_000
+3	57	144	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	57	144	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	57	144	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	57	144	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	57	144	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	58	144		mul __DF0turnLeftPID, __constVal1, __turnLeftPID_7qG2_integral_7qG2_000
+3	57	148	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	58	148		add __float_stack_001turnLeftPID, __float_stack_001turnLeftPID, __DF0turnLeftPID
+3	57	152	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	57	152	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	57	152	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	57	152	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	57	152	#line 57 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	58	152		mul __DF0turnLeftPID, __constVal10, __turnLeftPID_7qG2_derivate_7qG2_000
+3	58	156	#line 58 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	59	156		add __turnLeftPID_7qG2_turn_7qG2_000, __float_stack_001turnLeftPID, __DF0turnLeftPID
+3	58	160	#line 58 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	58	160	#line 58 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	58	160	#line 58 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	58	160	#line 58 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	59	160	#line 59 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	59	160	#line 59 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	60	160		sub __turnLeftPID_7qG2_pwrLeft_7qG2_000, __constVal70, __turnLeftPID_7qG2_turn_7qG2_000
+3	59	164	#line 59 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	59	164	#line 59 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	59	164	#line 59 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	59	164	#line 59 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	61	164	#line 61 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	61	164	#line 61 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	62	164		add __turnLeftPID_7qG2_pwrRight_7qG2_000, __constVal70, __turnLeftPID_7qG2_turn_7qG2_000
+3	61	168	#line 61 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	61	168	#line 61 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	61	168	#line 61 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	62	168		mov __DF0turnLeftPID, __turnLeftPID_7qG2_pwrLeft_7qG2_000
+3	62	170	#line 62 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	63	170	#pragma macro 10
+3	63	170		acquire __OnRevMutex
+3	63	171		neg __OnRev_Tmp, __DF0turnLeftPID
+3	63	174		setout __constVal0, 2, __OnRev_Tmp, 1, __constVal3, 8, __constVal0, 6, __constVal32, 7, __constVal0, 5, __constVal0, 10, __constVal96, 11, __constVal32, 12, __constVal32, 0, __constVal63
+3	63	197		release __OnRevMutex
+3	7881	198	#line 7881 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	62	198	#line 62 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	62	198	#line 62 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	63	198		mov __DF0turnLeftPID, __turnLeftPID_7qG2_pwrRight_7qG2_000
+3	63	200	#line 63 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	64	200	#pragma macro 7
+3	64	200		setout __constVal1, 2, __DF0turnLeftPID, 1, __constVal3, 8, __constVal0, 6, __constVal32, 7, __constVal0, 5, __constVal0, 10, __constVal96, 11, __constVal32, 12, __constVal32, 0, __constVal63
+3	7888	223	#line 7888 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	63	223	#line 63 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	64	223	#line 64 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	65	223		mov __turnLeftPID_7qG2_lastError_7qG2_000, __turnLeftPID_7qG2_error_7qG2_000
+3	64	225	#line 64 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	64	225	#line 64 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	65	225	#line 65 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	66	225		jmp __NXC_Label_668
+3	65	227	#line 65 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	66	227	#line 66 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	67	227	#pragma macro 7
+3	67	227		setout __OUT_AB, 2, __constVal0, 1, __constVal3, 8, __constVal0, 6, __constVal32, 7, __constVal0, 5, __constVal0, 10, __constVal96, 11, __constVal32, 12, __constVal32, 0, __constVal63
+3	7902	250	#line 7902 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	66	250	#line 66 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	68	250	#line 68 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+3	69	250		subret __turnLeftPID_return
+4	69	0	#line 69 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	70	0		set __SetSensorHTGyro_7qG2_port_7qG2_000_inline_turnRightPID, 2
+4	69	3	#line 69 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	12977	3	#line 12977 "NXCDefs.h"
+4	12978	3		mov __SetSensorType_7qG2_port_7qG2_000_inline_SetSensorHTGyro_inline_turnRightPID, __constVal2
+4	12977	5	#line 12977 "NXCDefs.h"
+4	12977	5	#line 12977 "NXCDefs.h"
+4	12978	5		set __SetSensorType_7qG2_type_7qG2_000_inline_SetSensorHTGyro_inline_turnRightPID, 6
+4	12977	8	#line 12977 "NXCDefs.h"
+4	3663	8	#line 3663 "NXCDefs.h"
+4	3664	8		setin __SetSensorType_7qG2_type_7qG2_000_inline_SetSensorHTGyro_inline_turnRightPID, __SetSensorType_7qG2_port_7qG2_000_inline_SetSensorHTGyro_inline_turnRightPID, 0
+4	3663	12	#line 3663 "NXCDefs.h"
+4	12978	12	#line 12978 "NXCDefs.h"
+4	12978	12	#line 12978 "NXCDefs.h"
+4	12979	12		mov __SetSensorMode_7qG2_port_7qG2_000_inline_SetSensorHTGyro_inline_turnRightPID, __SetSensorHTGyro_7qG2_port_7qG2_000_inline_turnRightPID
+4	12978	14	#line 12978 "NXCDefs.h"
+4	12978	14	#line 12978 "NXCDefs.h"
+4	12979	14		set __SetSensorMode_7qG2_mode_7qG2_000_inline_SetSensorHTGyro_inline_turnRightPID, 0
+4	12978	17	#line 12978 "NXCDefs.h"
+4	3676	17	#line 3676 "NXCDefs.h"
+4	3677	17		setin __SetSensorMode_7qG2_mode_7qG2_000_inline_SetSensorHTGyro_inline_turnRightPID, __SetSensorMode_7qG2_port_7qG2_000_inline_SetSensorHTGyro_inline_turnRightPID, 1
+4	3676	21	#line 3676 "NXCDefs.h"
+4	12979	21	#line 12979 "NXCDefs.h"
+4	12979	21	#line 12979 "NXCDefs.h"
+4	12980	21		mov __ResetSensor_7qG2_port_7qG2_000_inline_SetSensorHTGyro_inline_turnRightPID, __SetSensorHTGyro_7qG2_port_7qG2_000_inline_turnRightPID
+4	12979	23	#line 12979 "NXCDefs.h"
+4	3694	23	#line 3694 "NXCDefs.h"
+4	3695	23	#pragma macro 4
+4	3695	23		acquire __ResetSensorMutex
+4	3695	24		mov __ResetSensorPort, __ResetSensor_7qG2_port_7qG2_000_inline_SetSensorHTGyro_inline_turnRightPID
+4	3695	26		subcall __ResetSensorSubroutine, ____ResetSensorSubroutine_return
+4	3695	28		release __ResetSensorMutex
+4	7978	29	#line 7978 "NXCDefs.h"
+4	3694	29	#line 3694 "NXCDefs.h"
+4	12980	29	#line 12980 "NXCDefs.h"
+4	70	29	#line 70 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	71	29	#line 71 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	72	29	#pragma macro 7
+4	72	29		setout __OUT_AB, 0, __constVal64
+4	7983	34	#line 7983 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	71	34	#line 71 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	71	34	#line 71 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	71	34	#line 71 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	7921	34	#line 7921 "NXCDefs.h"
+4	7922	34		wait 10
+4	7921	36	#line 7921 "NXCDefs.h"
+4	72	36	#line 72 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	72	36	#line 72 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	72	36	#line 72 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	73	36		mov __turnRightPID_7qG2_angle_7qG2_000, __constVal0
+4	73	38	#line 73 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	73	38	#line 73 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	74	38		mov __turnRightPID_7qG2_gyro_7qG2_000, __constVal0
+4	74	40	#line 74 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	75	40		gettick __turnRightPID_7qG2_time_7qG2_000
+4	74	42	#line 74 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	74	42	#line 74 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	74	42	#line 74 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	76	42	#line 76 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	77	42		getout __turnRightPID_7qG2_lRotation_7qG2_000, __constVal0, 14
+4	76	46	#line 76 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	77	46	#line 77 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	78	46		getout __turnRightPID_7qG2_rRotation_7qG2_000, __constVal1, 14
+4	77	50	#line 77 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	79	50	#line 79 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	80	50		mov __turnRightPID_7qG2_integral_7qG2_000, __constVal0
+4	79	52	#line 79 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	80	52	#line 80 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	81	52		mov __turnRightPID_7qG2_lastError_7qG2_000, __constVal0
+4	80	54	#line 80 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	80	54	#line 80 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	81	54		mov __float_stack_001turnRightPID, __turnRightPID_7qG2_angle_7qG2_000
+4	80	56	#line 80 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	80	56	#line 80 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	81	56		mov __D0turnRightPID, __turnRightPID_7qG2_turnAngle_7qG2_000
+4	80	58	#line 80 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	81	58		cmp 2, __zfturnRightPID, __float_stack_001turnRightPID, __D0turnRightPID
+4	80	62	#line 80 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	81	62		mov __D0turnRightPID, __zfturnRightPID
+4	82	64	#line 82 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	83	64		brtst 4, __NXC_Label_739, __zfturnRightPID
+4	83	67	#line 83 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	84	67		mov __turnRightPID_7qG2_prev_time_7qG2_000, __turnRightPID_7qG2_time_7qG2_000
+4	83	69	#line 83 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	83	69	#line 83 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	83	69	#line 83 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	84	69		gettick __turnRightPID_7qG2_time_7qG2_000
+4	83	71	#line 83 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	83	71	#line 83 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	83	71	#line 83 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	84	71	#line 84 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	85	71		set __SensorHTGyro_7qG2_port_7qG2_000_inline_turnRightPID, 2
+4	84	74	#line 84 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	85	74	#line 85 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	86	74		mov __SensorHTGyro_7qG2_offset_7qG2_000_inline_turnRightPID, __constVal0
+4	12919	76	#line 12919 "NXCDefs.h"
+4	12920	76		getin __D0SensorHTGyro_inline_turnRightPID, __SensorHTGyro_7qG2_port_7qG2_000_inline_turnRightPID, 2
+4	12921	80		sub __D0SensorHTGyro_inline_turnRightPID, __D0SensorHTGyro_inline_turnRightPID, __constVal600
+4	12922	84		sub __turnRightPID_7qG2_gyro_7qG2_000, __D0SensorHTGyro_inline_turnRightPID, __SensorHTGyro_7qG2_offset_7qG2_000_inline_turnRightPID
+4	12923	88	#line 12923 "NXCDefs.h"
+4	85	88	#line 85 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	85	88	#line 85 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	85	88	#line 85 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	85	88	#line 85 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	86	88		mov __float_stack_001turnRightPID, __turnRightPID_7qG2_gyro_7qG2_000
+4	85	90	#line 85 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	85	90	#line 85 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	85	90	#line 85 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	85	90	#line 85 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	85	90	#line 85 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	86	90		sub __DU0turnRightPID, __turnRightPID_7qG2_time_7qG2_000, __turnRightPID_7qG2_prev_time_7qG2_000
+4	85	94	#line 85 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	86	94		mul __float_stack_001turnRightPID, __float_stack_001turnRightPID, __DU0turnRightPID
+4	85	98	#line 85 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	87	98	#line 87 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	87	98	#line 87 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	88	98		div __DF0turnRightPID, __float_stack_001turnRightPID, __constVal1000
+4	87	102	#line 87 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	88	102		add __turnRightPID_7qG2_angle_7qG2_000, __turnRightPID_7qG2_angle_7qG2_000, __DF0turnRightPID
+4	87	106	#line 87 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	88	106	#line 88 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	89	106		getout __turnRightPID_7qG2_lRotation_7qG2_000, __constVal0, 14
+4	88	110	#line 88 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	88	110	#line 88 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	89	110	#line 89 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	90	110		getout __turnRightPID_7qG2_rRotation_7qG2_000, __constVal1, 14
+4	89	114	#line 89 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	89	114	#line 89 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	89	114	#line 89 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	90	114		mov __DF0turnRightPID, __turnRightPID_7qG2_lRotation_7qG2_000
+4	89	116	#line 89 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	90	116		abs __float_stack_001turnRightPID, __DF0turnRightPID
+4	89	119	#line 89 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	89	119	#line 89 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	90	119		mov __DF0turnRightPID, __turnRightPID_7qG2_rRotation_7qG2_000
+4	90	121	#line 90 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	91	121		abs __DF0turnRightPID, __DF0turnRightPID
+4	90	124	#line 90 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	91	124		sub __turnRightPID_7qG2_error_7qG2_000, __float_stack_001turnRightPID, __DF0turnRightPID
+4	90	128	#line 90 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	90	128	#line 90 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	90	128	#line 90 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	90	128	#line 90 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	90	128	#line 90 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	90	128	#line 90 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	91	128		mul __float_stack_001turnRightPID, __constVal0, __turnRightPID_7qG2_integral_7qG2_000
+4	90	132	#line 90 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	91	132	#line 91 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	91	132	#line 91 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	92	132		add __turnRightPID_7qG2_integral_7qG2_000, __float_stack_001turnRightPID, __turnRightPID_7qG2_error_7qG2_000
+4	91	136	#line 91 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	91	136	#line 91 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	91	136	#line 91 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	91	136	#line 91 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	92	136	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	92	136	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	93	136		sub __turnRightPID_7qG2_derivate_7qG2_000, __turnRightPID_7qG2_error_7qG2_000, __turnRightPID_7qG2_lastError_7qG2_000
+4	92	140	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	92	140	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	92	140	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	92	140	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	92	140	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	92	140	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	93	140		mul __float_stack_001turnRightPID, __constVal5, __turnRightPID_7qG2_error_7qG2_000
+4	92	144	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	92	144	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	92	144	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	92	144	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	92	144	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	93	144		mul __DF0turnRightPID, __constVal1, __turnRightPID_7qG2_integral_7qG2_000
+4	92	148	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	93	148		add __float_stack_001turnRightPID, __float_stack_001turnRightPID, __DF0turnRightPID
+4	92	152	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	92	152	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	92	152	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	92	152	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	92	152	#line 92 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	93	152		mul __DF0turnRightPID, __constVal10, __turnRightPID_7qG2_derivate_7qG2_000
+4	93	156	#line 93 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	94	156		add __turnRightPID_7qG2_turn_7qG2_000, __float_stack_001turnRightPID, __DF0turnRightPID
+4	93	160	#line 93 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	93	160	#line 93 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	93	160	#line 93 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	93	160	#line 93 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	94	160	#line 94 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	94	160	#line 94 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	95	160		sub __turnRightPID_7qG2_pwrLeft_7qG2_000, __constVal70, __turnRightPID_7qG2_turn_7qG2_000
+4	94	164	#line 94 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	94	164	#line 94 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	94	164	#line 94 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	94	164	#line 94 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	96	164	#line 96 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	96	164	#line 96 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	97	164		add __turnRightPID_7qG2_pwrRight_7qG2_000, __constVal70, __turnRightPID_7qG2_turn_7qG2_000
+4	96	168	#line 96 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	96	168	#line 96 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	96	168	#line 96 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	97	168		mov __DF0turnRightPID, __turnRightPID_7qG2_pwrLeft_7qG2_000
+4	97	170	#line 97 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	98	170	#pragma macro 7
+4	98	170		setout __constVal0, 2, __DF0turnRightPID, 1, __constVal3, 8, __constVal0, 6, __constVal32, 7, __constVal0, 5, __constVal0, 10, __constVal96, 11, __constVal32, 12, __constVal32, 0, __constVal63
+4	8325	193	#line 8325 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	97	193	#line 97 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	97	193	#line 97 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	98	193		mov __DF0turnRightPID, __turnRightPID_7qG2_pwrRight_7qG2_000
+4	98	195	#line 98 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	99	195	#pragma macro 10
+4	99	195		acquire __OnRevMutex
+4	99	196		neg __OnRev_Tmp, __DF0turnRightPID
+4	99	199		setout __constVal1, 2, __OnRev_Tmp, 1, __constVal3, 8, __constVal0, 6, __constVal32, 7, __constVal0, 5, __constVal0, 10, __constVal96, 11, __constVal32, 12, __constVal32, 0, __constVal63
+4	99	222		release __OnRevMutex
+4	8332	223	#line 8332 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	98	223	#line 98 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	99	223	#line 99 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	100	223		mov __turnRightPID_7qG2_lastError_7qG2_000, __turnRightPID_7qG2_error_7qG2_000
+4	99	225	#line 99 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	99	225	#line 99 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	100	225	#line 100 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	101	225		jmp __NXC_Label_738
+4	100	227	#line 100 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	101	227	#line 101 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	102	227	#pragma macro 7
+4	102	227		setout __OUT_AB, 2, __constVal0, 1, __constVal3, 8, __constVal0, 6, __constVal32, 7, __constVal0, 5, __constVal0, 10, __constVal96, 11, __constVal32, 12, __constVal32, 0, __constVal63
+4	8346	250	#line 8346 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	101	250	#line 101 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	103	250	#line 103 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc"
+4	104	250		subret __turnRightPID_return
+5	12	0	#line 12 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	13	0		mov __signed_stack_001turn, __turn_7qG2_direcao_7qG2_000
+5	12	2	#line 12 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	12	2	#line 12 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	13	2		set __D0turn, 0
+5	12	5	#line 12 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	13	5		cmp 4, __zfturn, __signed_stack_001turn, __D0turn
+5	12	9	#line 12 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	13	9		mov __D0turn, __zfturn
+5	13	11	#line 13 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	14	11		brtst 4, __NXC_Label_852, __zfturn
+5	13	14	#line 13 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	14	14		mov __turnLeftPID_7qG2_turnAngle_7qG2_000, __turn_7qG2_graus_7qG2_000
+5	13	16	#line 13 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	14	16	#line 14 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	15	16		subcall turnLeftPID, __turnLeftPID_return
+5	14	18	#line 14 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	14	18	#line 14 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	15	18		jmp __NXC_Label_855
+5	14	20	#line 14 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	15	20		mov __signed_stack_001turn, __turn_7qG2_direcao_7qG2_000
+5	14	22	#line 14 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	14	22	#line 14 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	15	22		set __D0turn, 1
+5	14	25	#line 14 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	15	25		cmp 4, __zfturn, __signed_stack_001turn, __D0turn
+5	14	29	#line 14 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	15	29		mov __D0turn, __zfturn
+5	15	31	#line 15 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	16	31		brtst 4, __NXC_Label_858, __zfturn
+5	15	34	#line 15 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	16	34		mov __turnRightPID_7qG2_turnAngle_7qG2_000, __turn_7qG2_graus_7qG2_000
+5	15	36	#line 15 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	16	36	#line 16 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	17	36		subcall turnRightPID, __turnRightPID_return
+5	16	38	#line 16 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	19	38	#line 19 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	19	38	#line 19 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	19	38	#line 19 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc"
+5	20	38		subret __turn_return
+6	15	0	#line 15 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	16	0	#pragma macro 5
+6	16	0		mov __CBTCSArgs.Connection, __BTCheck_7qG2_conn_7qG2_000
+6	16	2		syscall 28, __CBTCSArgs
+6	8785	5	#line 8785 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	15	5	#line 15 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	16	5		not __signed_stack_001BTCheck, __CBTCSArgs.Result
+6	15	8	#line 15 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	15	8	#line 15 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	16	8		set __D0BTCheck, 0
+6	15	11	#line 15 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	16	11		cmp 4, __zfBTCheck, __signed_stack_001BTCheck, __D0BTCheck
+6	15	15	#line 15 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	16	15		mov __D0BTCheck, __zfBTCheck
+6	16	17	#line 16 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	17	17		brtst 4, __NXC_Label_865, __zfBTCheck
+6	16	20	#line 16 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	17	20		set __signed_stack_001BTCheck, 5
+6	16	23	#line 16 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	16	23	#line 16 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	17	23		set __signed_stack_002BTCheck, 48
+6	16	26	#line 16 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	16	26	#line 16 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	17	26		strcat __strbufBTCheck, __constStr0009
+6	17	30	#line 17 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	18	30		acquire __TextOutMutex
+6	17	31	#line 17 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	18	31		mov __TextOutArgs.Location.X, __signed_stack_001BTCheck
+6	17	33	#line 17 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	18	33		mov __TextOutArgs.Location.Y, __signed_stack_002BTCheck
+6	17	35	#line 17 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	18	35		set __TextOutArgs.Options, 0
+6	17	38	#line 17 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	18	38		mov __TextOutArgs.Text, __strbufBTCheck
+6	17	40	#line 17 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	18	40		syscall 13, __TextOutArgs
+6	17	43	#line 17 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	18	43		mov __D0BTCheck, __TextOutArgs.Result
+6	17	45	#line 17 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	18	45		release __TextOutMutex
+6	17	46	#line 17 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	17	46	#line 17 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	17	46	#line 17 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	7921	46	#line 7921 "NXCDefs.h"
+6	7922	46		wait 1000
+6	7921	48	#line 7921 "NXCDefs.h"
+6	18	48	#line 18 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	18	48	#line 18 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	19	48		set __D0BTCheck, 1
+6	19	51	#line 19 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	20	51		stop __D0BTCheck
+6	19	53	#line 19 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	41	53	#line 41 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	41	53	#line 41 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+6	42	53		subret __BTCheck_return
+7	125	0	#line 125 "C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc"
+7	126	0		subret ____initialize_global_data_return
+#CLUMPS
+Clump	Name	Offset	File
+0	main	0	C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc
+1	__ResetSensorSubroutine	432	NXTDefs.h
+2	fowardPID	445	C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc
+3	turnLeftPID	582	C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc
+4	turnRightPID	834	C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\.\.\lib/pid.nxc
+5	turn	1086	C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\.\lib/move.nxc
+6	BTCheck	1126	C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc
+7	__initialize_global_data	1181	C:\Users\vales\Documents\DROID\SEKMANDA-2018\source\master.nxc

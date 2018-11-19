@@ -1,0 +1,398 @@
+/*
+  Arquivo: route.nxc
+  Descricao: Este programa cotem toda a logica de
+    programacao do percorrimento de percurso
+  Autores: Renato Nobre, Valesca Soares
+  Data de Modificacao: 14/10/2018
+  Versao: 0.3
+*/
+
+#include "include/route.h"
+
+
+string fallMSG = NONE_FALL_MSG;
+string catchMSG = NONE_CATCH_MSG;
+
+int lastColor = ID_PRETO;
+int intersecCount = 0;
+
+int lastFallDir = -1;
+int lastDir = 1;
+
+/* int blockMSGRead = FALSE; */
+
+int turnCount = 0;
+int turnVec[3][3] = {{UNKNOWNDIR, UNKNOWNDIR, UNKNOWNDIR},
+                     {UNKNOWNDIR, UNKNOWNDIR, UNKNOWNDIR},
+                     {UNKNOWNDIR, UNKNOWNDIR, UNKNOWNDIR}};
+
+Directions dir;
+
+task receiveMSG() {
+  while(true) {
+    if(ReceiveRemoteString(INBOX3MASTER, true, fallMSG) == NO_ERR);
+    /* if (blockMSGRead == FALSE) { */
+    if(ReceiveRemoteString(INBOX2MASTER, true, catchMSG) == NO_ERR);
+    /* } */
+  }
+}
+
+void recenter(string msg){
+  if (msg == LEFT_FALL_MSG) {
+    PlayTone(TONE_E7, 500);
+    RotateMotor(MOTOR_RIGHT, -60, 100);
+  } else if (msg == RIGHT_FALL_MSG){
+    PlayTone(TONE_D7, 500);
+    RotateMotor(MOTOR_LEFT, -60, 100);
+  }
+  Off(MOTOR_BOTH);
+}
+
+int avoidFall(){
+  string msg = fallMSG;
+   if ((msg == LEFT_FALL_MSG) || (msg == RIGHT_FALL_MSG)){
+    Off(MOTOR_BOTH);
+    stop fowardPID;
+    Wait(50);
+    recenter(msg);
+    Off(MOTOR_BOTH);
+    start fowardPID;
+    return TRUE;
+  }
+  return FALSE;
+}
+
+int Toy(){
+  string msg = catchMSG;
+  int toyCount=0;
+  if((msg==RIGHT_CATCH_MSG) || (msg==LEFT_CATCH_MSG)){
+    /* blockMSGRead = TRUE; */
+    Off(MOTOR_BOTH);
+    stop fowardPID;
+    Wait(50);
+    if(toyCount<4){
+      toyCount += beginCatch(msg);
+    }
+    Off(MOTOR_BOTH);
+    /* blockMSGRead = FALSE; */
+    start fowardPID;
+    return TRUE;
+  }
+  return FALSE;
+}
+
+int isConf(int cor) {
+  for(int i = 0; i < 3; i ++) {
+    if (turnVec[cor][i] == 1){
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
+void adjustPosition(int idColor, int leftColor, int rightColor) {
+  Off(MOTOR_BOTH);
+  Wait(50);
+  PlayTone(500, 500);
+  if (leftColor == idColor){
+    while(rightColor != idColor) {
+      OnFwd(MOTOR_RIGHT, 60);
+      rightColor = rightColorRead;
+    }
+  } else if (rightColor == idColor){
+    while(leftColor != idColor) {
+      OnFwd(MOTOR_LEFT, 60);
+      leftColor = leftColorRead;
+    }
+  }
+  Off(MOTOR_BOTH);
+}
+
+int trackPosControll(int idColor) {
+  int leftColor = leftColorRead;
+  int rightColor = rightColorRead;
+
+  if ((leftColor == idColor)){
+    /* adjustPosition(idColor, leftColor, rightColor); */
+  } else if ((rightColor == idColor)) {
+    /* adjustPosition(idColor, leftColor, rightColor); */
+  }
+}
+
+void moveUntilWhite(int idCor) {
+  int leftColor, rightColor;
+  leftColor = leftColorRead;
+  rightColor = rightColorRead;
+
+  start fowardPID;
+
+  while ((leftColor == idCor) || (rightColor == idCor)) {
+   leftColor = leftColorRead;
+   rightColor = rightColorRead;
+   avoidFall();
+  }
+
+  stop fowardPID;
+  Off(MOTOR_BOTH);
+}
+
+int moveUntilNotWhite() {
+
+  int leftColor, rightColor;
+  leftColor = leftColorRead;
+  rightColor = rightColorRead;
+
+  start fowardPID;
+
+  while ((leftColor == ID_BRANCO) && (rightColor == ID_BRANCO)) {
+   leftColor = leftColorRead;
+   rightColor = rightColorRead;
+   avoidFall();
+   Toy();
+  }
+
+  stop fowardPID;
+  Off(MOTOR_BOTH);
+
+  if (leftColor != ID_BRANCO) {
+    return leftColor;
+  } else {
+    return rightColor;
+  }
+}
+
+int centerOnIntersec(int idCor) {
+  byte x = BatteryState();
+  x = abs(x-4);
+  /* int possibleRamp = FALSE; */
+  fowardCmPID(15.5+x);
+  return 0;
+}
+
+void prepareFile() {
+  if (checkFileExistence(ROUTE_FILE_NAME, ROUTE_FILE_SIZE) == 1) {
+    openForRead(ROUTE_FILE_NAME, ROUTE_FILE_SIZE);
+    readDirectionOnFile(dir);
+    dirToMat();
+    closeFile();
+  } else {
+    initEmptyDir(dir);
+    saveConfToFile();
+  }
+}
+
+void startRoute() {
+  start updateColors;
+  start receiveMSG;
+  intersecCount = 0;
+  prepareFile();
+  while(true) {
+    route();
+  }
+}
+
+void route() {
+  int color;
+
+  int leftColor, rightColor;
+  string colorNameL, colorNameR;
+
+  color = moveUntilNotWhite();
+  trackPosControll(color);
+  if (color == ID_PRETO) {
+    make180(color);
+  } else if (color != ID_BRANCO) {
+    makeTurn(color);
+  }
+}
+
+void leaveIntersec(int idCor) {
+  moveUntilWhite(idCor);
+  trackPosControll(ID_BRANCO);
+  route();
+}
+
+void make180(int idCor){
+  int i = 0;
+
+  lastDir = 1;
+
+  if (lastColor == COLOR_ONE) {
+    while (turnVec[0][i] == ERRORDIR) {
+      i++;
+      lastDir += 1;
+    }
+    turnVec[0][i] = ERRORDIR;
+  } else if (lastColor == COLOR_TWO) {
+    while (turnVec[1][i] == ERRORDIR) {
+      i++;
+      lastDir += 1;
+    }
+    turnVec[1][i] = ERRORDIR;
+  } else if (lastColor == COLOR_THREE) {
+    while (turnVec[2][i] == ERRORDIR) {
+      i++;
+      lastDir += 1;
+    }
+    turnVec[2][i] = ERRORDIR;
+  }
+  lastColor = ID_PRETO;
+  turnCount = 1;
+  saveConfToFile();
+  turn(DIREITA, 180);
+  leaveIntersec(idCor);
+}
+
+void recordDir() {
+  int cont = 0;
+  if ((lastColor == COLOR_ONE)&&(isConf(0) != TRUE)) {
+    while(turnVec[0][cont] == ERRORDIR) {
+      cont++;
+    }
+    turnVec[0][0] = ERRORDIR;
+    turnVec[0][1] = ERRORDIR;
+    turnVec[0][2] = ERRORDIR;
+    turnVec[0][cont] = RIGHTDIR;
+  } else if ((lastColor == COLOR_TWO)&&(isConf(1) != TRUE)) {
+    while(turnVec[1][cont] == ERRORDIR) {
+      cont++;
+    }
+    turnVec[1][0] = ERRORDIR;
+    turnVec[1][1] = ERRORDIR;
+    turnVec[1][2] = ERRORDIR;
+    turnVec[1][cont] = RIGHTDIR;
+  } else if ((lastColor == COLOR_THREE)&&(isConf(2) != TRUE)) {
+    while(turnVec[2][cont] == ERRORDIR) {
+      cont++;
+    }
+    turnVec[2][0] = ERRORDIR;
+    turnVec[2][1] = ERRORDIR;
+    turnVec[2][2] = ERRORDIR;
+    turnVec[2][cont] = RIGHTDIR;
+  }
+  saveConfToFile();
+}
+
+void contTurn(int cont) {
+  if (cont == 0) {
+    Wait(50);
+    turn(DIREITA, ANGLE90);
+  } else if (cont == 1) {
+    Wait(50);
+  } else if (cont == 2) {
+    Wait(50);
+    turn(ESQUERDA, ANGLE90);
+  }
+}
+
+void makeTurn(int idCor) {
+  centerOnIntersec(idCor);
+  int ramp = 0;
+  if (ramp == 0) {
+    if (idCor == DIR_UNKNOWN) {
+      return;
+    }
+
+    if (idCor == COLOR_ONE) {
+      if (lastColor != ID_PRETO) {
+        recordDir();
+      }
+      lastColor = COLOR_ONE;
+      int cont = 0;
+      if (turnCount == 0) {
+        while(turnVec[0][cont] == ERRORDIR) {
+          cont++;
+        }
+        contTurn(cont);
+      } else {
+        turnCount = 0;
+        if (lastDir == 2) {
+          Wait(50);
+          turn(DIREITA, ANGLE90);
+        } else if (turnVec[0][1] != ERRORDIR){
+          Wait(50);
+          turn(DIREITA, ANGLE90);
+        }
+      }
+    } else if (idCor == COLOR_TWO) {
+      if (lastColor != ID_PRETO) {
+        recordDir();
+      }
+      lastColor = COLOR_TWO;
+      int cont = 0;
+      if (turnCount == 0) {
+        while(turnVec[1][cont] == ERRORDIR) {
+          cont++;
+        }
+        contTurn(cont);
+      } else {
+        turnCount = 0;
+        if (lastDir == 2) {
+          Wait(50);
+          turn(DIREITA, ANGLE90);
+        } else if (turnVec[1][1] != ERRORDIR){
+          Wait(50);
+          turn(DIREITA, ANGLE90);
+        }
+      }
+    } else if (idCor == COLOR_THREE) {
+      if (lastColor != ID_PRETO) {
+        recordDir();
+      }
+      lastColor = COLOR_THREE;
+      int cont = 0;
+      if (turnCount == 0) {
+        while(turnVec[2][cont] == ERRORDIR) {
+          cont++;
+        }
+        contTurn(cont);
+      } else {
+        turnCount = 0;
+        if (lastDir == 2) {
+          Wait(50);
+          turn(DIREITA, ANGLE90);
+        } else if (turnVec[2][1] != ERRORDIR){
+          Wait(50);
+          turn(DIREITA, ANGLE90);
+        }
+      }
+    }
+    leaveIntersec(idCor);
+    intersecCount += 1;
+    if (intersecCount == 1) {
+      plazaLogic();
+    }
+  }
+}
+
+void dirToMat() {
+  turnVec[0][0] = dir.v00;
+  turnVec[0][1] = dir.v01;
+  turnVec[0][2] = dir.v02;
+  turnVec[1][0] = dir.v10;
+  turnVec[1][1] = dir.v11;
+  turnVec[1][2] = dir.v12;
+  turnVec[2][0] = dir.v20;
+  turnVec[2][1] = dir.v21;
+  turnVec[2][2] = dir.v22;
+}
+
+void matToDir() {
+  dir.v00 = turnVec[0][0];
+  dir.v01 = turnVec[0][1];
+  dir.v02 = turnVec[0][2];
+  dir.v10 = turnVec[1][0];
+  dir.v11 = turnVec[1][1];
+  dir.v12 = turnVec[1][2];
+  dir.v20 = turnVec[2][0];
+  dir.v21 = turnVec[2][1];
+  dir.v22 = turnVec[2][2];
+}
+
+void saveConfToFile() {
+  deleteFile(ROUTE_FILE_NAME, ROUTE_FILE_SIZE);
+  openForWrite(ROUTE_FILE_NAME, ROUTE_FILE_SIZE);
+  matToDir();
+  writeDirectionOnFile(dir);
+  closeFile();
+}

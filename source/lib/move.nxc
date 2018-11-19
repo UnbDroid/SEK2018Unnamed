@@ -1,0 +1,47 @@
+/*
+  Arquivo: move.nxc
+  Descricao: Este arquivo contem as definicoes da
+    biblioteca de realizar movimentacoes.
+  Autores: Renato Nobre
+  Data de Modificacao: 08/10/2018
+  Versao: 1.0
+*/
+
+ #include "include/move.h"
+
+ task foward(){
+   start fowardPID;
+ }
+
+void turn(int direcao, int graus){
+  if (direcao == ESQUERDA) {
+    turnLeftPID(graus);
+  } else if (direcao == DIREITA) {
+    turnRightPID(graus);
+  }
+}
+
+void startProperPID(int lastFallDir) {
+  if (lastFallDir == ESQUERDA) {
+    start fowardPIDPullLeft;
+  } else if (lastFallDir == DIREITA) {
+    start fowardPIDPullRight;
+  } else {
+    start fowardPID;
+  }
+}
+
+void stopProperPID(int lastFallDir) {
+  if (lastFallDir == ESQUERDA) {
+    stop fowardPIDPullLeft;
+  } else if (lastFallDir == DIREITA) {
+    stop fowardPIDPullRight;
+  } else {
+    stop fowardPID;
+  }
+}
+
+void fowardCm(int cm){
+  RemotePlayTone(BT_CONN, 500, 100);
+  fowardCmPID(cm);
+}

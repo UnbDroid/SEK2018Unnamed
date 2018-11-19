@@ -1,0 +1,73 @@
+/*
+  Arquivo: config.nxc
+  Descricao: Este arquivo contem as definicoes do programa de calibracao.
+  Autores: Renato Nobre
+  Data de Modificacao: 13/09/2018
+  Versao: 1.0
+*/
+
+#include "include/config.h"
+
+void saveToFile(int id, int lRed, int lGreen, int lBlue, int lWhite, int rRed, int rGreen, int rBlue, int rWhite){
+  ColorConf color;
+  initColorConf(color, id, lRed, lGreen, lBlue, lWhite, rRed, rGreen, rBlue, rWhite);
+  openForWrite(CONFIG_FILE_NAME, CONFIG_FILE_SIZE);
+  writeColorConfOnFile(color);
+  closeFile();
+}
+
+void ColorConfUI(string colorName, float lColors[], float rColors[]){
+  string rlString = NumToStr(lColors[0]);
+  string glString = NumToStr(lColors[1]);
+  string blString = NumToStr(lColors[2]);
+  string wlString = NumToStr(lColors[3]);
+  string rrString = NumToStr(rColors[0]);
+  string grString = NumToStr(rColors[1]);
+  string brString = NumToStr(rColors[2]);
+  string wrString = NumToStr(rColors[3]);
+  TextOut(0,LCD_LINE1, StrCat("CALIBRAR ", colorName));
+  TextOut(0,LCD_LINE2, StrCat("R: ", rlString, ".", rrString));
+  TextOut(0,LCD_LINE3, StrCat("G: ", glString, ".", grString));
+  TextOut(0,LCD_LINE4, StrCat("B: ", blString, ".", brString));
+  TextOut(0,LCD_LINE5, StrCat("W: ", wlString, ".", wrString));
+  TextOut(0,LCD_LINE6,"BTN CENTRO PARA");
+  TextOut(0,LCD_LINE7,"ACC O VALOR");
+  TextOut(0,LCD_LINE8,"BTN DIR USAR DEF");
+}
+
+void configColor(int color) {
+  bool btCenter = false;
+  bool btRight = false;
+  string colorName = getColorName(color);
+  byte rNum=0, rRed=0, rGreen=0, rBlue=0, rWhite=0;
+  byte lNum=0, lRed=0, lGreen=0, lBlue=0, lWhite=0;
+  float lColors[4], rColors[4];
+  while((btCenter == false) && (btRight == false)) {
+    ReadSensorHTColor2Active(COLOR_RIGHT, rNum, rRed, rGreen, rBlue, rWhite);
+    ReadSensorHTColor2Active(COLOR_LEFT, lNum, lRed, lGreen, lBlue, lWhite);
+    rColors[0] = rRed;
+    rColors[1] = rGreen;
+    rColors[2] = rBlue;
+    rColors[3] = rWhite;
+    lColors[0] = lRed;
+    lColors[1] = lGreen;
+    lColors[2] = lBlue;
+    lColors[3] = lWhite;
+    ColorConfUI(colorName, lColors, rColors);
+    Wait(200);
+    ClearScreen();
+    btCenter = ButtonPressed(BTNCENTER, false);
+    btRight = ButtonPressed(BTNRIGHT, false);
+  }
+
+  until(!ButtonPressed(BTNCENTER, true) && !ButtonPressed(BTNRIGHT, true));
+
+
+  if (btCenter == true) {
+    saveToFile(color, lRed, lGreen, lBlue, lWhite, rRed, rGreen, rBlue, rWhite);
+  } else {
+    /* saveToFile(color, getDefaultValue(color)); */
+  }
+
+  ClearScreen();
+}
